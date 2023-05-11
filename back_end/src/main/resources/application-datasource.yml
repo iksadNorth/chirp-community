@@ -1,0 +1,4 @@
+spring:
+  datasource:
+    username: chirp-team
+    password: q1w2e3r4
