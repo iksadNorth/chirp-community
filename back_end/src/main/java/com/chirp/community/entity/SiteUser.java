@@ -23,4 +23,17 @@ public class SiteUser extends BaseEntity {
     @Enumerated(EnumType.STRING)
     private RoleType role;
 
+    public static SiteUser of(Long id, String email, String password, String nickname) {
+        SiteUser entity = new SiteUser();
+        entity.setId(id);
+        entity.setEmail(email);
+        entity.setPassword(password);
+        entity.setNickname(nickname);
+        entity.setRole(RoleType.USER);
+        return entity;
+    }
+
+    public static SiteUser of(String email, String password, String nickname) {
+        return of(null, email, password, nickname);
+    }
 }
