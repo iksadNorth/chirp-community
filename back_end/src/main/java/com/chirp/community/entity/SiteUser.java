@@ -1,0 +1,26 @@
+package com.chirp.community.entity;
+
+import com.chirp.community.type.RoleType;
+import jakarta.persistence.*;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
+import org.hibernate.annotations.ColumnDefault;
+
+@Entity @Table(name = "site_user")
+@NoArgsConstructor @Getter @Setter
+public class SiteUser extends BaseEntity {
+    @Column(name = "email", unique = true, nullable = false)
+    private String email;
+
+    @Column(name = "password", nullable = false)
+    private String password;
+
+    @Column(name = "nickname", unique = true, nullable = false)
+    private String nickname;
+
+    @Column(name = "role") @ColumnDefault("USER")
+    @Enumerated(EnumType.STRING)
+    private RoleType role;
+
+}
