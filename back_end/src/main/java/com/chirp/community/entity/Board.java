@@ -1,14 +1,17 @@
 package com.chirp.community.entity;
 
-import jakarta.persistence.Column;
-import jakarta.persistence.Entity;
-import jakarta.persistence.Table;
+import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
-@Entity @Table(name = "board")
+import java.util.ArrayList;
+import java.util.Collection;
+
+@Entity @Table(name = "board", indexes = {
+        @Index(columnList = "name")
+})
 @NoArgsConstructor @Getter @Setter
 @EntityListeners(AuditingEntityListener.class)
 public class Board extends BaseEntity {
