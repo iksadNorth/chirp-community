@@ -8,7 +8,12 @@ import lombok.Setter;
 import org.hibernate.annotations.ColumnDefault;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
-@Entity @Table(name = "site_user")
+import java.util.ArrayList;
+import java.util.Collection;
+
+@Entity @Table(name = "site_user", indexes = {
+        @Index(columnList = "email")
+})
 @NoArgsConstructor @Getter @Setter
 @EntityListeners(AuditingEntityListener.class)
 public class SiteUser extends BaseEntity {
