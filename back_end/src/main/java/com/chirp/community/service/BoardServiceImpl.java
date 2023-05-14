@@ -17,6 +17,16 @@ import org.springframework.transaction.annotation.Transactional;
 public class BoardServiceImpl implements BoardService {
     private final BoardRepository boardRepository;
 
+    private Board loadBoardById(Long id) {
+        return boardRepository.findById(id)
+                .orElseThrow(
+                        () -> CommunityException.of(
+                                HttpStatus.NOT_FOUND,
+                                String.format("%s번 게시판은 존재하지 않음.", id)
+                        )
+                );
+    }
+
     @Override
     public BoardDto create(String name) {
         Board entity = Board.of(name);
@@ -39,14 +49,7 @@ public class BoardServiceImpl implements BoardService {
     @Override
     @Transactional(readOnly = true)
     public BoardDto readById(Long id) {
-        return boardRepository.findById(id)
-                .map(BoardDto::fromEntity)
-                .orElseThrow(
-                        () -> CommunityException.of(
-                                HttpStatus.NOT_FOUND,
-                                String.format("%s번 게시판은 존재하지 않음.", id)
-                                )
-                );
+        return BoardDto.fromEntity(loadBoardById(id));
     }
 
     @Override
