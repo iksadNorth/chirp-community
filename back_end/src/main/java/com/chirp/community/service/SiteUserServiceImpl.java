@@ -20,6 +20,16 @@ public class SiteUserServiceImpl implements SiteUserService {
     private final PasswordEncoder passwordEncoder;
     private final SiteUserRepository siteUserRepository;
 
+    public SiteUser loadSiteUserById(Long id) {
+        return siteUserRepository.findById(id)
+                .orElseThrow(
+                        () -> CommunityException.of(
+                                HttpStatus.NOT_FOUND,
+                                String.format("%s번 유저는 존재하지 않음.", id)
+                        )
+                );
+    }
+
     @Override
     public SiteUserDto create(String email, String password, String nickname) {
         SiteUser entity = SiteUser.of(email, passwordEncoder.encode(password), nickname);
@@ -30,19 +40,22 @@ public class SiteUserServiceImpl implements SiteUserService {
     @Override
     @Transactional(readOnly = true)
     public SiteUserDto readById(Long id) {
-        return siteUserRepository.findById(id)
-                .map(SiteUserDto::fromEntity)
-                .orElseThrow(
-                        () -> CommunityException.of(
-                                HttpStatus.NOT_FOUND,
-                                String.format("%s번 유저는 존재하지 않음.", id)
-                        )
-                );
+        return SiteUserDto.fromEntity(loadSiteUserById(id));
     }
 
     @Override
     public SiteUserDto updateById(Long id, String email, String password, String nickname, RoleType role) {
-        SiteUser entity = SiteUser.of(id, email, password, nickname);
+        SiteUser entity = loadSiteUserById(id);
+
+        if(email!=null)
+            entity.setEmail(email);
+        if(password!=null)
+            entity.setPassword(passwordEncoder.encode(password));
+        if(nickname!=null)
+            entity.setNickname(nickname);
+        if(role!=null)
+            entity.setRole(role);
+
         SiteUser saved = siteUserRepository.save(entity);
         return SiteUserDto.fromEntity(saved);
     }
