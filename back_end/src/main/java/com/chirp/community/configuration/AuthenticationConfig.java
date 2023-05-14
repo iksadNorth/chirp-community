@@ -43,9 +43,9 @@ public class AuthenticationConfig {
                         .sessionCreationPolicy(SessionCreationPolicy.STATELESS)
                 )
                 // 인증 혹은 인가 오류 시, 대처 방법에 대해 서술하고 있다.
-//                .exceptionHandling()
-//                    .authenticationEntryPoint(communityAuthenticationEntryPoint())
-//                    .accessDeniedHandler(communityAccessDeniedHandler()).and()
+                .exceptionHandling()
+                    .authenticationEntryPoint(communityAuthenticationEntryPoint())
+                    .accessDeniedHandler(communityAccessDeniedHandler()).and()
                 // 익명 인증 처리 필터 비활성화.
                 .anonymous().disable()
                 // Remember Me 인증 처리 필터 비활성화.
@@ -65,13 +65,13 @@ public class AuthenticationConfig {
                 );
     }
 
-//    @Bean
-//    public AuthenticationEntryPoint communityAuthenticationEntryPoint() {
-//        return new CommunityAuthenticationEntryPoint();
-//    }
-//
-//    @Bean
-//    public AccessDeniedHandler communityAccessDeniedHandler() {
-//        return new CommunityAccessDeniedHandler();
-//    }
+    @Bean
+    public AuthenticationEntryPoint communityAuthenticationEntryPoint() {
+        return new CommunityAuthenticationEntryPoint();
+    }
+
+    @Bean
+    public AccessDeniedHandler communityAccessDeniedHandler() {
+        return new CommunityAccessDeniedHandler();
+    }
 }
