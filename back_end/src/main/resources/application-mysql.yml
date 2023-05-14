@@ -7,4 +7,4 @@ spring:
     defer-datasource-initialization: false
     hibernate.ddl-auto: validate
 
-    database-platform: org.hibernate.dialect.MySQL5InnoDBDialect
+    database-platform: org.hibernate.dialect.MySQLDialect
