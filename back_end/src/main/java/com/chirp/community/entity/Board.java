@@ -6,9 +6,11 @@ import jakarta.persistence.Table;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
 @Entity @Table(name = "board")
 @NoArgsConstructor @Getter @Setter
+@EntityListeners(AuditingEntityListener.class)
 public class Board extends BaseEntity {
     @Column(name = "name", unique = true, nullable = false)
     private String name;

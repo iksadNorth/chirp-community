@@ -6,9 +6,11 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 import org.hibernate.annotations.ColumnDefault;
+import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
 @Entity @Table(name = "site_user")
 @NoArgsConstructor @Getter @Setter
+@EntityListeners(AuditingEntityListener.class)
 public class SiteUser extends BaseEntity {
     @Column(name = "email", unique = true, nullable = false)
     private String email;
