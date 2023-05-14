@@ -2,5 +2,5 @@ spring:
   profiles:
     default: local
     group:
-      local: server,datasource,jpa,h2db
-      prod: server,datasource,jpa,mysql
+      local: server,datasource,jpa,cors,jwt,h2db
+      prod: server,datasource,jpa,cors,jwt,mysql

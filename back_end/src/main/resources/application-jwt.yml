@@ -1,0 +1,43 @@
+security:
+  jwt:
+    publicKey: >
+      -----BEGIN PUBLIC KEY-----
+      MIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEA4oFFNSPP6n8t9hlaUEbF
+      fc0o6MPQYVMMvo5P4ZC2o9zQ9Msq1tCxQdYgE6GYulQ8wNKLl8Den+ckoLOau04r
+      PfOfDYYSvalrlQudsCU9V1I350FD5Cv2KA1cGbbrE4QjYrArgN705ekSIUNtSmbJ
+      eWmJ58Hcbprtd14axBxpuFFOH5/bi8BT3eEYgxowVVWrL4GmSBcwqhJN/dwme+C0
+      rsG44eoYuq1ZuUQayTXeBfgYIjq/si64YsrQP/NTgIVEPpBoRPzkuBqvY71Bft5X
+      7xN0pkvxrWyLaPwEW2J+x8LSrUMg2GkWqVk92QLcgmH+TZeA0jOBJ+GWCsVPL1jb
+      3QIDAQAB
+      -----END PUBLIC KEY-----
+    privateKey: >
+      -----BEGIN PRIVATE KEY-----
+      MIIEvQIBADANBgkqhkiG9w0BAQEFAASCBKcwggSjAgEAAoIBAQDigUU1I8/qfy32
+      GVpQRsV9zSjow9BhUwy+jk/hkLaj3ND0yyrW0LFB1iAToZi6VDzA0ouXwN6f5ySg
+      s5q7Tis9858NhhK9qWuVC52wJT1XUjfnQUPkK/YoDVwZtusThCNisCuA3vTl6RIh
+      Q21KZsl5aYnnwdxumu13XhrEHGm4UU4fn9uLwFPd4RiDGjBVVasvgaZIFzCqEk39
+      3CZ74LSuwbjh6hi6rVm5RBrJNd4F+BgiOr+yLrhiytA/81OAhUQ+kGhE/OS4Gq9j
+      vUF+3lfvE3SmS/GtbIto/ARbYn7HwtKtQyDYaRapWT3ZAtyCYf5Nl4DSM4En4ZYK
+      xU8vWNvdAgMBAAECggEALZUHvTGzjBSjhnjkKq8PW+l/X9ZWN1vL/wYrL7DcfH35
+      5CWFvby6S05A3sqArpC4uDI2yueStbnBroBudV6+B4XhPoq6d0YiwxgXGAVqgonm
+      e6iv9bleHIHRxNABn0gSie/7lT/pJ2J/1kdYNWaZiZAyYzwpdO3DN6gtuUUhhmif
+      PGiqeB9Y+8Wu0TMXo4sXaTW5J7OYJVFxDw2kFQpOdtPS6R41ZXisvmlInoSxfsZl
+      lVsYcWJUZbJHI+mr6/YZeBcMXHs+LfB313ClY9/e+UBkOkfXheU/gsOxgezABT4u
+      f8riMYWeqpvBIln9SkAs4U2l5ps7VfyIir/qgCqyQQKBgQDjVza90yo7VAh+gY8f
+      NlkC3tVzVhHe0CqH1PLnSed50MyZo8qhlA7Qxfn6tk//+zEzpkE90arrs+ZGWNP+
+      Nl/ygQdrHdE1mPzsU9wHyNVZc1PiONnhxshzP3QiEB79RSBAQzds4EWbsfgMuoLP
+      BjNIovbI20vFIfJlcwvvp6p1QQKBgQD/DxYJaD/4MEXwaMKeMtqcxQ4oGK1AosNq
+      b4hDvRS4TzyBG0naUMXJ2jwk8KMfx/pUBFC0AAg8lYePj+ew/euffEHf6ldNGFbR
+      h4uvzdZHBdjJXtLBH62kLLXMjU2IUFVuEs69Y9sYUV0Dj4jlcQMsmssMhXQGXHCP
+      ZJBR6rMznQKBgG9DwQP4tIOi5iFcMXr6M2hHPTqcllRxl08xdsyiDAs/mNNdKZAZ
+      EYM2UdlVnyPOgc8ggG/MDRYczwgA84hIfn8GjWXsivbrcGYNyPN6ZIjJ+/UNE/3/
+      Nx3IoYMGVtRoH5e0Dg1YWlkQKjG4msrN4w2azKOTSKsrqSHjw6TAb5nBAoGASPzG
+      L5b3h0w5F1zDJIYk7Ouu62Z0XaS2CwUzlz7KaRuzkrZ+YczvbJ3YzDFYXMXbKqO5
+      fGjt8nhPvJNPl+RxwsfKCguDQ/qNDZSeMobSpKxVpvpNkRpBlFN/CrP81d83MzKK
+      msOydLkDxvsSD6ZRZDg/lqux0ggt5bq/WdGxyjkCgYEAkNzQN0DjZ3bbde9x0QfI
+      KtHOyu5Q1TmvS+883zjVCntpsSK7lf4dtcN2zNn+etSdGQWGYAT5lW5EDGCz/jum
+      kD3VBg8QNwqDgNbR6VuJz5SM+Y8AEvRX7/EnN/F3SspE+wdHaWqP750zv1OEzp5h
+      SIozCwtIv39LgLs6qwFwQG8=
+      -----END PRIVATE KEY-----
+    # 1000ms * 60s * 60min * 24h
+    expiredTimeMs: 86400000
