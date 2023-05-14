@@ -22,7 +22,7 @@ import java.security.PrivateKey;
 @RequiredArgsConstructor
 public class AuthenticationConfig {
     private static final String prefix = "/api/v1";
-//    private final CorsConfigurationSource configurationSource;
+    private final CorsConfigurationSource configurationSource;
 //    private final UserDetailsService userDetailsService;
 //    private final PrivateKey privateKey;
 
@@ -51,7 +51,7 @@ public class AuthenticationConfig {
                 // Remember Me 인증 처리 필터 비활성화.
                 .rememberMe().disable()
                 // CORS에 대한 설정.
-//                .cors().configurationSource(configurationSource).and()
+                .cors().configurationSource(configurationSource).and()
 //                // JwtFilter 배치.
 //                .addFilterBefore(new JwtFilter(userDetailsService, privateKey), UsernamePasswordAuthenticationFilter.class)
 
