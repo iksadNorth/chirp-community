@@ -23,8 +23,8 @@ import java.security.PrivateKey;
 public class AuthenticationConfig {
     private static final String prefix = "/api/v1";
     private final CorsConfigurationSource configurationSource;
-//    private final UserDetailsService userDetailsService;
-//    private final PrivateKey privateKey;
+    private final UserDetailsService userDetailsService;
+    private final PrivateKey privateKey;
 
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
@@ -52,8 +52,8 @@ public class AuthenticationConfig {
                 .rememberMe().disable()
                 // CORS에 대한 설정.
                 .cors().configurationSource(configurationSource).and()
-//                // JwtFilter 배치.
-//                .addFilterBefore(new JwtFilter(userDetailsService, privateKey), UsernamePasswordAuthenticationFilter.class)
+                // JwtFilter 배치.
+                .addFilterBefore(new JwtFilter(userDetailsService, privateKey), UsernamePasswordAuthenticationFilter.class)
 
                 .build();
     }
