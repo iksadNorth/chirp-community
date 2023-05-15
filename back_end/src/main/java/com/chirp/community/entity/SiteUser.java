@@ -26,7 +26,7 @@ public class SiteUser extends BaseEntity {
     @Column(name = "nickname", unique = true, nullable = false)
     private String nickname;
 
-    @Column(name = "role") @ColumnDefault("USER")
+    @Column(name = "role") @ColumnDefault("'ROLE_USER'")
     @Enumerated(EnumType.STRING)
     private RoleType role;
 
