@@ -14,6 +14,8 @@ import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.access.AccessDeniedHandler;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 import org.springframework.security.web.csrf.CookieCsrfTokenRepository;
+import org.springframework.security.web.header.writers.frameoptions.XFrameOptionsHeaderWriter;
+import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
 import org.springframework.web.cors.CorsConfigurationSource;
 
 import java.security.PrivateKey;
@@ -31,9 +33,17 @@ public class AuthenticationConfig {
         return authorizeHttpRequests(http)
                 // JWT 토큰을 사용할 것이기 때문에 각 요청마다 ID와 Password를 제출할 이유가 없다.
                 .httpBasic().disable()
+                // header 보안 관련 설정 중 h2-console을 사용할 수 있게
+                // X-Frame-Options 헤더의 값을 sameorigin을 설정.
+                .headers()
+                    .addHeaderWriter(new XFrameOptionsHeaderWriter(
+                            XFrameOptionsHeaderWriter.XFrameOptionsMode.SAMEORIGIN
+                    )).and()
                 // API 서버를 설계하는 것이므로 HttpSessionCsrfTokenRepository를 이용해 CSRF 토큰을
                 // 저장할 수 없다. 때문에 CookieCsrfTokenRepository를 사용해서 토큰을 저장한다.
+                // H2DB Console을 사용하고 위해 '/h2/**' 는 제외시킴.
                 .csrf()
+                    .ignoringRequestMatchers(new AntPathRequestMatcher("/h2/**"))
                     .csrfTokenRepository(new CookieCsrfTokenRepository()).and()
                 // API 서버를 만드는 것이므로 formLogin과 logout은 필요없다.
                 .formLogin().disable()
