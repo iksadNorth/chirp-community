@@ -8,10 +8,15 @@
     font-family: sans-serif;
 }
 
+.custom-size {
+    width: 600px;
+}
+
 .custom-gap div {
     padding: 20px 0px;
 }
 
 .custom-gap {
-    padding: 20vh 0px;
+    padding: 5% 0px;
+    margin: 100px auto;
 }

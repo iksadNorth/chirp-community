@@ -32,10 +32,11 @@ export default function Login() {
     };
 
   return (
-    <div className="container custom-size custom-gap">
+    <div className="container custom-size custom-gap border rounded-5 shadow">
         <h1
             className="fw-bold"
         >Chirp</h1>
+        
         <div className="input-group input-group-lg justify-content-center">
             <span className="input-group-text" id="basic-addon1">
                 <i className="bi bi-envelope-at-fill"></i>
