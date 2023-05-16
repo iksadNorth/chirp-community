@@ -17,13 +17,13 @@ import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.web.filter.OncePerRequestFilter;
 
 import java.io.IOException;
-import java.security.PrivateKey;
+import java.security.PublicKey;
 
 @Slf4j
 @RequiredArgsConstructor
 public class JwtFilter extends OncePerRequestFilter {
     private final UserDetailsService userDetailsService;
-    private final PrivateKey privateKey;
+    private final PublicKey publicKey;
 
     @Override
     protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain filterChain)
@@ -34,7 +34,7 @@ public class JwtFilter extends OncePerRequestFilter {
 
             // 해당 토큰 검증
             log.trace("accessToken: {}", accessToken);
-            Claims claims = JwtFilterUtils.validateJwtToken(accessToken, privateKey);
+            Claims claims = JwtFilterUtils.validateJwtToken(accessToken, publicKey);
             String username = claims.getSubject();
 
             // 해당 토큰을 이용해 Authentication 객체 생성.

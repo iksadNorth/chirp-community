@@ -21,7 +21,7 @@ public class CorsConfig {
             config.addAllowedOrigin(origin);
         }
         config.addAllowedMethod(CorsConfiguration.ALL);
-        config.addAllowedHeader("Authorization");
+        config.addAllowedHeader("*");
         return config;
     }
 
