@@ -2,6 +2,8 @@ import './App.css';
 import * as c from './components';
 import RouteComponent from './routes';
 
+import 'bootstrap-icons/font/bootstrap-icons.css';
+
 function App() {
 
   return (
