@@ -11,7 +11,7 @@ import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 
-import java.security.PrivateKey;
+import java.security.PublicKey;
 
 public class JwtFilterUtils {
     public static final String AUTHORIZATION = "Authorization";
@@ -35,9 +35,9 @@ public class JwtFilterUtils {
         return token.substring(BEARER_PREFIX.length());
     }
 
-    public static Claims validateJwtToken(String accessToken, PrivateKey privateKey) throws CommunityException {
+    public static Claims validateJwtToken(String accessToken, PublicKey publicKey) throws CommunityException {
         try {
-            return JwtTokenWithRS256Utils.decodeJwtToken(accessToken, privateKey);
+            return JwtTokenWithRS256Utils.decodeJwtToken(accessToken, publicKey);
 
         } catch (io.jsonwebtoken.security.SecurityException | MalformedJwtException e) {
             throw CommunityException.of(HttpStatus.UNAUTHORIZED, "잘못된 JWT 서명입니다.");
