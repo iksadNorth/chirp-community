@@ -18,7 +18,7 @@ import org.springframework.security.web.header.writers.frameoptions.XFrameOption
 import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
 import org.springframework.web.cors.CorsConfigurationSource;
 
-import java.security.PrivateKey;
+import java.security.PublicKey;
 
 @Configuration
 @RequiredArgsConstructor
@@ -26,7 +26,7 @@ public class AuthenticationConfig {
     private static final String prefix = "/api/v1";
     private final CorsConfigurationSource configurationSource;
     private final UserDetailsService userDetailsService;
-    private final PrivateKey privateKey;
+    private final PublicKey publicKey;
 
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
@@ -63,7 +63,7 @@ public class AuthenticationConfig {
                 // CORS에 대한 설정.
                 .cors().configurationSource(configurationSource).and()
                 // JwtFilter 배치.
-                .addFilterBefore(new JwtFilter(userDetailsService, privateKey), UsernamePasswordAuthenticationFilter.class)
+                .addFilterBefore(new JwtFilter(userDetailsService, publicKey), UsernamePasswordAuthenticationFilter.class)
 
                 .build();
     }
