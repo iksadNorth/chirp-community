@@ -27,7 +27,7 @@ public class SiteUser extends BaseEntity {
     private String nickname;
 
     @Column(name = "role") @ColumnDefault("'ROLE_USER'")
-    @Enumerated(EnumType.STRING)
+    @Convert(converter = RoleType.ConverterImpl.class)
     private RoleType role;
 
     public static SiteUser of(Long id, String email, String password, String nickname) {
