@@ -2,8 +2,8 @@ import React from "react";
 import 'bootstrap/dist/css/bootstrap.css';
 import './css.css';
 
-export default function Footer() {
+export default function Mock() {
     return (
-        <div></div>
+        <div>mock</div>
     );
 }
