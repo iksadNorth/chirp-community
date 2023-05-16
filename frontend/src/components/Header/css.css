@@ -1,3 +1,11 @@
-.dark {
+a {
+    text-decoration: none;
+    color: inherit;
+}
+
+.menu-over:hover {
     background-color: black;
+    color: white;
+
+    border-radius: 10px;
 }
