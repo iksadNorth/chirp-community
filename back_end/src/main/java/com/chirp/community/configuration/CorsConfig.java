@@ -22,6 +22,7 @@ public class CorsConfig {
         }
         config.addAllowedMethod(CorsConfiguration.ALL);
         config.addAllowedHeader("*");
+        config.setAllowCredentials(true);
         return config;
     }
 
