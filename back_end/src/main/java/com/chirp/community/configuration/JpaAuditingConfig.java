@@ -1,6 +1,7 @@
  package com.chirp.community.configuration;
 
  import com.chirp.community.entity.SiteUser;
+ import com.chirp.community.model.SiteUserDto;
  import org.springframework.context.annotation.Bean;
  import org.springframework.context.annotation.Configuration;
  import org.springframework.data.domain.AuditorAware;
@@ -19,6 +20,7 @@ public class JpaAuditingConfig {
                 .map(SecurityContext::getAuthentication)
                 .filter(Authentication::isAuthenticated)
                 .map(Authentication::getPrincipal)
-                .map(SiteUser.class::cast);
+                .map(SiteUserDto.class::cast)
+                .map(SiteUserDto::toEntity);
     }
 }
