@@ -9,13 +9,12 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.core.userdetails.UserDetailsService;
-import org.springframework.security.web.AuthenticationEntryPoint;
 import org.springframework.security.web.SecurityFilterChain;
-import org.springframework.security.web.access.AccessDeniedHandler;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
-import org.springframework.security.web.csrf.CookieCsrfTokenRepository;
+import org.springframework.security.web.csrf.CsrfTokenRepository;
+import org.springframework.security.web.csrf.CsrfTokenRequestHandler;
 import org.springframework.security.web.header.writers.frameoptions.XFrameOptionsHeaderWriter;
-import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
+import org.springframework.security.web.util.matcher.RequestMatcher;
 import org.springframework.web.cors.CorsConfigurationSource;
 
 import java.security.PublicKey;
@@ -27,6 +26,13 @@ public class AuthenticationConfig {
     private final CorsConfigurationSource configurationSource;
     private final UserDetailsService userDetailsService;
     private final PublicKey publicKey;
+
+    private final CommunityAccessDeniedHandler communityAccessDeniedHandler;
+    private final CommunityAuthenticationEntryPoint communityAuthenticationEntryPoint;
+
+    private final CsrfTokenRepository csrfTokenRepository;
+    private final CsrfTokenRequestHandler csrfTokenRequestHandler;
+    private final RequestMatcher[] requestMatchers;
 
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
@@ -43,8 +49,9 @@ public class AuthenticationConfig {
                 // 저장할 수 없다. 때문에 CookieCsrfTokenRepository를 사용해서 토큰을 저장한다.
                 // H2DB Console을 사용하고 위해 '/h2/**' 는 제외시킴.
                 .csrf()
-                    .ignoringRequestMatchers(new AntPathRequestMatcher("/h2/**"))
-                    .csrfTokenRepository(new CookieCsrfTokenRepository()).and()
+                    .ignoringRequestMatchers(requestMatchers)
+                    .csrfTokenRequestHandler(csrfTokenRequestHandler)
+                    .csrfTokenRepository(csrfTokenRepository).and()
                 // API 서버를 만드는 것이므로 formLogin과 logout은 필요없다.
                 .formLogin().disable()
                 .logout().disable()
@@ -54,8 +61,8 @@ public class AuthenticationConfig {
                 )
                 // 인증 혹은 인가 오류 시, 대처 방법에 대해 서술하고 있다.
                 .exceptionHandling()
-                    .authenticationEntryPoint(communityAuthenticationEntryPoint())
-                    .accessDeniedHandler(communityAccessDeniedHandler()).and()
+                    .authenticationEntryPoint(communityAuthenticationEntryPoint)
+                    .accessDeniedHandler(communityAccessDeniedHandler).and()
                 // 익명 인증 처리 필터 비활성화.
                 .anonymous().disable()
                 // Remember Me 인증 처리 필터 비활성화.
@@ -73,15 +80,5 @@ public class AuthenticationConfig {
                 reg -> reg
                         .anyRequest().permitAll()
                 );
-    }
-
-    @Bean
-    public AuthenticationEntryPoint communityAuthenticationEntryPoint() {
-        return new CommunityAuthenticationEntryPoint();
-    }
-
-    @Bean
-    public AccessDeniedHandler communityAccessDeniedHandler() {
-        return new CommunityAccessDeniedHandler();
     }
 }

@@ -1,5 +1,6 @@
 package com.chirp.community.exception;
 
+import com.chirp.community.model.response.ErrorResponse;
 import jakarta.servlet.http.HttpServletRequest;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.dao.DataIntegrityViolationException;
@@ -18,19 +19,19 @@ import static com.chirp.community.utils.ConvertRequestToMap.convertRequestToMap;
 @RestControllerAdvice
 public class ExceptionHandlerController {
     @ExceptionHandler(CommunityException.class)
-    public ResponseEntity<String> handleCommunityException(CommunityException e) {
+    public ResponseEntity<ErrorResponse> handleCommunityException(CommunityException e) {
         log.warn(e.getDescriptionForServer());
-        return new ResponseEntity<>(e.getDescriptionForClient(), e.getHttpStatus());
+        return new ResponseEntity<>(ErrorResponse.of(e.getDescriptionForClient()), e.getHttpStatus());
     }
 
     @ExceptionHandler(DataIntegrityViolationException.class)
-    public ResponseEntity<String> handleDataIntegrityViolationException(DataIntegrityViolationException e, HttpServletRequest request) {
+    public ResponseEntity<ErrorResponse> handleDataIntegrityViolationException(DataIntegrityViolationException e, HttpServletRequest request) {
         String errorColumn = extractColumn(e.getMessage()).orElse("[알 수 없는 데이터]");
         String errorMessage = makeWarnMessage(errorColumn);
 
         log.warn(errorMessage);
         log.warn(makeLogMessage(request));
-        return new ResponseEntity<>(errorMessage, HttpStatus.CONFLICT);
+        return new ResponseEntity<>(ErrorResponse.of(errorMessage), HttpStatus.CONFLICT);
     }
 
     public static Optional<String> extractColumn(String trgStr) {
