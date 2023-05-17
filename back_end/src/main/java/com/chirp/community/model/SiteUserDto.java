@@ -28,6 +28,16 @@ public record SiteUserDto(
                 .build();
     }
 
+    public SiteUser toEntity() {
+        SiteUser entity = new SiteUser();
+        entity.setId(id);
+        entity.setEmail(email);
+        entity.setPassword(password);
+        entity.setNickname(nickname);
+        entity.setRole(role);
+        return entity;
+    }
+
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
         SimpleGrantedAuthority authority = new SimpleGrantedAuthority(this.role.getDbName());
