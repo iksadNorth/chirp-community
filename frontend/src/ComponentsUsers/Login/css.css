@@ -9,7 +9,7 @@
 }
 
 .custom-size {
-    width: 600px;
+    width: 100px;
 }
 
 .custom-gap div {
@@ -19,4 +19,13 @@
 .custom-gap {
     padding: 5% 0px;
     margin: 100px auto;
+}
+
+.btn-gap > * {
+    margin-left: 30%;
+}
+
+.spacer {
+    width: 10px;
+    height: 75px;
 }
