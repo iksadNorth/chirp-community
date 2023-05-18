@@ -28,7 +28,7 @@ public class BoardController {
     }
 
     @GetMapping
-    public Page<BoardReadResponse> readAllByKeyword(@RequestParam String keyword, @PageableDefault(size = 10) Pageable pageable) {
+    public Page<BoardReadResponse> readAllByKeyword(@RequestParam(defaultValue = "") String keyword, @PageableDefault(size = 10) Pageable pageable) {
         Page<BoardDto> pages = boardService.readAllByKeyword(keyword, pageable);
         return pages.map(BoardReadResponse::of);
     }
