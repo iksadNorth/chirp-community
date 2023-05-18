@@ -30,6 +30,7 @@ export default function Header() {
             <Link className="navbar-brand" to={process.env.REACT_APP_HOME_URL}>
                 <img 
                     src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTjNBOHJqRMYnlA7ExBs3gqteoucTcwXZtuhA&usqp=CAU"
+                    alt="Icon Of Chirp Community"
                     height="50"
                     className="img-thumnails"
                 />
