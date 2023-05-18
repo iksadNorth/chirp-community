@@ -20,8 +20,6 @@ export default function Header() {
             });
     }, [])
     
-    // const boards = ['board1', 'board2', 'board3', 'board4', 'board5', 'board6'];
-
     return (
     <header>
         <nav className="navbar navbar-expand navbar-dark bg-dark">
@@ -54,7 +52,7 @@ export default function Header() {
             {boards.map((item) => 
                 <div key={item.id}>
                     <Link
-                        className="px-3 fw-light menu-over"
+                        className="px-3 fw-light menu-over black-link"
                         to={`${process.env.REACT_APP_BOARD_URL}/${item.id}`}
                     >{item.name}</Link>
                 </div>
