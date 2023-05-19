@@ -2,6 +2,7 @@ import React from 'react';
 import { BrowserRouter, Route, Routes } from 'react-router-dom';
 
 import * as c from '../ComponentsUsers';
+import * as b from '../ComponentsBoard';
 import Header from '../Header';
 
 export default function RouteComponent() {
@@ -17,8 +18,12 @@ export default function RouteComponent() {
         <Route path="/signup" element={
           <c.SignUp />
         } />
+
+        <Route path="/" element={
+          <b.Main />
+        } />
         
-      </Routes>
+      </Routes>    
       <c.Footer />
     </BrowserRouter>
   );
