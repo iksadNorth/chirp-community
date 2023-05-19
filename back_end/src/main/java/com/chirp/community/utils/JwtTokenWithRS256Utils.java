@@ -13,10 +13,10 @@ public class JwtTokenWithRS256Utils {
         long now = System.currentTimeMillis();
 
         return Jwts.builder()
+                .setClaims(claims)
                 .setSubject(username)
                 .setIssuedAt(new Date(now))
                 .setExpiration(new Date(now + expiredTimeMs))
-                .setClaims(claims)
                 .signWith(privateKey, SignatureAlgorithm.RS256)
                 .compact();
     }
