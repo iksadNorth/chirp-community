@@ -49,9 +49,10 @@ public class AuthenticationConfig {
                 // 저장할 수 없다. 때문에 CookieCsrfTokenRepository를 사용해서 토큰을 저장한다.
                 // H2DB Console을 사용하고 위해 '/h2/**' 는 제외시킴.
                 .csrf()
-                    .ignoringRequestMatchers(requestMatchers)
-                    .csrfTokenRequestHandler(csrfTokenRequestHandler)
-                    .csrfTokenRepository(csrfTokenRepository).and()
+//                    .ignoringRequestMatchers(requestMatchers)
+//                    .csrfTokenRequestHandler(csrfTokenRequestHandler)
+//                    .csrfTokenRepository(csrfTokenRepository).and()
+                .disable()
                 // API 서버를 만드는 것이므로 formLogin과 logout은 필요없다.
                 .formLogin().disable()
                 .logout().disable()
