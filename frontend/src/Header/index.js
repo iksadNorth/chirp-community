@@ -25,7 +25,7 @@ export default function Header() {
         <nav className="navbar navbar-expand navbar-dark bg-dark">
         <div className="container">
 
-            <Link className="navbar-brand" to={process.env.REACT_APP_HOME_URL}>
+            <Link className="navbar-brand" to="/">
                 <img 
                     src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTjNBOHJqRMYnlA7ExBs3gqteoucTcwXZtuhA&usqp=CAU"
                     alt="Icon Of Chirp Community"
@@ -36,10 +36,10 @@ export default function Header() {
 
             <ul className="navbar-nav">
                 <li className="nav-item">
-                    <Link className="nav-link" to={process.env.REACT_APP_LOGIN_URL}>Login</Link>
+                    <Link className="nav-link" to="/login">Login</Link>
                 </li>
                 <li className="nav-item">
-                    <Link className="nav-link" to={process.env.REACT_APP_MYPAGE_URL}>MyPage</Link>
+                    <Link className="nav-link" to="/mypage">MyPage</Link>
                 </li>
             </ul>
 
@@ -53,7 +53,7 @@ export default function Header() {
                 <div key={item.id}>
                     <Link
                         className="px-3 fw-light menu-over black-link"
-                        to={`${process.env.REACT_APP_BOARD_URL}/${item.id}`}
+                        to={`/board/${item.id}`}
                     >{item.name}</Link>
                 </div>
             )}
