@@ -38,7 +38,7 @@ export default function SignUp() {
         })
         .then((response) => {
             setError(null);
-            history(process.env.REACT_APP_LOGIN_URL);
+            history("/login");
         })
         .catch((error) => {
             console.log("handleLogin error");
@@ -86,7 +86,7 @@ export default function SignUp() {
             <div className="d-flex justify-content-end btn-gap">
                 <Link 
                     className="btn btn-outline-dark rounded-pill fw-bold" 
-                    to={process.env.REACT_APP_LOGIN_URL}
+                    to="/login"
                 >로그인 화면으로</Link>
             </div>
             

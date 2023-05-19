@@ -65,7 +65,7 @@ export default function Login() {
         <div className="d-flex justify-content-end btn-gap">
             <Link 
                 className="btn btn-outline-dark rounded-pill fw-bold" 
-                to={process.env.REACT_APP_SIGNUP_URL}
+                to="/signup"
             >회원가입</Link>
         </div>
         
