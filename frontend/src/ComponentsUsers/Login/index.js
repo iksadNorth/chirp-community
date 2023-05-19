@@ -1,6 +1,8 @@
 import React, { useState } from "react";
 import './css.css';
 
+import * as c from '../';
+
 import { post } from '../../api';
 import { setToken, isNotBlank } from '../../utils';
 
@@ -38,7 +40,8 @@ export default function Login() {
     };
 
   return (
-    <div className="container custom-size custom-gap border rounded-5 shadow">
+    <c.Card>
+    <div className="container custom-size custom-gap">
         <h1
             className="fw-bold"
         >Chirp</h1>
@@ -59,7 +62,7 @@ export default function Login() {
             <input type="password" className="form-control" placeholder="비밀 번호를 입력하세요." value={password} onChange={wrap(setPassword)} />
         </div>
 
-        <div className="d-flex justify-content-center btn-gap">
+        <div className="d-flex justify-content-end btn-gap">
             <Link 
                 className="btn btn-outline-dark rounded-pill fw-bold" 
                 to={process.env.REACT_APP_SIGNUP_URL}
@@ -81,5 +84,6 @@ export default function Login() {
         </div>
         }
     </div>
+    </c.Card>
   );
 }

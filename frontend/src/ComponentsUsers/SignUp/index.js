@@ -1,6 +1,8 @@
 import React, { useState } from "react";
 import './css.css';
 
+import * as c from '../';
+
 import { post } from '../../api';
 import { isNotBlank } from '../../utils';
 
@@ -45,7 +47,8 @@ export default function SignUp() {
     };
     
     return (
-        <div className="container custom-size custom-gap border rounded-5 shadow">
+        <c.Card>
+        <div className="container custom-size custom-gap">
             <h1
                 className="fw-bold"
             >Chirp</h1>
@@ -80,7 +83,7 @@ export default function SignUp() {
                 <input type="text" className="form-control" placeholder="닉네임을 입력하세요." value={nickname} onChange={wrap(setNickname)} />
             </div>
     
-            <div className="d-flex justify-content-center btn-gap">
+            <div className="d-flex justify-content-end btn-gap">
                 <Link 
                     className="btn btn-outline-dark rounded-pill fw-bold" 
                     to={process.env.REACT_APP_LOGIN_URL}
@@ -102,5 +105,6 @@ export default function SignUp() {
             </div>
             }
         </div>
+        </c.Card>
       );
 }

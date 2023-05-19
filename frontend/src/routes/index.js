@@ -14,7 +14,7 @@ export default function RouteComponent() {
           <c.Login />
         } />
         
-        <Route path={process.env.REACT_APP_SIGNUP_URL} element={
+        <Route path="/signup" element={
           <c.SignUp />
         } />
         
