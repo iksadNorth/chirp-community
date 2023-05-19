@@ -4,7 +4,9 @@ import com.chirp.community.entity.SiteUser;
 import com.chirp.community.exception.CommunityException;
 import com.chirp.community.properties.JwtProperties;
 import com.chirp.community.repository.SiteUserRepository;
+import com.chirp.community.utils.ConvertToJwtClaims;
 import com.chirp.community.utils.JwtTokenWithRS256Utils;
+import io.jsonwebtoken.Claims;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -21,6 +23,7 @@ public class AuthServiceImpl implements AuthService {
     private final PasswordEncoder passwordEncoder;
     private final JwtProperties jwtProperties;
     private final PrivateKey privateKey;
+    private final ConvertToJwtClaims<SiteUser> converterToJwtClaims;
 
     @Transactional(readOnly = true)
     @Override
@@ -34,6 +37,8 @@ public class AuthServiceImpl implements AuthService {
             throw CommunityException.of(HttpStatus.UNAUTHORIZED, "올바른 비밀번호가 아닙니다.");
         }
 
-        return JwtTokenWithRS256Utils.generateJwtToken(email, jwtProperties.getExpiredTimeMs(), privateKey);
+        Claims claims = converterToJwtClaims.convertToClaims(entity);
+
+        return JwtTokenWithRS256Utils.generateJwtToken(email, claims, jwtProperties.getExpiredTimeMs(), privateKey);
     }
 }

@@ -8,11 +8,12 @@ import java.util.stream.Stream;
 
 @RequiredArgsConstructor @Getter
 public enum RoleType {
-    USER("ROLE_USER", "일반 회원"),
-    PRIME_ADMIN("ROLE_PRIME_ADMIN", "전체 관리자"),
-    BOARD_ADMIN("ROLE_BOARD_ADMIN", "게시판 관리자");
+    USER("ROLE_USER", "USER", "일반 회원"),
+    PRIME_ADMIN("ROLE_PRIME_ADMIN", "PRIME_ADMIN", "전체 관리자"),
+    BOARD_ADMIN("ROLE_BOARD_ADMIN", "BOARD_ADMIN", "게시판 관리자");
 
     private final String dbName;
+    private final String jwtName;
     private final String description;
 
     @Converter(autoApply = true)
