@@ -26,8 +26,9 @@ public class ExceptionHandlerController {
 
     @ExceptionHandler(DataIntegrityViolationException.class)
     public ResponseEntity<ErrorResponse> handleDataIntegrityViolationException(DataIntegrityViolationException e, HttpServletRequest request) {
-        String errorColumn = extractColumn(e.getMessage()).orElse("[알 수 없는 데이터]");
-        String errorMessage = makeWarnMessage(errorColumn);
+        String errorMessage = extractColumn(e.getMessage())
+                .map(ExceptionHandlerController::makeWarnMessage)
+                .orElse(makeWarnMessage());
 
         log.warn(errorMessage);
         log.warn(makeLogMessage(request));
@@ -35,7 +36,7 @@ public class ExceptionHandlerController {
     }
 
     public static Optional<String> extractColumn(String trgStr) {
-        Pattern pattern = Pattern.compile(" \\*\\/ '([a-zA-Z]+)' \\)\"");
+        Pattern pattern = Pattern.compile(" \\*\\/ '(.*)' \\)\"");
 
         String frontUnnecessary = "\\*\\/ '";
         String rearUnnecessary = "' \\)\"";
@@ -51,7 +52,11 @@ public class ExceptionHandlerController {
     }
 
     public static String makeWarnMessage(String column) {
-        return String.format("입력한 %s가 이미 존재하거나 빈 칸으로 제출되었습니다. 다른 %s를 입력해주세요.", column, column);
+        return String.format("입력한 '%s'가 이미 존재합니다. 다른 값을 입력해주세요.", column);
+    }
+
+    public static String makeWarnMessage() {
+        return "빈 칸으로 체출된 것이 있습니다. 다른 값을 입력해주세요.";
     }
 
     public static String makeLogMessage(HttpServletRequest request) {
