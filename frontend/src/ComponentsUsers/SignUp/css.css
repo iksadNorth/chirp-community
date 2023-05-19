@@ -1,0 +1,31 @@
+.custom-size input {
+    max-width: 400px;
+}
+
+.custom-size button {
+    width: 400px;
+
+    font-family: sans-serif;
+}
+
+.custom-size {
+    width: 100px;
+}
+
+.custom-gap div {
+    padding: 20px 0px;
+}
+
+.custom-gap {
+    padding: 5% 0px;
+    margin: 100px auto;
+}
+
+.btn-gap > * {
+    margin-left: 30%;
+}
+
+.spacer {
+    width: 10px;
+    height: 75px;
+}

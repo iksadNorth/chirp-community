@@ -13,6 +13,10 @@ export default function RouteComponent() {
           <c.Login />
         } />
         
+        <Route path={process.env.REACT_APP_SIGNUP_URL} element={
+          <c.SignUp />
+        } />
+        
       </Routes>
       <c.Footer />
     </BrowserRouter>

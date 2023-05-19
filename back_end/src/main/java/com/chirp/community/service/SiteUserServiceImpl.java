@@ -13,6 +13,8 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import static com.chirp.community.utils.CheckTools.nullCheck;
+
 @Service
 @Transactional
 @RequiredArgsConstructor
@@ -32,6 +34,7 @@ public class SiteUserServiceImpl implements SiteUserService {
 
     @Override
     public SiteUserDto create(String email, String password, String nickname) {
+        nullCheck(email, password, nickname);
         SiteUser entity = SiteUser.of(email, passwordEncoder.encode(password), nickname);
         SiteUser saved = siteUserRepository.save(entity);
         return SiteUserDto.fromEntity(saved);
