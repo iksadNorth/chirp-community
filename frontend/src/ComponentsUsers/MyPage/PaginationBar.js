@@ -5,30 +5,22 @@ const limitedCursor = (cur, minVal, maxVal) => {
 }
 
 const limitedRange = (cur, minVal, maxVal, r) => {
-    const L = 2*r+1;
-    let start;
-    if(maxVal < cur + r) {
-        start = (maxVal + 1) - L ;
-    } else if(cur - r < minVal) {
-        start = minVal;
-    } else {
-        start = cur - r;
-    }
-    return start;
+    const focus = limitedCursor(cur, minVal + r, maxVal - r);
+    return focus - r;
 }
 
 export default function Page(props) {
     const numTotalPages = +props.numTotalPages;
-    const numPage = +props.numPage;
     const radius = +props.radius;
     const handlePage = props.handlePage;
 
     const first_index = 0;
     const last_index = numTotalPages - 1;
     
-    const [cursor, setCursor] = useState(limitedCursor(numPage, first_index, last_index));
+    const [cursor, setCursor] = useState(0);
     const [indexes, setIndexes] = useState([]);
 
+    const [update, doUpdate] = useState(0);
 
     useEffect(() => {
         const cursorCalculated = limitedCursor(cursor, first_index, last_index);
@@ -36,12 +28,18 @@ export default function Page(props) {
             setCursor(cursorCalculated);
         } else {
             const start = limitedRange(cursor, first_index, last_index, radius);
-            const arr = [...Array(2*radius+1)].map((_, index) => (index + start));
+            const arr = [...Array(2*radius+1)]
+                                    .map((_, index) => (index + start))
+                                    .filter(page => first_index <= page && page <= last_index);
             setIndexes(arr);
 
             handlePage(cursor);
         }
     }, [cursor])
+
+    useEffect(() => {
+        handlePage(cursor);
+    }, [update]);
 
     return (
         <ul className={`pagination d-flex justify-content-center ${props.className}`}>
