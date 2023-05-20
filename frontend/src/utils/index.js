@@ -15,6 +15,10 @@ export function isNotBlank(token) {
     return (token !== null && token !== undefined)
 }
 
+export function hasSomethingInString(str) {
+    return (str.trim()!='' && isNotBlank(str));
+};
+
 // 쿠키에서 값을 가져오는 함수
 export function getCookie(name) {
     const value = `; ${document.cookie}`;
@@ -45,3 +49,25 @@ export function addParams(url, params) {
 export function addBaseUrl(url) {
     return `http://localhost:8080${url}`;
 }
+
+export function decodeBase64Url(str) {
+    // Base64Url을 Base64로 변환
+  str = str.replace(/-/g, "+").replace(/_/g, "/");
+  
+  // Base64 디코딩
+  return atob(str);
+  }
+  
+export function decodeJwt() {
+    const token = getToken();
+    const parts = token.split(".");
+    const payload = parts[1];
+    const decodedPayload = decodeBase64Url(payload);
+    const decodedData = JSON.parse(decodedPayload);
+    return decodedData;
+  }
+
+export function adapterEvent(setFunc) {
+    return (event) => 
+        setFunc(event.target.value);
+};
