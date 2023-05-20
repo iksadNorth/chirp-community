@@ -14,9 +14,10 @@ export default function List(props) {
             <div className='row'>
                 {/* 페이지네이션 */}
                 <Page className="mb-3"
-                    numTotalPages={props.numTotalPages} numPage={props.numPage}
+                    numTotalPages={props.numTotalPages}
                     handlePage={props.handlePage}
                     radius={props.radius}
+                    doUpdate={props.doUpdate}
                 />
             </div>
             <div className='row'>
