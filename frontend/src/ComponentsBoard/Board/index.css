@@ -1,0 +1,13 @@
+table {
+  border-collapse: collapse; /* 이중선 제거 */
+  border: 1px solid #000;
+}
+
+th, td {
+  width: 100px;
+  height: 50px;
+  text-align: center;
+  border: 1px solid #000;
+  color: #000;
+  vertical-align: middle; /* 가운데 정렬 */
+}
