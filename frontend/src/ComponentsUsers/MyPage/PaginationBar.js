@@ -31,7 +31,7 @@ export default function Page(props) {
 
 
     useEffect(() => {
-        const cursorCalculated = limitedRange(cursor, first_index, last_index);
+        const cursorCalculated = limitedCursor(cursor, first_index, last_index);
         if(cursor != cursorCalculated) {
             setCursor(cursorCalculated);
         } else {
