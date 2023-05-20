@@ -53,7 +53,7 @@ export default function Header() {
                 <div key={item.id}>
                     <Link
                         className="px-3 fw-light menu-over black-link"
-                        to={`${process.env.REACT_APP_BOARD_URL}/${item.id}`}
+                        to={`/board/${item.id}`}
                     >{item.name}</Link>
                 </div>
             )}
