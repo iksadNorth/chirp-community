@@ -22,6 +22,10 @@ export default function RouteComponent() {
         <Route path="/" element={
           <b.Main />
         } />
+
+        <Route path="/board/*" element={
+          <b.Board />
+        } />
         
       </Routes>    
       <c.Footer />

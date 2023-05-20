@@ -47,7 +47,7 @@ export default function Header() {
 
         </nav>
 
-        <div className="container d-flex flex-row my-3">
+        <div className="container d-flex flex-row my-3 justify-content-between">
 
             {boards.map((item) => 
                 <div key={item.id}>
