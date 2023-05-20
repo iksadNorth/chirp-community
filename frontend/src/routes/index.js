@@ -19,6 +19,11 @@ export default function RouteComponent() {
           <c.SignUp />
         } />
 
+        <Route path="/mypage" element={
+          <c.MyPage />
+        } />
+
+
         <Route path="/" element={
           <b.Main />
         } />

@@ -6,6 +6,7 @@ import Login from './Login';
 import Toast from './Toast';
 import Footer from './Footer';
 import SignUp from './SignUp';
+import MyPage from './MyPage';
 
 export {
   RNW,
@@ -15,5 +16,6 @@ export {
   Header,
   Login,
   Card,
+  MyPage,
   Footer
 };
