@@ -1,0 +1,120 @@
+import React, { useState } from "react";
+import './css.css';
+
+import { Link } from 'react-router-dom';
+
+import * as c from '../';
+import List from "./List";
+import { del, get } from "../../api";
+import { addParams, pageRequest } from "../../utils";
+
+import TitleWithIcon from "./TitleWithIcon";
+
+export default function CommentList(props) {
+    const head = {
+        title: (<i class="bi bi-postcard"></i>),
+        content: (<i class="bi bi-postcard"></i>),
+        board: (<i class="bi bi-archive"></i>),
+        createdAt: (<i class="bi bi-calendar-date"></i>),
+        numLikes: (<i class="bi bi-hand-thumbs-up"></i>),
+        numComments: (<i class="bi bi-chat-dots"></i>),
+    };
+
+    const headEl = (row) => (
+            <div className="container">
+                <div className="row">
+                    <div className="col-3"><strong>{row.board}</strong></div>
+                    <div className="col"><strong>{row.content}</strong></div>
+                    <div className="col-2"><strong>{row.createdAt}</strong></div>
+                    <div className="col-1"><strong>{row.numLikes}</strong></div>
+                    <div className="col-1"><strong><i class="bi bi-trash3"></i></strong></div>
+                </div>
+            </div>
+    );
+    const rowEl = (row) => (
+            <div className="container">
+                <div className="row no-deco">
+                    <div className="col-3">{row.board}</div>
+                    <Link className="col no-deco" to={`/article/${row.articleId}`}>{row.content}</Link>
+                    <div className="col-2">{row.createdAt}</div>
+                    <div className="col-1">{row.numLikes}</div>
+                    <button type="button" className="col-1 btn btn-danger"
+                        onClick={() => {deleteRow(row.id)}}
+                    ></button>
+                </div>
+            </div>
+    );
+
+    const loadData = () => {
+        const sample = [
+            {
+                id: 1,
+                articleId: 1,
+                content: "제목1",
+                board: "게시판1",
+                createdAt: "날짜1",
+                numLikes: "14",
+            },
+            {
+                id: 2,
+                articleId: 2,
+                content: "제목2",
+                board: "게시판2",
+                createdAt: "날짜2",
+                numLikes: "15",
+            },
+        ];
+        setData(sample);
+
+        // const size = 5;
+        // const sort_field = "createdAt";
+        // const sort_asc = true;
+
+        // get(addParams(`/api/v1/user/principal/comment`, pageRequest(page, size, sort_field, sort_asc)))
+        // .then((res) => {
+        //     setData(res.content);
+        //     setNumTotalPages(res.totalPages);
+        // })
+        // .catch(err => {
+        //     console.log("loadData error");
+        //     popToast(err.errorMessage);
+        // });
+    };
+
+    const deleteRow = (id) => {
+        del(`/api/v1/comment/${id}`)
+        .then(() => {
+            doUpdate(update + 1);
+        })
+        .catch(err => {
+            console.log("deleteRow error");
+            popToast(err.errorMessage);
+        });
+    };
+    const [iconName, headTitle] = ["bi-chat-dots", "내가 쓴 댓글"];
+
+    const [data, setData] = useState([]);
+    const [messageToast, popToast] = useState(null);
+
+    const [numTotalPages, setNumTotalPages] = useState(1);
+    const [update, doUpdate] = useState(0);
+    
+    return (
+        <c.Sheet className={`py-5 container ${props.className}`}>
+            <div className="row">
+                <div className="col">
+                    <TitleWithIcon iconName={iconName} head={headTitle} />
+                </div>
+            </div>
+            <div className="row">
+                <div className="col">
+                    <List handlePage={loadData} numTotalPages={numTotalPages} radius={3} doUpdate={update}>
+                        {headEl(head)}
+                        {data.map((row) => rowEl(row))}
+                    </List>
+                </div>
+            </div>
+            <c.Toast title="에러 발생" body={messageToast} />
+        </c.Sheet>
+    );
+}
