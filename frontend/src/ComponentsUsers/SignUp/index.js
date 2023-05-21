@@ -42,7 +42,7 @@ export default function SignUp() {
         })
         .catch((error) => {
             console.log("handleLogin error");
-            setError(error.errorMessage);
+            setError(error);
         })
     };
     
