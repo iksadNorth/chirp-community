@@ -12,6 +12,19 @@ insert into board (name) values
 ('board05')
 ;
 
+INSERT INTO `site_user` (email, password, nickname) VALUES
+('user1', '1234', 'iksadnorth'),
+('user2', '1234', 'iksadsouth'),
+('user3', '1234', 'junmo');
+
+INSERT INTO `article` (title, content, board_id, writer_id) VALUES
+('article1', '<h1>문제 해결1</h1>', 1, 1),
+('article2', '<h1>문제 해결2</h1>', 2, 1),
+('article1', '<h2>문제 해결1</h2>', 1, 2),
+('article2', '<h2>문제 해결2</h2>', 2, 2),
+('article1', '<h3>문제 해결1</h3>', 1, 3),
+('article2', '<h3>문제 해결2</h3>', 2, 3);
+
 insert into article (title, content, board_id, writer_id, views) values
 ('title01', 'aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa - content01', 1, 1, 22),
 ('title02', 'aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa - content02', 1, 2, 11),
