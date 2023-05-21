@@ -16,7 +16,7 @@ export function isNotBlank(token) {
 }
 
 export function hasSomethingInString(str) {
-    return (str.trim()!='' && isNotBlank(str));
+    return (isNotBlank(str) && str.trim()!=='');
 };
 
 // 쿠키에서 값을 가져오는 함수

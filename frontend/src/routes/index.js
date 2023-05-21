@@ -27,6 +27,14 @@ export default function RouteComponent() {
         <Route path="/" element={
           <b.Main />
         } />
+
+        <Route path="/board/*" element={
+          <b.Board />
+        } />
+
+        <Route path="/article/*" element={
+          <b.Article />
+        } />
         
       </Routes>    
       <c.Footer />

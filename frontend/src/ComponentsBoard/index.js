@@ -1,7 +1,11 @@
 import Main from './Main';
+import Board from './Board';
+import Article from './Article';
 
 
 
 export {
-  Main
+  Main,
+  Board,
+  Article
 };
