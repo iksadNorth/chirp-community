@@ -3,16 +3,15 @@ import './css.css';
 
 import * as c from '..';
 import { get, patch } from "../../api";
-import { adapterEvent, decodeJwt, hasSomethingInString, isNotBlank } from "../../utils";
+import { adapterEvent, getToken, hasSomethingInString, isNotBlank } from "../../utils";
 
 import Profile from "./Profile";
 
 export default function Info(props) {
     const defaultPassword = '[비공개]';
 
-    const [id, setId] = useState(null);
     const [email, setEmail] = useState('');
-    const [password, setPW] = useState('');
+    const [password, setPW] = useState(defaultPassword);
     const [nickname, setNickname] = useState('');
 
     const [readonly, setReadOnly] = useState(true);
@@ -40,7 +39,7 @@ export default function Info(props) {
     };
 
     const sendUpdateQuery = () => {
-        if(!isNotBlank(id)) { return ; }
+        if(!isNotBlank(getToken())) { return ; }
 
         const body = {};
         if(hasSomethingInString(email)) {
@@ -53,8 +52,8 @@ export default function Info(props) {
             body.nickname = nickname;
         }
 
-        patch(`/api/v1/user/${id}`, {
-            body: JSON.stringify({body}),
+        patch(`/api/v1/user/me`, {
+            body: JSON.stringify(body),
         })
             .then((res) => {
                 setProfiles(res);
@@ -66,9 +65,9 @@ export default function Info(props) {
     };
 
     const loadUserInfo = () => {
-        if(!isNotBlank(id)) { return ; }
+        if(!isNotBlank(getToken())) { return ; }
         
-        get(`/api/v1/user/${id}`)
+        get(`/api/v1/user/me`)
             .then((res) => {
                 setProfiles(res);
             })
@@ -79,13 +78,8 @@ export default function Info(props) {
     };
 
     useEffect(() => {
-        const payload = decodeJwt();
-        setId(payload.ID);
-    }, [])
-
-    useEffect(() => {
         loadUserInfo();
-      }, [id]);
+      }, []);
 
     return (
         <c.Sheet className={props.className}>
