@@ -16,11 +16,15 @@ public class JpaAuditingConfig {
 
     @Bean
     public AuditorAware<SiteUser> auditorAware() {
-        return () -> Optional.of(SecurityContextHolder.getContext())
+        return () -> JpaAuditingConfig.principal()
+                .map(SiteUserDto::toEntity);
+    }
+
+    public static Optional<SiteUserDto> principal() {
+        return Optional.of(SecurityContextHolder.getContext())
                 .map(SecurityContext::getAuthentication)
                 .filter(Authentication::isAuthenticated)
                 .map(Authentication::getPrincipal)
-                .map(SiteUserDto.class::cast)
-                .map(SiteUserDto::toEntity);
+                .map(SiteUserDto.class::cast);
     }
 }

@@ -13,6 +13,8 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import static com.chirp.community.utils.AccessAuthorizer.isAdmin;
+import static com.chirp.community.utils.AccessAuthorizer.ownershipCheck;
 import static com.chirp.community.utils.CheckTools.nullCheck;
 
 @Service
@@ -32,6 +34,17 @@ public class SiteUserServiceImpl implements SiteUserService {
                 );
     }
 
+    private void overwriteWithBlankCheck(SiteUser entity, String email, String password, String nickname, RoleType role) {
+        if(email!=null)
+            entity.setEmail(email);
+        if(password!=null)
+            entity.setPassword(passwordEncoder.encode(password));
+        if(nickname!=null)
+            entity.setNickname(nickname);
+        if(role!=null)
+            entity.setRole(role);
+    }
+
     @Override
     public SiteUserDto create(String email, String password, String nickname) {
         nullCheck(email, password, nickname);
@@ -47,17 +60,28 @@ public class SiteUserServiceImpl implements SiteUserService {
     }
 
     @Override
+    public SiteUserDto updateByAuthToken(SiteUserDto principal, String email, String password, String nickname, RoleType role) {
+        SiteUser entity = principal.toEntity();
+
+        overwriteWithBlankCheck(entity, email, password, nickname, role);
+
+        SiteUser saved = siteUserRepository.save(entity);
+        return SiteUserDto.fromEntity(saved);
+    }
+
+    @Override
     public SiteUserDto updateById(Long id, String email, String password, String nickname, RoleType role) {
+        if(!isAdmin(role) && !ownershipCheck(id)) {
+            throw CommunityException.of(
+                    HttpStatus.FORBIDDEN,
+                    "해당 사용자로의 접근은 금지되어 있습니다.",
+                    String.format("id가 '%s'인 사용자가 다른 사용자의 정보를 수정하려 했습니다. 혹은 로그인하지 않은 유저의 정보 수정일 수도 있습니다.", id)
+            );
+        }
+
         SiteUser entity = loadSiteUserById(id);
 
-        if(email!=null)
-            entity.setEmail(email);
-        if(password!=null)
-            entity.setPassword(passwordEncoder.encode(password));
-        if(nickname!=null)
-            entity.setNickname(nickname);
-        if(role!=null)
-            entity.setRole(role);
+        overwriteWithBlankCheck(entity, email, password, nickname, role);
 
         SiteUser saved = siteUserRepository.save(entity);
         return SiteUserDto.fromEntity(saved);
