@@ -1,87 +1,99 @@
 import { getToken, isNotBlank, getCookie, addBaseUrl } from '../utils';
 
 export function request(url, options) {
-    // proxy url 설정.
-    url = addBaseUrl(url);
+  // proxy url 설정.
+  url = addBaseUrl(url);
 
-    // options 구조 설정.
-    options = {
-      ...options,
-      headers: {
-        ...options.headers
-      },
-    }
-    
-    // 데이터 형식 추가.
-    options.headers['Content-Type'] = 'application/json';
-
-    // csrf 토큰 추가.
-    options.headers['X-XSRF-TOKEN'] = getCookie('XSRF-TOKEN');
-    options.credentials = 'include';
-
-    // JWT 토큰 추가.
-    const token = getToken();
-    if (isNotBlank(token)) {
-      options.headers['Authorization'] = `Bearer ${token}`;
-    }
-
-    // 요청 설정 로깅.
-    console.log(options);
+  // options 구조 설정.
+  options = {
+    ...options,
+    headers: {
+      ...options.headers
+    },
+  }
   
-    // 요청 보내기
-    return fetch(url, options)
-      .then(response => {
-        //// 응답 후 사후 처리 작업 수행
+  // 데이터 형식 추가.
+  options.headers['Content-Type'] = 'application/json';
 
-        // 응답 json형태로 타입 변경.
-        const status = response.ok;
-        response = response.json();
+  // csrf 토큰 추가.
+  options.headers['X-XSRF-TOKEN'] = getCookie('XSRF-TOKEN');
+  options.credentials = 'include';
 
-        // Ok 답이 안오면 오류 메세지 받아서 넘김.
-        if (!status) {
-          return response.then(err => {
-            throw err;
-          })
-        }
+  // JWT 토큰 추가.
+  const token = getToken();
+  if (isNotBlank(token)) {
+    options.headers['Authorization'] = `Bearer ${token}`;
+  }
 
-        // 응답 내용 로깅.
-        response.then(res => {
-          console.log('응답 내용: \n', res);
+  // 요청 설정 로깅.
+  console.log(`[${options.method ?? "GET"}] \n${url}`);
+  console.log('요청 Header: \n', options);
+
+  // 요청 보내기
+  return fetch(url, options)
+    .then(response => {
+      //// For Ok Checking.
+      const responseForLogging = response.clone();
+
+      // Ok 답이 안오면 오류로 넘김. 
+      // 이 때, 미리 ErrorResponse의 Body에서 errorMessage 필드를 추출하고 throw 함.
+      if (!responseForLogging.ok) {
+        return responseForLogging.json().then(err => {
+          throw new Error(err.errorMessage);
         });
-        
-        return response;
-      })
-      .catch((error) => {
-        //// 오류 발생 시, 오류 일괄 처리
-        
-        // 에러 로깅.
-        console.log('에러 발생: \n', error);
+      }
+      
+      return response;
+    })
+    .then(response => {
+      //// For Logging Body.
+      console.log('응답 Header: \n', response.headers);
+      return response; 
+    })
+    .then(response => {
+      //// For Convert To Body. 
+      // [Blocking]여기서 응답 받을 때까지 대기함.
+      const contentType = response.headers.get('Content-Type');
+      if(contentType && contentType.includes('application/json')) {
+        return response.json();
+      } else {
+        return response.text();
+      }
+    })
+    .then(response => {
+      //// For Logging Body.
+      console.log('응답 Body: \n', response);
+      return response;
+    })
+    .catch((error) => {
+      // 에러 로깅.
+      console.error('에러 발생: \n', error.message);
 
-        return Promise.reject(error);
-      });
+      return Promise.reject(error.message);
+    });
+}
+
+export function get(url, options={}) {
+  // 메서드 추가.
+  options.method = 'GET';
+  return request(url, options);
+}
+
+export function post(url, options={}) {
+  // 메서드 추가.
+  options.method = 'POST';
+  return request(url, options);
   }
 
-  export function get(url, options={}) {
-    // 메서드 추가.
-    options.method = 'GET';
-    return request(url, options);
-  }
+export function patch(url, options={}) {
+  // 메서드 추가.
+  options.method = 'PATCH';      
+  return request(url, options);
+}
 
-  export function post(url, options={}) {
-    // 메서드 추가.
-    options.method = 'POST';
-    return request(url, options);
-    }
-
-  export function patch(url, options={}) {
-    // 메서드 추가.
-    options.method = 'PATCH';      
-    return request(url, options);
-  }
-
-  export function del(url, options={}) {
-    // 메서드 추가.
-    options.method = 'DELETE';
-    return request(url, options);
-  }
+export function del(url, options={}) {
+  // 메서드 추가.
+  options.method = 'DELETE';
+  return request(url, options);
+}
   
