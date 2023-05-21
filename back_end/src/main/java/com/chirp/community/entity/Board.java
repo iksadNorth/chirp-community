@@ -8,6 +8,7 @@ import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.List;
 
 @Entity @Table(name = "board", indexes = {
         @Index(columnList = "name")
@@ -17,6 +18,9 @@ import java.util.Collection;
 public class Board extends BaseEntity {
     @Column(name = "name", unique = true, nullable = false)
     private String name;
+
+    @OneToMany(mappedBy = "board", cascade = {CascadeType.REMOVE})
+    private List<Article> articleList;
 
     public static Board of(Long id, String name) {
         Board entity = new Board();

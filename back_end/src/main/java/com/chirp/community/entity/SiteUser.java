@@ -10,6 +10,7 @@ import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.List;
 
 @Entity @Table(name = "site_user", indexes = {
         @Index(columnList = "email")
@@ -29,6 +30,9 @@ public class SiteUser extends BaseEntity {
     @Column(name = "role") @ColumnDefault("'ROLE_USER'")
     @Convert(converter = RoleType.ConverterImpl.class)
     private RoleType role;
+
+    @OneToMany(mappedBy = "writer", cascade = {CascadeType.REMOVE})
+    private List<Article> articleList;
 
     public static SiteUser of(Long id, String email, String password, String nickname) {
         SiteUser entity = new SiteUser();
