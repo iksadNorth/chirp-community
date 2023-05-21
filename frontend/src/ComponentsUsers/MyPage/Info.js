@@ -8,6 +8,7 @@ import { adapterEvent, decodeJwt, hasSomethingInString, isNotBlank } from "../..
 import Profile from "./Profile";
 
 export default function Info(props) {
+    const defaultPassword = '[비공개]';
 
     const [id, setId] = useState(null);
     const [email, setEmail] = useState('');
@@ -20,12 +21,14 @@ export default function Info(props) {
     const updateInfo = () => {
         // 입력 가능한 요소로 변경.
         setReadOnly(false);
+        setPW('');
     };
 
     const setInfo = () => {
         // 입력 불가능한 요소로 변경.
         setReadOnly(true);
         sendUpdateQuery();
+        setPW(defaultPassword);
     };
 
     const setProfiles = (res) => {

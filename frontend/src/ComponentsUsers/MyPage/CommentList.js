@@ -34,12 +34,16 @@ export default function CommentList(props) {
     const rowEl = (row) => (
             <div className="container">
                 <div className="row no-deco">
-                    <div className="col-3">{row.board}</div>
-                    <Link className="col no-deco" to={`/article/${row.articleId}`}>{row.content}</Link>
-                    <div className="col-2">{row.createdAt}</div>
-                    <div className="col-1">{row.numLikes}</div>
+                    <div className="col-3">{row.board ?? '[X]'}</div>
+                    <Link className="col no-deco" to={row.articleId ? `/article/${row.articleId}` : '#'}>{row.content ?? '[X]'}</Link>
+                    <div className="col-2">{row.createdAt ?? '[X]'}</div>
+                    <div className="col-1">{row.numLikes ?? 0}</div>
                     <button type="button" className="col-1 btn btn-danger"
-                        onClick={() => {deleteRow(row.id)}}
+                        onClick={() => {
+                            if(row.id) {
+                                deleteRow(row.id);
+                            }
+                        }}
                     ></button>
                 </div>
             </div>

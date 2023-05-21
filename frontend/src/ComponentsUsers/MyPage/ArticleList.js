@@ -35,13 +35,17 @@ export default function ArticleList(props) {
     const rowEl = (row) => (
             <div className="container">
                 <div className='row'>
-                    <div className="col-2">{row.board}</div>
-                    <Link className="col no-deco" to={`/article/${row.id}`}>{row.title}</Link>
-                    <div className="col-2">{row.createdAt}</div>
-                    <div className="col-1">{row.numLikes}</div>
-                    <div className="col-1">{row.numComments}</div>
+                    <div className="col-2">{row.board ?? "[X]"}</div>
+                    <Link className="col no-deco" to={row.id ? `/article/${row.id}` : '#'}>{row.title?? "[X]"}</Link>
+                    <div className="col-2">{row.createdAt ?? "[X]"}</div>
+                    <div className="col-1">{row.numLikes ?? 0}</div>
+                    <div className="col-1">{row.numComments ?? 0}</div>
                     <button type="button" className="col-1 btn btn-danger"
-                        onClick={() => {deleteRow(row.id)}}
+                        onClick={() => {
+                            if(row.id) {
+                                deleteRow(row.id);
+                            }
+                        }}
                     ></button>
                 </div>
             </div>
