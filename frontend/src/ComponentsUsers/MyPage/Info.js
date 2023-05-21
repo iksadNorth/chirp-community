@@ -60,7 +60,7 @@ export default function Info(props) {
             })
             .catch((err) => {
                 console.log("sendUpdateQuery Error");
-                popToast(err.errorMessage);
+                popToast(err);
             })
     };
 
@@ -73,7 +73,7 @@ export default function Info(props) {
             })
             .catch((err) => {
                 console.log("loadUserInfo Error");
-                popToast(err.errorMessage);
+                popToast(err);
             })
     };
 

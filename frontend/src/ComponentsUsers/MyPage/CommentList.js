@@ -81,7 +81,7 @@ export default function CommentList(props) {
         // })
         // .catch(err => {
         //     console.log("loadData error");
-        //     popToast(err.errorMessage);
+        //     popToast(err);
         // });
     };
 
@@ -92,7 +92,7 @@ export default function CommentList(props) {
         })
         .catch(err => {
             console.log("deleteRow error");
-            popToast(err.errorMessage);
+            popToast(err);
         });
     };
     const [iconName, headTitle] = ["bi-chat-dots", "내가 쓴 댓글"];

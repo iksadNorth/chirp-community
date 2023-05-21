@@ -94,7 +94,7 @@ export default function ArticleList(props) {
         })
         .catch(err => {
             console.log("deleteRow error");
-            popToast(err.errorMessage);
+            popToast(err);
         });
     };
     const [iconName, headTitle] = ["bi-signpost-2-fill", "내가 쓴 글"];
