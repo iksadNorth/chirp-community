@@ -17,7 +17,7 @@ export default function List(props) {
                     numTotalPages={props.numTotalPages}
                     handlePage={props.handlePage}
                     radius={props.radius}
-                    doUpdate={props.doUpdate}
+                    update={props.update}
                 />
             </div>
             <div className='row'>

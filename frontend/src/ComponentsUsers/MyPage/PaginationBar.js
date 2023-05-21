@@ -20,8 +20,6 @@ export default function Page(props) {
     const [cursor, setCursor] = useState(0);
     const [indexes, setIndexes] = useState([]);
 
-    const [update, doUpdate] = useState(0);
-
     useEffect(() => {
         const cursorCalculated = limitedCursor(cursor, first_index, last_index);
         if(cursor != cursorCalculated) {
@@ -39,7 +37,7 @@ export default function Page(props) {
 
     useEffect(() => {
         handlePage(cursor);
-    }, [update]);
+    }, [props.update]);
 
     return (
         <ul className={`pagination d-flex justify-content-center ${props.className}`}>

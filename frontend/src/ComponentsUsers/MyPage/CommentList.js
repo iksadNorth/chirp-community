@@ -70,7 +70,7 @@ export default function CommentList(props) {
         // const sort_field = "createdAt";
         // const sort_asc = true;
 
-        // get(addParams(`/api/v1/user/principal/comment`, pageRequest(page, size, sort_field, sort_asc)))
+        // get(addParams(`/api/v1/user/me/comment`, pageRequest(page, size, sort_field, sort_asc)))
         // .then((res) => {
         //     setData(res.content);
         //     setNumTotalPages(res.totalPages);
@@ -108,7 +108,7 @@ export default function CommentList(props) {
             </div>
             <div className="row">
                 <div className="col">
-                    <List handlePage={loadData} numTotalPages={numTotalPages} radius={3} doUpdate={update}>
+                    <List handlePage={loadData} numTotalPages={numTotalPages} radius={3} update={update}>
                         {headEl(head)}
                         {data.map((row) => rowEl(row))}
                     </List>

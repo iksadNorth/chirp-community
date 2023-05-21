@@ -43,45 +43,44 @@ export default function ArticleList(props) {
                     <button type="button" className="col-1 btn btn-danger"
                         onClick={() => {deleteRow(row.id)}}
                     ></button>
-
                 </div>
             </div>
     );
 
     const loadData = (page) => {
-        const sample = [
-            {
-                id: 1,
-                title: "제목1",
-                board: "게시판1",
-                createdAt: "날짜1",
-                numLikes: "50",
-                numComments: "10",
-            },
-            {
-                id: 2,
-                title: "제목2",
-                board: "게시판2",
-                createdAt: "날짜2",
-                numLikes: "75",
-                numComments: "34",
-            },
-        ];
-        setData(sample);
+        // const sample = [
+        //     {
+        //         id: 1,
+        //         title: "제목1",
+        //         board: "게시판1",
+        //         createdAt: "날짜1",
+        //         numLikes: "50",
+        //         numComments: "10",
+        //     },
+        //     {
+        //         id: 2,
+        //         title: "제목2",
+        //         board: "게시판2",
+        //         createdAt: "날짜2",
+        //         numLikes: "75",
+        //         numComments: "34",
+        //     },
+        // ];
+        // setData(sample);
 
-        // const size = 5;
-        // const sort_field = "createdAt";
-        // const sort_asc = true;
+        const size = 5;
+        const sort_field = "createdAt";
+        const sort_asc = true;
 
-        // get(addParams(`/api/v1/user/principal/article`, pageRequest(page, size, sort_field, sort_asc)))
-        // .then((res) => {
-        //     setData(res.content);
-        //     setNumTotalPages(res.totalPages);
-        // })
-        // .catch(err => {
-        //     console.log("loadData error");
-        //     popToast(err.errorMessage);
-        // });
+        get(addParams(`/api/v1/user/me/article`, pageRequest(page, size, sort_field, sort_asc)))
+        .then((res) => {
+            setData(res.content);
+            setNumTotalPages(res.totalPages);
+        })
+        .catch(err => {
+            console.log("loadData error");
+            popToast(err);
+        });
     };
 
     const deleteRow = (id) => {
@@ -111,7 +110,7 @@ export default function ArticleList(props) {
             </div>
             <div className="row">
                 <div className="col">
-                    <List handlePage={loadData} numTotalPages={numTotalPages} radius={3} doUpdate={update}>
+                    <List handlePage={loadData} numTotalPages={numTotalPages} radius={3} update={update}>
                         {headEl(head)}
                         {data.map((item) => rowEl(item))}
                     </List>
