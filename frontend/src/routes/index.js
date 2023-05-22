@@ -20,15 +20,15 @@ export default function RouteComponent() {
         } />
 
         <Route path="/" element={
-          <b.Main />
+          <b.MainPage />
         } />
 
         <Route path="/board/*" element={
-          <b.Board />
+          <b.BoardPage />
         } />
 
         <Route path="/article/*" element={
-          <b.Article />
+          <b.ArticlePage />
         } />
         
       </Routes>    

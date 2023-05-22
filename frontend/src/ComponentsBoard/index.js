@@ -1,11 +1,11 @@
-import Main from './Main';
-import Board from './Board';
-import Article from './Article';
+import MainPage from './MainPage';
+import BoardPage from './BoardPage';
+import ArticlePage from './ArticlePage';
 
 
 
 export {
-  Main,
-  Board,
-  Article
+  MainPage,
+  BoardPage,
+  ArticlePage
 };
