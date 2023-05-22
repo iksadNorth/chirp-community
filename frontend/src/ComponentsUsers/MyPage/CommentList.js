@@ -112,7 +112,7 @@ export default function CommentList(props) {
             </div>
             <div className="row">
                 <div className="col">
-                    <List handlePage={loadData} numTotalPages={numTotalPages} radius={3} update={update}>
+                    <List loadData={loadData} numTotalPages={numTotalPages} radius={3} update={update}>
                         {headEl(head)}
                         {data.map((row) => rowEl(row))}
                     </List>

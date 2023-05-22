@@ -51,7 +51,7 @@ export default function ArticleList(props) {
             </div>
     );
 
-    const loadData = (page) => {
+    const loadData = (page, keyword) => {
         // const sample = [
         //     {
         //         id: 1,
@@ -76,7 +76,10 @@ export default function ArticleList(props) {
         const sort_field = "createdAt";
         const sort_asc = true;
 
-        get(addParams(`/api/v1/user/me/article`, pageRequest(page, size, sort_field, sort_asc)))
+        get(addParams(`/api/v1/user/me/article`, {
+            ...pageRequest(page, size, sort_field, sort_asc),
+            keyword: keyword,
+        }))
         .then((res) => {
             setData(res.content);
             setNumTotalPages(res.totalPages);
@@ -114,7 +117,7 @@ export default function ArticleList(props) {
             </div>
             <div className="row">
                 <div className="col">
-                    <List handlePage={loadData} numTotalPages={numTotalPages} radius={3} update={update}>
+                    <List loadData={loadData} numTotalPages={numTotalPages} radius={3} update={update}>
                         {headEl(head)}
                         {data.map((item) => rowEl(item))}
                     </List>

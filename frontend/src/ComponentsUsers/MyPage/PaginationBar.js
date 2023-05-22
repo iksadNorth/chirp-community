@@ -35,10 +35,6 @@ export default function Page(props) {
         }
     }, [cursor])
 
-    useEffect(() => {
-        handlePage(cursor);
-    }, [props.update]);
-
     return (
         <ul className={`pagination d-flex justify-content-center ${props.className}`}>
 
