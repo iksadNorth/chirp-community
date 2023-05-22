@@ -80,8 +80,13 @@ public class ArticleServiceImpl implements ArticleService {
     }
 
     @Override
-    public Page<ArticleDto> readBySiteUserId(Long id, Pageable pageable) {
-        return articleRepository.findByWriter_Id(id, pageable)
-                .map(ArticleDto::fromEntity);
+    public Page<ArticleDto> readBySiteUserId(Long id, String keyword, Pageable pageable) {
+        if(keyword != null && !keyword.isBlank()) {
+            return articleRepository.findByWriter_IdWithKeyword(id, keyword, pageable)
+                    .map(ArticleDto::fromEntity);
+        } else {
+            return articleRepository.findByWriter_Id(id, pageable)
+                    .map(ArticleDto::fromEntity);
+        }
     }
 }

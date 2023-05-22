@@ -40,14 +40,22 @@ public class SiteUserController {
     }
 
     @GetMapping("/{id}/article")
-    public Page<ArticleReadRowResponse> readArticleById(@PathVariable Long id, @PageableDefault Pageable pageable) {
-        Page<ArticleDto> dtos = articleService.readBySiteUserId(id, pageable);
+    public Page<ArticleReadRowResponse> readArticleById(
+            @PathVariable Long id,
+            @RequestParam(defaultValue = "") String keyword,
+            @PageableDefault Pageable pageable
+    ) {
+        Page<ArticleDto> dtos = articleService.readBySiteUserId(id, keyword, pageable);
         return dtos.map(ArticleReadRowResponse::of);
     }
 
     @GetMapping("/me/article")
-    public Page<ArticleReadRowResponse> readArticleByAuthToken(@AuthenticationPrincipal SiteUserDto principal, @PageableDefault Pageable pageable) {
-        Page<ArticleDto> dtos = articleService.readBySiteUserId(principal.id(), pageable);
+    public Page<ArticleReadRowResponse> readArticleByAuthToken(
+            @AuthenticationPrincipal SiteUserDto principal,
+            @RequestParam(defaultValue = "") String keyword,
+            @PageableDefault Pageable pageable
+    ) {
+        Page<ArticleDto> dtos = articleService.readBySiteUserId(principal.id(), keyword, pageable);
         return dtos.map(ArticleReadRowResponse::of);
     }
 
