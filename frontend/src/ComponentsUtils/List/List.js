@@ -9,7 +9,6 @@ export default function List(props) {
 
     useEffect(() => {
         props.loadData(page, keyword);
-        console.log(keyword)
     }, [page, keyword, props.update]);
     return (
         <div className={`container ${props.className}`}>

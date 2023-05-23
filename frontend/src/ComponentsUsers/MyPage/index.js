@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import './css.css';
 
-import * as c from '../';
+import * as c from '../../ComponentsUtils';
 
 import Info from "./Info";
 import ArticleList from "./ArticleList";

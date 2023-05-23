@@ -37,7 +37,6 @@ export default function RouteComponent() {
         } />
         
       </Routes>    
-      <c.Footer />
     </BrowserRouter>
   );
 }
