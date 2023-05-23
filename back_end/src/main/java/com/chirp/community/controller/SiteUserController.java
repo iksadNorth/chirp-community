@@ -12,6 +12,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.web.PageableDefault;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
@@ -33,15 +34,40 @@ public class SiteUserController {
         return SiteUserReadResponse.of(dto);
     }
 
+    @GetMapping("/me")
+    public SiteUserReadResponse readByAuthToken(@AuthenticationPrincipal SiteUserDto principal) {
+        return SiteUserReadResponse.of(principal);
+    }
+
     @GetMapping("/{id}/article")
-    public Page<ArticleReadRowResponse> readArticleById(@PathVariable Long id, @PageableDefault Pageable pageable) {
-        Page<ArticleDto> dtos = articleService.readBySiteUserId(id, pageable);
+    public Page<ArticleReadRowResponse> readArticleById(
+            @PathVariable Long id,
+            @RequestParam(defaultValue = "") String keyword,
+            @PageableDefault Pageable pageable
+    ) {
+        Page<ArticleDto> dtos = articleService.readBySiteUserId(id, keyword, pageable);
+        return dtos.map(ArticleReadRowResponse::of);
+    }
+
+    @GetMapping("/me/article")
+    public Page<ArticleReadRowResponse> readArticleByAuthToken(
+            @AuthenticationPrincipal SiteUserDto principal,
+            @RequestParam(defaultValue = "") String keyword,
+            @PageableDefault Pageable pageable
+    ) {
+        Page<ArticleDto> dtos = articleService.readBySiteUserId(principal.id(), keyword, pageable);
         return dtos.map(ArticleReadRowResponse::of);
     }
 
     @PatchMapping("/{id}")
     public SiteUserReadResponse updateById(@PathVariable Long id, @RequestBody SiteUserUpdateRequest request) {
         SiteUserDto dto = siteUserService.updateById(id, request.email(), request.password(), request.nickname(), request.role());
+        return SiteUserReadResponse.of(dto);
+    }
+
+    @PatchMapping("/me")
+    public SiteUserReadResponse updateByAuthToken(@AuthenticationPrincipal SiteUserDto principal, @RequestBody SiteUserUpdateRequest request) {
+        SiteUserDto dto = siteUserService.updateByAuthToken(principal, request.email(), request.password(), request.nickname(), request.role());
         return SiteUserReadResponse.of(dto);
     }
 

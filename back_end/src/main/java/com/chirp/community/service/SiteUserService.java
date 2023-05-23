@@ -12,4 +12,6 @@ public interface SiteUserService extends UserDetailsService {
     SiteUserDto updateById(Long id, String email, String password, String nickname, RoleType role);
 
     void deleteById(Long id);
+
+    SiteUserDto updateByAuthToken(SiteUserDto principal, String email, String password, String nickname, RoleType role);
 }

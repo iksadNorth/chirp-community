@@ -6,6 +6,7 @@ import com.chirp.community.exception.CommunityAuthenticationEntryPoint;
 import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.http.HttpMethod;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.core.userdetails.UserDetailsService;
@@ -79,6 +80,10 @@ public class AuthenticationConfig {
     public HttpSecurity authorizeHttpRequests(HttpSecurity http) throws Exception {
         return http.authorizeHttpRequests(
                 reg -> reg
+                        .requestMatchers(HttpMethod.GET, "/api/v1/user/me/**").authenticated()
+
+                        .requestMatchers(HttpMethod.PATCH, "/api/v1/**").authenticated()
+                        .requestMatchers(HttpMethod.DELETE, "/api/v1/**").authenticated()
                         .anyRequest().permitAll()
                 );
     }
