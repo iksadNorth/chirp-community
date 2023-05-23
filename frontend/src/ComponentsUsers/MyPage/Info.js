@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import './css.css';
 
-import * as c from '..';
+import * as c from '../../ComponentsUtils';
 import { get, patch } from "../../api";
 import { adapterEvent, getToken, hasSomethingInString, isNotBlank } from "../../utils";
 

@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import './css.css';
 
-import * as c from '../';
+import * as c from '../../ComponentsUtils';
 
 import { post } from '../../api';
 import { setToken, isNotBlank } from '../../utils';

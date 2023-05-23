@@ -1,5 +1,5 @@
 import React from "react";
-import * as c from '../';
+import * as c from '../../ComponentsUtils';
 
 export default function Profile(props) {
     const iconName = props.iconName;

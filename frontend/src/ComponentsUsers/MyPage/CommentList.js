@@ -3,8 +3,8 @@ import './css.css';
 
 import { Link } from 'react-router-dom';
 
-import * as c from '../';
-import List from "./List";
+import * as c from '../../ComponentsUtils';
+import List from "../../ComponentsUtils/List/List";
 import { del, get } from "../../api";
 import { addParams, pageRequest } from "../../utils";
 
