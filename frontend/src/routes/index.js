@@ -23,10 +23,13 @@ export default function RouteComponent() {
           <c.MyPage />
         } />
 
+        <Route path="/user/:userId" element={
+          <c.UserPage />
+        } />
+
         <Route path="/update/board" element={
           <c.BoardDashBoard />
         } />
-
 
         <Route path="/" element={
           <b.MainPage />

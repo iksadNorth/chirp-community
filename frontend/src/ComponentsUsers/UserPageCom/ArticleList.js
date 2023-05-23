@@ -12,12 +12,12 @@ import TitleWithIcon from '../../ComponentsUtils/TitleWithIcon';
 
 export default function ArticleList(props) {
     const head = {
-        title: (<i class="bi bi-postcard"></i>),
-        content: (<i class="bi bi-postcard"></i>),
-        board: (<i class="bi bi-archive"></i>),
-        createdAt: (<i class="bi bi-calendar-date"></i>),
-        numLikes: (<i class="bi bi-hand-thumbs-up"></i>),
-        numComments: (<i class="bi bi-chat-dots"></i>),
+        title: (<i className="bi bi-postcard"></i>),
+        content: (<i className="bi bi-postcard"></i>),
+        board: (<i className="bi bi-archive"></i>),
+        createdAt: (<i className="bi bi-calendar-date"></i>),
+        numLikes: (<i className="bi bi-hand-thumbs-up"></i>),
+        numComments: (<i className="bi bi-chat-dots"></i>),
     };
 
     const headEl = (row) => (
@@ -28,7 +28,7 @@ export default function ArticleList(props) {
                     <div className="col-2"><strong>{row.createdAt}</strong></div>
                     <div className="col-1"><strong>{row.numLikes}</strong></div>
                     <div className="col-1"><strong>{row.numComments}</strong></div>
-                    <div className="col-1"><strong><i class="bi bi-trash3"></i></strong></div>
+                    {props.readonly ? null : <div className="col-1"><strong><i className="bi bi-trash3"></i></strong></div>}
                 </div>
             </div>
     );
@@ -40,13 +40,13 @@ export default function ArticleList(props) {
                     <div className="col-2">{toDate(row.createdAt) ?? "[X]"}</div>
                     <div className="col-1">{row.numLikes ?? 0}</div>
                     <div className="col-1">{row.numComments ?? 0}</div>
-                    <button type="button" className="col-1 btn btn-danger"
+                    {props.readonly ? null : <button type="button" className="col-1 btn btn-danger"
                         onClick={() => {
                             if(row.id) {
                                 deleteRow(row.id);
                             }
                         }}
-                    ></button>
+                    ></button>}
                 </div>
             </div>
     );
@@ -76,7 +76,7 @@ export default function ArticleList(props) {
         const sort_field = "createdAt";
         const sort_asc = true;
 
-        get(addParams(`/api/v1/user/me/article`, {
+        get(addParams(`/api/v1/user/${userId}/article`, {
             ...pageRequest(page, size, sort_field, sort_asc),
             keyword: keyword,
         }))
@@ -100,7 +100,10 @@ export default function ArticleList(props) {
             popToast(err);
         });
     };
-    const [iconName, headTitle] = ["bi-signpost-2-fill", "내가 쓴 글"];
+    const userId = props.userId ?? "me";
+    const userName = props.userName ?? "[익명의 유저]";
+
+    const [iconName, headTitle] = ["bi-signpost-2-fill", `${userName}가 쓴 글`];
 
     const [data, setData] = useState([]);
     const [messageToast, popToast] = useState(null);
