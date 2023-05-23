@@ -6,24 +6,24 @@ import './index.css';
 import { get } from '../../api'
 import { useEffect, useState } from 'react';
 
-function BoardList(props) {
-    console.log('BoardList.props :', props)
-    return (
-        <div className="nav-scroller py-1 mb-2">
-            <nav className="nav d-flex justify-content-between">
-                <a className="p-2 link-secondary" href="#">게시판1</a>
-                <a className="p-2 link-secondary" href="#">게시판2</a>
-                <a className="p-2 link-secondary" href="#">게시판3</a>
-                <a className="p-2 link-secondary" href="#">게시판4</a>
-                <a className="p-2 link-secondary" href="#">게시판5</a>
-            </nav>
-        </div>
-    )
+// function BoardList(props) {
+//     console.log('BoardList.props :', props)
+//     return (
+//         <div className="nav-scroller py-1 mb-2">
+//             <nav className="nav d-flex justify-content-between">
+//                 <a className="p-2 link-secondary" href="#">게시판1</a>
+//                 <a className="p-2 link-secondary" href="#">게시판2</a>
+//                 <a className="p-2 link-secondary" href="#">게시판3</a>
+//                 <a className="p-2 link-secondary" href="#">게시판4</a>
+//                 <a className="p-2 link-secondary" href="#">게시판5</a>
+//             </nav>
+//         </div>
+//     )
 
-}
+// }
 
 
-function Main() {
+function MainPage() {
 
     const [boardName, setBoardName] = useState([]);
 
@@ -276,6 +276,6 @@ function Main() {
     );
 }
 
-export default Main;
+export default MainPage;
 
 
