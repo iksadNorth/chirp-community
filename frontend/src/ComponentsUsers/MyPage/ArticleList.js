@@ -6,9 +6,9 @@ import { Link } from 'react-router-dom';
 import * as c from '../../ComponentsUtils';
 import List from "../../ComponentsUtils/List/List";
 import { del, get } from "../../api";
-import { addParams, pageRequest } from "../../utils";
+import { addParams, pageRequest, toDate } from "../../utils";
 
-import TitleWithIcon from './TitleWithIcon';
+import TitleWithIcon from '../../ComponentsUtils/TitleWithIcon';
 
 export default function ArticleList(props) {
     const head = {
@@ -37,7 +37,7 @@ export default function ArticleList(props) {
                 <div className='row'>
                     <div className="col-2">{row.board ?? "[X]"}</div>
                     <Link className="col no-deco" to={row.id ? `/article/${row.id}` : '#'}>{row.title?? "[X]"}</Link>
-                    <div className="col-2">{row.createdAt ?? "[X]"}</div>
+                    <div className="col-2">{toDate(row.createdAt) ?? "[X]"}</div>
                     <div className="col-1">{row.numLikes ?? 0}</div>
                     <div className="col-1">{row.numComments ?? 0}</div>
                     <button type="button" className="col-1 btn btn-danger"
@@ -57,7 +57,7 @@ export default function ArticleList(props) {
         //         id: 1,
         //         title: "제목1",
         //         board: "게시판1",
-        //         createdAt: "날짜1",
+        //         createdAt: "2023-01-01",
         //         numLikes: "50",
         //         numComments: "10",
         //     },
@@ -65,7 +65,7 @@ export default function ArticleList(props) {
         //         id: 2,
         //         title: "제목2",
         //         board: "게시판2",
-        //         createdAt: "날짜2",
+        //         createdAt: "2023-01-01",
         //         numLikes: "75",
         //         numComments: "34",
         //     },

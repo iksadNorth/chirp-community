@@ -1,0 +1,11 @@
+.container-size {
+    min-width: 60vw;
+
+    margin: 50px;
+}
+
+.button-set * {
+    width: 100px;
+
+    margin: 10px;
+}

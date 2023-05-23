@@ -20,20 +20,30 @@ export default function Page(props) {
     const [cursor, setCursor] = useState(0);
     const [indexes, setIndexes] = useState([]);
 
+    const calculateArray = () => {
+        const start = limitedRange(cursor, first_index, last_index, radius);
+        const arr = [...Array(2*radius+1)]
+                                .map((_, index) => (index + start))
+                                .filter(page => first_index <= page && page <= last_index);
+        setIndexes(arr);
+    }
+
     useEffect(() => {
-        const cursorCalculated = limitedCursor(cursor, first_index, last_index);
-        if(cursor != cursorCalculated) {
-            setCursor(cursorCalculated);
+        const cursorInRange = limitedCursor(cursor, first_index, last_index);
+        if(cursor != cursorInRange) {
+            setCursor(cursorInRange);
         } else {
-            const start = limitedRange(cursor, first_index, last_index, radius);
-            const arr = [...Array(2*radius+1)]
-                                    .map((_, index) => (index + start))
-                                    .filter(page => first_index <= page && page <= last_index);
-            setIndexes(arr);
+            calculateArray();
 
             handlePage(cursor);
         }
     }, [cursor])
+    // handlePage에 의해 날라간 쿼리는 비동기 함수여서 늦게 갱신된다.
+    // 해당 쿼리는 numTotalPages에 대한 정보를 담고 있다.
+    // 즉, numTotalPages에 대한 정보는 늦게 갱신된다.
+    // 이것 때문에 초기 indexes은 계산이 되지 않는 상황이 발생하고 계속 1페이지만 대기열에 놓게 된다.
+    // 이런 현상을 막기 위해 아래와 같은 Line을 추가했다.
+    useEffect(calculateArray, [props]);
 
     return (
         <ul className={`pagination d-flex justify-content-center ${props.className}`}>
