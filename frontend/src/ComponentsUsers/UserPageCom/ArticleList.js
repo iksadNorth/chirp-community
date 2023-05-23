@@ -28,7 +28,7 @@ export default function ArticleList(props) {
                     <div className="col-2"><strong>{row.createdAt}</strong></div>
                     <div className="col-1"><strong>{row.numLikes}</strong></div>
                     <div className="col-1"><strong>{row.numComments}</strong></div>
-                    <div className="col-1"><strong><i className="bi bi-trash3"></i></strong></div>
+                    {props.readonly ? null : <div className="col-1"><strong><i className="bi bi-trash3"></i></strong></div>}
                 </div>
             </div>
     );
@@ -40,13 +40,13 @@ export default function ArticleList(props) {
                     <div className="col-2">{row.createdAt ?? "[X]"}</div>
                     <div className="col-1">{row.numLikes ?? 0}</div>
                     <div className="col-1">{row.numComments ?? 0}</div>
-                    <button type="button" className="col-1 btn btn-danger"
+                    {props.readonly ? null : <button type="button" className="col-1 btn btn-danger"
                         onClick={() => {
                             if(row.id) {
                                 deleteRow(row.id);
                             }
                         }}
-                    ></button>
+                    ></button>}
                 </div>
             </div>
     );

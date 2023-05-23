@@ -24,10 +24,10 @@ export default function UserPage() {
       </div>
       <div className="row">
         <div className="col">
-            <ArticleList className="list-size" userId={userId} userName={userName} />
+            <ArticleList className="list-size" userId={userId} userName={userName} readonly={true} />
         </div>
         <div className="col">
-            <CommentList className="list-size" userId={userId} userName={userName} />
+            <CommentList className="list-size" userId={userId} userName={userName} readonly={true} />
         </div>
       </div>
     </c.Sheet>
