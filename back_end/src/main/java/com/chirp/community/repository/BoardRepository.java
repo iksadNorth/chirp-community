@@ -10,8 +10,8 @@ import org.springframework.stereotype.Repository;
 @Repository
 public interface BoardRepository extends JpaRepository<Board, Long> {
     @Query(
-            value = "SELECT b FROM Board b WHERE b.name LIKE \"%:keyword%\"",
-            countQuery = "SELECT COUNT(b) FROM Board b WHERE b.name LIKE \"%:keyword%\""
+            value = "SELECT b FROM Board b WHERE b.name LIKE CONCAT('%', :keyword, '%')",
+            countQuery = "SELECT COUNT(b) FROM Board b WHERE b.name LIKE CONCAT('%', :keyword, '%')"
     )
     Page<Board> findAllByKeyword(String keyword, Pageable pageable);
 }

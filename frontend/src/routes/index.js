@@ -27,6 +27,10 @@ export default function RouteComponent() {
           <c.UserPage />
         } />
 
+        <Route path="/update/board" element={
+          <c.BoardDashBoard />
+        } />
+
         <Route path="/" element={
           <b.MainPage />
         } />
