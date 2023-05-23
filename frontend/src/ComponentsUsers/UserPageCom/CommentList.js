@@ -8,16 +8,16 @@ import List from "../../ComponentsUtils/List/List";
 import { del, get } from "../../api";
 import { addParams, pageRequest } from "../../utils";
 
-import TitleWithIcon from "./TitleWithIcon";
+import TitleWithIcon from "../UserPageCom/TitleWithIcon";
 
 export default function CommentList(props) {
     const head = {
-        title: (<i class="bi bi-postcard"></i>),
-        content: (<i class="bi bi-postcard"></i>),
-        board: (<i class="bi bi-archive"></i>),
-        createdAt: (<i class="bi bi-calendar-date"></i>),
-        numLikes: (<i class="bi bi-hand-thumbs-up"></i>),
-        numComments: (<i class="bi bi-chat-dots"></i>),
+        title: (<i className="bi bi-postcard"></i>),
+        content: (<i className="bi bi-postcard"></i>),
+        board: (<i className="bi bi-archive"></i>),
+        createdAt: (<i className="bi bi-calendar-date"></i>),
+        numLikes: (<i className="bi bi-hand-thumbs-up"></i>),
+        numComments: (<i className="bi bi-chat-dots"></i>),
     };
 
     const headEl = (row) => (
@@ -27,7 +27,7 @@ export default function CommentList(props) {
                     <div className="col"><strong>{row.content}</strong></div>
                     <div className="col-2"><strong>{row.createdAt}</strong></div>
                     <div className="col-1"><strong>{row.numLikes}</strong></div>
-                    <div className="col-1"><strong><i class="bi bi-trash3"></i></strong></div>
+                    <div className="col-1"><strong><i className="bi bi-trash3"></i></strong></div>
                 </div>
             </div>
     );
@@ -74,7 +74,7 @@ export default function CommentList(props) {
         // const sort_field = "createdAt";
         // const sort_asc = true;
 
-        // get(addParams(`/api/v1/user/me/comment`, pageRequest(page, size, sort_field, sort_asc)))
+        // get(addParams(`/api/v1/user/${userId}/comment`, pageRequest(page, size, sort_field, sort_asc)))
         // .then((res) => {
         //     setData(res.content);
         //     setNumTotalPages(res.totalPages);
@@ -95,14 +95,17 @@ export default function CommentList(props) {
             popToast(err);
         });
     };
-    const [iconName, headTitle] = ["bi-chat-dots", "내가 쓴 댓글"];
+    const userId = props.userId ?? "me";
+    const userName = props.userName ?? "[익명의 유저]";
+
+    const [iconName, headTitle] = ["bi-chat-dots", `${userName}가 쓴 댓글`];
 
     const [data, setData] = useState([]);
     const [messageToast, popToast] = useState(null);
 
     const [numTotalPages, setNumTotalPages] = useState(1);
     const [update, doUpdate] = useState(0);
-    
+
     return (
         <c.Sheet className={`py-5 container ${props.className}`}>
             <div className="row">

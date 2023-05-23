@@ -4,7 +4,7 @@ export default function TitleWithIcon({ iconName, head }) {
         <i className={`bi icon-size ${iconName}`}></i>
 
         <div className="d-flex flex-column align-items-start">
-            <h1 className="mb-1"><strong>{head}</strong></h1>
+            <h1 className="mb-1 text-size-auto"><strong>{head}</strong></h1>
         </div>
     </div>
     );
