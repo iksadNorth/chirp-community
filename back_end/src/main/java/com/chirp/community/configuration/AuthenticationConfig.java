@@ -3,6 +3,7 @@ package com.chirp.community.configuration;
 import com.chirp.community.configuration.filter.JwtFilter;
 import com.chirp.community.exception.CommunityAccessDeniedHandler;
 import com.chirp.community.exception.CommunityAuthenticationEntryPoint;
+import com.chirp.community.type.RoleType;
 import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -81,6 +82,10 @@ public class AuthenticationConfig {
         return http.authorizeHttpRequests(
                 reg -> reg
                         .requestMatchers(HttpMethod.GET, "/api/v1/user/me/**").authenticated()
+
+                        .requestMatchers(HttpMethod.POST, "/api/v1/board/**").hasAnyAuthority(RoleType.PRIME_ADMIN.getDbName())
+                        .requestMatchers(HttpMethod.PATCH, "/api/v1/board/**").hasAnyAuthority(RoleType.PRIME_ADMIN.getDbName())
+                        .requestMatchers(HttpMethod.DELETE, "/api/v1/board/**").hasAnyAuthority(RoleType.PRIME_ADMIN.getDbName())
 
                         .requestMatchers(HttpMethod.PATCH, "/api/v1/**").authenticated()
                         .requestMatchers(HttpMethod.DELETE, "/api/v1/**").authenticated()
