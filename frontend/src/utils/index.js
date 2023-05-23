@@ -1,3 +1,5 @@
+import { format } from 'date-fns';
+
 const header_jwt = 'jwt_token'
 
 export function getToken() {
@@ -70,4 +72,8 @@ export function decodeJwt() {
 export function adapterEvent(setFunc) {
     return (event) => 
         setFunc(event.target.value);
+};
+
+export function toDate(isoDateTimeString) {
+    return format(new Date(isoDateTimeString), "yy/MM/dd").toString();
 };

@@ -6,9 +6,9 @@ import { Link } from 'react-router-dom';
 import * as c from '../../ComponentsUtils';
 import List from "../../ComponentsUtils/List/List";
 import { del, get } from "../../api";
-import { addParams, pageRequest } from "../../utils";
+import { addParams, pageRequest, toDate } from "../../utils";
 
-import TitleWithIcon from "./TitleWithIcon";
+import TitleWithIcon from "../../ComponentsUtils/TitleWithIcon";
 
 export default function CommentList(props) {
     const head = {
@@ -36,7 +36,7 @@ export default function CommentList(props) {
                 <div className="row no-deco">
                     <div className="col-3">{row.board ?? '[X]'}</div>
                     <Link className="col no-deco" to={row.articleId ? `/article/${row.articleId}` : '#'}>{row.content ?? '[X]'}</Link>
-                    <div className="col-2">{row.createdAt ?? '[X]'}</div>
+                    <div className="col-2">{toDate(row.createdAt )?? '[X]'}</div>
                     <div className="col-1">{row.numLikes ?? 0}</div>
                     <button type="button" className="col-1 btn btn-danger"
                         onClick={() => {
@@ -56,7 +56,7 @@ export default function CommentList(props) {
                 articleId: 1,
                 content: "제목1",
                 board: "게시판1",
-                createdAt: "날짜1",
+                createdAt: "2023-01-01",
                 numLikes: "14",
             },
             {
@@ -64,7 +64,7 @@ export default function CommentList(props) {
                 articleId: 2,
                 content: "제목2",
                 board: "게시판2",
-                createdAt: "날짜2",
+                createdAt: "2023-01-01",
                 numLikes: "15",
             },
         ];
