@@ -59,7 +59,7 @@ export default function Page(props) {
             </li>
 
             {/* 번호 버튼 */}
-            <li className="d-flex flex-row">
+            <div className="d-flex flex-row">
                 {indexes.map((idx, index) => (
                     <li className="page-item" key={index}>
                         <button 
@@ -68,7 +68,7 @@ export default function Page(props) {
                         >{idx + 1}</button>
                     </li>
                 ))}
-            </li>
+            </div>
 
             {/* 마지막 페이지 버튼 */}
             <li className="page-item">

@@ -5,6 +5,11 @@ import { get } from "../api";
 import { pageRequest, addParams } from '../utils';
 import { Link } from "react-router-dom";
 
+import NoAuth from './NoAuth';
+import UserAuth from './UserAuth';
+import PrimeAdminAuth from './PrimeAdminAuth';
+import BoardAdminAuth from './BoardAdminAuth';
+
 export default function Header() {
     const [boards, setBoards] = useState([]);
 
@@ -35,12 +40,10 @@ export default function Header() {
             </Link>
 
             <ul className="navbar-nav">
-                <li className="nav-item">
-                    <Link className="nav-link" to="/login">Login</Link>
-                </li>
-                <li className="nav-item">
-                    <Link className="nav-link" to="/mypage">MyPage</Link>
-                </li>
+                <NoAuth />
+                <UserAuth />
+                <PrimeAdminAuth />
+                <BoardAdminAuth />
             </ul>
 
         </div>
