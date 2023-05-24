@@ -69,6 +69,15 @@ export function decodeJwt() {
     return decodedData;
   }
 
+export function isPrimeAdmin() {
+    const tokenDecoded = decodeJwt();
+    return tokenDecoded.ROLE == 'PRIME_ADMIN';
+}
+
+export function isThisBoardAdmin(objUser) {
+    return objUser.role == 'BOARD_ADMIN';
+}
+
 export function adapterEvent(setFunc) {
     return (event) => 
         setFunc(event.target.value);

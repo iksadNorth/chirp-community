@@ -2,8 +2,8 @@ import React, { useEffect, useState } from "react";
 import './css.css';
 
 import * as c from '../../ComponentsUtils';
-import { get } from "../../api";
-import { adapterEvent, getToken, isNotBlank } from "../../utils";
+import { get, patch } from "../../api";
+import { adapterEvent, getToken, isNotBlank, isPrimeAdmin, isThisBoardAdmin } from "../../utils";
 
 import Profile from "../UserPageCom/Profile";
 
@@ -12,6 +12,7 @@ export default function Info(props) {
     const [nickname, setNickname] = useState('');
 
     const [messageToast, popToast] = useState(null);
+    const [isBoardAdmin, setBoardAdmin] = useState(false);
 
     const userId = props.userId ?? "me";
 
@@ -20,6 +21,7 @@ export default function Info(props) {
         setEmail(res.email);
         setNickname(res.nickname);
         props.setUserName(res.nickname);
+        setBoardAdmin(isThisBoardAdmin(res.role));
 
         popToast(null);
     };
@@ -37,17 +39,48 @@ export default function Info(props) {
             })
     };
 
+    const updateRole = () => {
+        if(!isNotBlank(getToken())) { return ; }
+        
+        patch(`/api/v1/user/${userId}`, {
+            body: JSON.stringify({
+                role: isBoardAdmin ? "BOARD_ADMIN" : "USER",
+            }),
+        })
+        .then((res) => {
+            setProfiles(res);
+        })
+        .catch((err) => {
+            console.log("loadUserInfo Error");
+            popToast(err);
+        })
+    };
+
     useEffect(() => {
         loadUserInfo();
       }, []);
+
+    useEffect(() => {
+        updateRole();
+    }, [isBoardAdmin]);
 
     return (
         <c.Sheet className={props.className}>
             <div className="d-flex flex-column align-items-start m-5">
                 <div className="container">
                     <div className="row">
-                        <div className="d-flex flex-row">
+                        <div className="col d-flex flex-row">
                             <h1 className="fw-bold mb-0">개인 정보</h1>
+                        </div>
+                        <div className="col-auto d-flex flex-row">
+                            { isPrimeAdmin() ? 
+                            <div class="form-check form-switch">
+                                <input class="form-check-input" type="checkbox" role="switch" id="switch" 
+                                    value={isBoardAdmin} onChange={adapterEvent(setBoardAdmin)} 
+                                />
+                                <label class="form-check-label" for="switch">게시판 관리자 권한</label>
+                            </div>
+                        : null }
                         </div>
                     </div>
                 </div>
