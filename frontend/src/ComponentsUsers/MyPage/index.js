@@ -4,8 +4,8 @@ import './css.css';
 import * as c from '../../ComponentsUtils';
 
 import Info from "./Info";
-import ArticleList from "./ArticleList";
-import CommentList from "./CommentList";
+import ArticleList from "../UserPageCom/ArticleList";
+import CommentList from "../UserPageCom/CommentList";
 import { getToken } from "../../utils";
 
 export default function Login() {
@@ -27,10 +27,10 @@ export default function Login() {
       </div>
       <div className="row">
         <div className="col">
-            <ArticleList className="list-size" />
+            <ArticleList className="list-size" userName="내" />
         </div>
         <div className="col">
-            <CommentList className="list-size" />
+            <CommentList className="list-size" userName="내" />
         </div>
       </div>
     </c.Sheet>

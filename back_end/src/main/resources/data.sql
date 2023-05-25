@@ -1,6 +1,8 @@
 insert into site_user (email, password, nickname, role) values
 ('junmop01@gmail.com', '1234', 'junmo01', 'ROLE_USER'),
-('junmop02@gmail.com', '1234', 'junmo02', 'ROLE_USER')
+('junmop02@gmail.com', '1234', 'junmo02', 'ROLE_USER'),
+('admin', '1234', 'admin', 'ROLE_PRIME_ADMIN'),
+('bdmin', '1234', 'bdmin', 'ROLE_BOARD_ADMIN')
 ;
 
 
