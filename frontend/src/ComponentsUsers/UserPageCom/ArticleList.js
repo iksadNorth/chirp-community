@@ -33,7 +33,7 @@ export default function ArticleList(props) {
             </div>
     );
     const rowEl = (row) => (
-            <div className="container">
+            <div className="container" key={row.id} >
                 <div className='row'>
                     <div className="col-2">{row.board ?? "[X]"}</div>
                     <Link className="col no-deco" to={row.id ? `/article/${row.id}` : '#'}>{row.title?? "[X]"}</Link>

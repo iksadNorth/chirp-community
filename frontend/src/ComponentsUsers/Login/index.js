@@ -8,6 +8,9 @@ import { setToken, isNotBlank } from '../../utils';
 
 import { Link, useNavigate } from 'react-router-dom';
 
+import { useDispatch } from "react-redux";
+import { login } from "../../store/actions/AuthAction";
+
 export default function Login() {
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
@@ -15,6 +18,7 @@ export default function Login() {
     const [error, setError] = useState('');
 
     const history = useNavigate();
+    const dispatch = useDispatch();
 
     const wrap = (setFunc) => {
         return (event) => 
@@ -30,6 +34,7 @@ export default function Login() {
         })
         .then((response) => {
             setToken(response.token);
+            dispatch(login(response.token));
             setError(null);
             history(-1);
         })

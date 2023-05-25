@@ -5,12 +5,17 @@ import 'bootstrap-icons/font/bootstrap-icons.css';
 import 'bootstrap/dist/css/bootstrap.css';
 import 'bootstrap/dist/js/bootstrap.js';
 
+import { Provider } from "react-redux";
+import store from './store';
+
 function App() {
 
   return (
-    <div className="App">
-      <RouteComponent />
-    </div>
+    <Provider store={store}>
+      <div className="App">
+        <RouteComponent />
+      </div>
+    </Provider>
   );
 }
 

@@ -20,7 +20,7 @@ export default function ButtonSet(props) {
                     className='btn btn-success'
                     onClick={clickCreate}
                     >
-                    <i class="bi bi-plus-square"></i>
+                    <i className="bi bi-plus-square"></i>
                 </button>
             </div>
             :
@@ -29,13 +29,13 @@ export default function ButtonSet(props) {
                     className='btn btn-info'
                     onClick={clickUpdate}
                 >
-                    <i class="bi bi-check-square"></i>
+                    <i className="bi bi-check-square"></i>
                 </button>
                 <button
                     className='btn btn-secondary'
                     onClick={clickCancel}
                 >
-                    <i class="bi bi-x-square"></i>
+                    <i className="bi bi-x-square"></i>
                 </button>
             </div>
             }

@@ -74,7 +74,7 @@ export default function BoardList(props) {
             </div>
     );
     const rowEl = (row) => (
-            <div className="container">
+            <div className="container" key={row.id} >
                 <div className='row'>
                     <Link className="col no-deco" to={row.id ? `/article/${row.id}` : DefaultValue.url}>{row.name?? DefaultValue.name}</Link>
                     <div className="col-2">{toDate(row.createdAt )?? DefaultValue.createdAt}</div>
