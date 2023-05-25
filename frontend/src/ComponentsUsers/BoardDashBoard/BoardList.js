@@ -109,7 +109,7 @@ export default function BoardList(props) {
         };
 
         return (
-            <div className="container" key={row.id} >>
+            <div className="container" key={row.id} >
                 <div className='row'>
                     <u.RNW className="col" readonly={readMode} handlerChange={adapterEvent(setText)} value={text}/>
                     <div className="col-2">{toDate(row.createdAt )?? DefaultValue.createdAt}</div>
