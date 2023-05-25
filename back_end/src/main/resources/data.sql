@@ -1,6 +1,8 @@
 insert into site_user (email, password, nickname, role) values
 ('junmop01@gmail.com', '1234', 'junmo01', 'ROLE_USER'),
-('junmop02@gmail.com', '1234', 'junmo02', 'ROLE_USER')
+('junmop02@gmail.com', '1234', 'junmo02', 'ROLE_USER'),
+('admin', '1234', 'admin', 'ROLE_PRIME_ADMIN'),
+('bdmin', '1234', 'bdmin', 'ROLE_BOARD_ADMIN')
 ;
 
 
@@ -16,6 +18,9 @@ INSERT INTO `site_user` (email, password, nickname) VALUES
 ('user1', '1234', 'iksadnorth'),
 ('user2', '1234', 'iksadsouth'),
 ('user3', '1234', 'junmo');
+
+INSERT INTO `site_user` (email, password, nickname, role) VALUES
+('admin', '1234', 'prime admin', 'ROLE_PRIME_ADMIN');
 
 INSERT INTO `article` (title, content, board_id, writer_id) VALUES
 ('article1', '<h1>문제 해결1</h1>', 1, 1),

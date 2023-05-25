@@ -13,6 +13,10 @@ export function setToken(token) {
     }
 }
 
+export function delToken() {
+    localStorage.removeItem(header_jwt);
+}
+
 export function isNotBlank(token) {
     return (token !== null && token !== undefined)
 }
@@ -62,12 +66,17 @@ export function decodeBase64Url(str) {
   
 export function decodeJwt() {
     const token = getToken();
+    return decodeJwtWithArg(token);
+}
+
+export function decodeJwtWithArg(token) {
+    if(!isNotBlank(token)) { return {}; }
     const parts = token.split(".");
     const payload = parts[1];
     const decodedPayload = decodeBase64Url(payload);
     const decodedData = JSON.parse(decodedPayload);
     return decodedData;
-  }
+}
 
 export function isPrimeAdmin() {
     const tokenDecoded = decodeJwt();
