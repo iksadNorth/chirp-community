@@ -10,7 +10,7 @@ export function login(token) {
     };
 }
 
-export function logout(token) {
+export function logout() {
     return {
         type: LOGOUT,
     };
