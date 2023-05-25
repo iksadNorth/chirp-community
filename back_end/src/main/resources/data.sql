@@ -19,6 +19,9 @@ INSERT INTO `site_user` (email, password, nickname) VALUES
 ('user2', '1234', 'iksadsouth'),
 ('user3', '1234', 'junmo');
 
+INSERT INTO `site_user` (email, password, nickname, role) VALUES
+('admin', '1234', 'prime admin', 'ROLE_PRIME_ADMIN');
+
 INSERT INTO `article` (title, content, board_id, writer_id) VALUES
 ('article1', '<h1>문제 해결1</h1>', 1, 1),
 ('article2', '<h1>문제 해결2</h1>', 2, 1),

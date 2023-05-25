@@ -13,4 +13,6 @@ export const IconTable = {
     numLikes: (<i className="bi bi-hand-thumbs-up"></i>),
     numArticles: (<i className="bi bi-chat-dots"></i>),
     delete: (<i className="bi bi-trash3"></i>),
+    change: (<i className="bi bi-pencil"></i>),
+    cancel: (<i className="bi bi-x-square"></i>),
 };
