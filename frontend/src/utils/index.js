@@ -1,4 +1,5 @@
 import { format } from 'date-fns';
+import { v4 as uuidv4 } from 'uuid';
 
 const header_jwt = 'jwt_token'
 
@@ -83,6 +84,29 @@ export function adapterEvent(setFunc) {
         setFunc(event.target.value);
 };
 
+export function adapterCheckBoxEvent(setFunc) {
+    return (event) => 
+        setFunc(event.target.checked);
+};
+
 export function toDate(isoDateTimeString) {
     return format(new Date(isoDateTimeString), "yy/MM/dd").toString();
+};
+
+export function generateUUID() {
+    return uuidv4();
+};
+
+export function getRandomColor() {
+    const colors = [
+        "\x1b[31m", "\x1b[32m", "\x1b[34m", "\x1b[35m", "\x1b[36m",
+        "\x1b[41m", "\x1b[42m", "\x1b[44m", "\x1b[45m", "\x1b[46m",
+    ];
+    const randomIndex = Math.floor(Math.random() * colors.length);
+    return colors[randomIndex];
+};
+
+export function withRandomColor(text) {
+    const randomColor = getRandomColor();
+    return `${randomColor}${text}\x1b[0m`;
 };

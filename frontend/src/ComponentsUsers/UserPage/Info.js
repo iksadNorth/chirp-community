@@ -2,16 +2,22 @@ import React, { useEffect, useState } from "react";
 import './css.css';
 
 import * as c from '../../ComponentsUtils';
-import { get } from "../../api";
-import { adapterEvent, getToken, isNotBlank } from "../../utils";
+import { get, patch } from "../../api";
+import { adapterEvent, adapterCheckBoxEvent, getToken, isNotBlank } from "../../utils";
 
 import Profile from "../UserPageCom/Profile";
+import PrimeAdmin from '../../ComponentsUtils/AuthorizedCom/PrimeAdmin';
+
+const isThisBoardAdmin = (role) => {
+    return role == 'BOARD_ADMIN';
+}
 
 export default function Info(props) {
     const [email, setEmail] = useState('');
     const [nickname, setNickname] = useState('');
 
     const [messageToast, popToast] = useState(null);
+    const [isBoardAdmin, setBoardAdmin] = useState(false);
 
     const userId = props.userId ?? "me";
 
@@ -20,13 +26,12 @@ export default function Info(props) {
         setEmail(res.email);
         setNickname(res.nickname);
         props.setUserName(res.nickname);
+        setBoardAdmin(isThisBoardAdmin(res.role));
 
         popToast(null);
     };
 
-    const loadUserInfo = () => {
-        if(!isNotBlank(getToken())) { return ; }
-        
+    const loadUserInfo = () => {        
         get(`/api/v1/user/${userId}`)
             .then((res) => {
                 setProfiles(res);
@@ -35,6 +40,26 @@ export default function Info(props) {
                 console.log("loadUserInfo Error");
                 popToast(err);
             })
+    };
+
+    const updateRole = (isSwitchOn) => {
+        if(!isNotBlank(getToken())) { return ; }
+        
+        const isBoardAdminBySwitch = isSwitchOn ? "BOARD_ADMIN" : "USER";
+        if(isBoardAdminBySwitch == isBoardAdmin) { return ; }
+        
+        patch(`/api/v1/user/${userId}`, {
+            body: JSON.stringify({
+                role: isBoardAdminBySwitch,
+            }),
+        })
+        .then((res) => {
+            setProfiles(res);
+        })
+        .catch((err) => {
+            console.log("updateRole Error");
+            popToast(err);
+        })
     };
 
     useEffect(() => {
@@ -46,8 +71,18 @@ export default function Info(props) {
             <div className="d-flex flex-column align-items-start m-5">
                 <div className="container">
                     <div className="row">
-                        <div className="d-flex flex-row">
+                        <div className="col d-flex flex-row">
                             <h1 className="fw-bold mb-0">개인 정보</h1>
+                        </div>
+                        <div className="col-auto d-flex flex-row">
+                            <PrimeAdmin>
+                                <div className="form-check form-switch">
+                                    <label className="form-check-label">게시판 관리자 권한</label>
+                                    <input className="form-check-input" type="checkbox" role="switch" id="switch" 
+                                        checked={isBoardAdmin} onChange={adapterCheckBoxEvent(updateRole)} 
+                                    />
+                                </div>
+                            </PrimeAdmin>
                         </div>
                     </div>
                 </div>
