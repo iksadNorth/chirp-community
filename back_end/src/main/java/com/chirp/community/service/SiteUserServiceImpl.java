@@ -71,7 +71,7 @@ public class SiteUserServiceImpl implements SiteUserService {
 
     @Override
     public SiteUserDto updateById(Long id, String email, String password, String nickname, RoleType role) {
-        if(!isAdmin(role) && !ownershipCheck(id)) {
+        if(!isAdmin() && !ownershipCheck(id)) {
             throw CommunityException.of(
                     HttpStatus.FORBIDDEN,
                     "해당 사용자로의 접근은 금지되어 있습니다.",
