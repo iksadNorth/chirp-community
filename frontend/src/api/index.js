@@ -1,6 +1,9 @@
-import { getToken, isNotBlank, getCookie, addBaseUrl } from '../utils';
+import { getToken, isNotBlank, getCookie, addBaseUrl, generateUUID, withRandomColor } from '../utils';
 
 export function request(url, options) {
+  // 요청의 고유 ID 설정.
+  const ID = withRandomColor(generateUUID().substring(0, 8));
+
   // proxy url 설정.
   url = addBaseUrl(url);
 
@@ -26,8 +29,8 @@ export function request(url, options) {
   }
 
   // 요청 설정 로깅.
-  console.log(`[${options.method ?? "GET"}] \n${url}`);
-  console.log('요청 Header: \n', options);
+  console.log(`[${options.method ?? "GET"}] [ID: ${ID}] \n${url}`);
+  console.log(`--> 요청 Header: [ID: ${ID}] \n`, options);
 
   // 요청 보내기
   return fetch(url, options)
@@ -47,7 +50,7 @@ export function request(url, options) {
     })
     .then(response => {
       //// For Logging Body.
-      console.log('응답 Header: \n', response.headers);
+      console.log(`<-- 응답 Header: [ID: ${ID}] \n`, response.headers);
       return response; 
     })
     .then(response => {
@@ -62,12 +65,12 @@ export function request(url, options) {
     })
     .then(response => {
       //// For Logging Body.
-      console.log('응답 Body: \n', response);
+      console.log(`<-- 응답 Body: [ID: ${ID}] \n`, response);
       return response;
     })
     .catch((error) => {
       // 에러 로깅.
-      console.error('에러 발생: \n', error.message);
+      console.error(`??? 에러 발생: [ID: ${ID}] \n`, error.message);
 
       return Promise.reject(error.message);
     });
