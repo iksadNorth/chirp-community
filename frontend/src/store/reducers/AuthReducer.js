@@ -1,5 +1,5 @@
 import * as auth from '../actions/AuthAction';
-import { decodeJwtWithArg, isNotBlank } from '../../utils';
+import { decodeJwtWithArg, delToken, isNotBlank } from '../../utils';
 
 const initalState = {
     isLogined: false,
@@ -27,6 +27,7 @@ const AuthReducer = (state = initalState, action) => {
                 role: jsonWithToken.ROLE,
             };
         case auth.LOGOUT:
+            delToken();
             return {
                 ...state,
                 ...initalState
