@@ -24,6 +24,8 @@ public class SiteUserServiceImpl implements SiteUserService {
     private final PasswordEncoder passwordEncoder;
     private final SiteUserRepository siteUserRepository;
 
+    private final AuthService authService;
+
     public SiteUser loadSiteUserById(Long id) {
         return siteUserRepository.findById(id)
                 .orElseThrow(
@@ -50,7 +52,8 @@ public class SiteUserServiceImpl implements SiteUserService {
         nullCheck(email, password, nickname);
         SiteUser entity = SiteUser.of(email, passwordEncoder.encode(password), nickname);
         SiteUser saved = siteUserRepository.save(entity);
-        return SiteUserDto.fromEntity(saved);
+        String token = authService.getJwtToken(saved);
+        return SiteUserDto.fromEntity(saved, token);
     }
 
     @Override
@@ -66,7 +69,8 @@ public class SiteUserServiceImpl implements SiteUserService {
         overwriteWithBlankCheck(entity, email, password, nickname, role);
 
         SiteUser saved = siteUserRepository.save(entity);
-        return SiteUserDto.fromEntity(saved);
+        String token = authService.getJwtToken(saved);
+        return SiteUserDto.fromEntity(saved, token);
     }
 
     @Override
@@ -84,7 +88,8 @@ public class SiteUserServiceImpl implements SiteUserService {
         overwriteWithBlankCheck(entity, email, password, nickname, role);
 
         SiteUser saved = siteUserRepository.save(entity);
-        return SiteUserDto.fromEntity(saved);
+        String token = authService.getJwtToken(saved);
+        return SiteUserDto.fromEntity(saved, token);
     }
 
     @Override

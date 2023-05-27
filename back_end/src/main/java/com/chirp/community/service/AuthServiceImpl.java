@@ -2,15 +2,15 @@ package com.chirp.community.service;
 
 import com.chirp.community.entity.SiteUser;
 import com.chirp.community.exception.CommunityException;
-import com.chirp.community.properties.JwtProperties;
-import com.chirp.community.repository.SiteUserRepository;
-import com.chirp.community.utils.ConvertToJwtClaims;
-import com.chirp.community.utils.JwtTokenWithRS256Utils;
-import com.chirp.community.utils.EmailContentUtils;
-import com.chirp.community.utils.VerificationCodeUtils;
-import com.chirp.community.properties.VerificationCodeProperties;
 import com.chirp.community.model.EmailDto;
+import com.chirp.community.properties.JwtProperties;
+import com.chirp.community.properties.VerificationCodeProperties;
+import com.chirp.community.repository.SiteUserRepository;
 import com.chirp.community.type.RoleType;
+import com.chirp.community.utils.ConvertToJwtClaims;
+import com.chirp.community.utils.EmailContentUtils;
+import com.chirp.community.utils.JwtTokenWithRS256Utils;
+import com.chirp.community.utils.VerificationCodeUtils;
 import io.jsonwebtoken.Claims;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
@@ -25,6 +25,7 @@ import java.security.PrivateKey;
 @RequiredArgsConstructor
 public class AuthServiceImpl implements AuthService {
     private final SiteUserRepository siteUserRepository;
+
     private final PasswordEncoder passwordEncoder;
     private final JwtProperties jwtProperties;
     private final PrivateKey privateKey;
@@ -33,6 +34,12 @@ public class AuthServiceImpl implements AuthService {
     private final EmailService emailService;
     private final VerificationCodeService verificationCodeService;
     private final VerificationCodeProperties verificationCodeProperties;
+
+    @Override
+    public String getJwtToken(SiteUser entity) {
+        Claims claims = converterToJwtClaims.convertToClaims(entity);
+        return JwtTokenWithRS256Utils.generateJwtToken(entity.getEmail(), claims, jwtProperties.getExpiredTimeMs(), privateKey);
+    }
 
     @Transactional(readOnly = true)
     @Override
@@ -46,9 +53,7 @@ public class AuthServiceImpl implements AuthService {
             throw CommunityException.of(HttpStatus.UNAUTHORIZED, "올바른 비밀번호가 아닙니다.");
         }
 
-        Claims claims = converterToJwtClaims.convertToClaims(entity);
-
-        return JwtTokenWithRS256Utils.generateJwtToken(email, claims, jwtProperties.getExpiredTimeMs(), privateKey);
+        return getJwtToken(entity);
     }
 
     @Override
@@ -73,7 +78,7 @@ public class AuthServiceImpl implements AuthService {
     }
 
     @Override
-    public void verifyCodeWithEmail(Long userId, String codeMustBeConfirmed) {
+    public String verifyCodeWithEmail(Long userId, String codeMustBeConfirmed) {
         String codeLoadedByUserId = verificationCodeService.loadVerificationCode(userId);
 
         // 검증 결과, 보안코드가 같지 않다면 에러 발생.
@@ -94,7 +99,9 @@ public class AuthServiceImpl implements AuthService {
                 )
         );
         entity.setRole(RoleType.USER_VERIFIED_WITH_EMAIL);
+        SiteUser saved = siteUserRepository.save(entity);
 
-        siteUserRepository.save(entity);
+        // 새로운 엔티티를 가지고 토큰 재발급
+        return getJwtToken(saved);
     }
 }

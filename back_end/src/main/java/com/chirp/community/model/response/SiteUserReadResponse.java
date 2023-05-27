@@ -9,7 +9,9 @@ public record SiteUserReadResponse(
         Long id,
         String email,
         String nickname,
-        RoleType role
+        RoleType role,
+
+        String token
 ) {
     public static SiteUserReadResponse of(SiteUserDto dto) {
         return SiteUserReadResponse.builder()
@@ -17,6 +19,8 @@ public record SiteUserReadResponse(
                 .email(dto.email())
                 .nickname(dto.nickname())
                 .role(dto.role())
+
+                .token(dto.token())
                 .build();
     }
 }

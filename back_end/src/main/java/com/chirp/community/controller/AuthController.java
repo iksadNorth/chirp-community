@@ -27,7 +27,8 @@ public class AuthController {
     }
 
     @GetMapping("/email_verification_code")
-    public void getCodeWithEmail(@RequestParam("user_id") Long user_id, @RequestParam("code") String code) {
-        authService.verifyCodeWithEmail(user_id, code);
+    public AuthReadResponse getCodeWithEmail(@RequestParam("user_id") Long user_id, @RequestParam("code") String code) {
+        String token = authService.verifyCodeWithEmail(user_id, code);
+        return AuthReadResponse.of(token);
     }
 }
