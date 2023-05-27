@@ -38,9 +38,6 @@ function MainPage() {
         })
     }, []);
 
-    // 백엔드에서 넘어오는 데이터 확인용
-    console.log('boardName :', boardName);
-
 
     return (
         <div className="Main">

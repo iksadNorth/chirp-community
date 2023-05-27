@@ -2,6 +2,7 @@ import './index.css';
 
 import { Link, useParams } from 'react-router-dom';
 import { useEffect, useState } from 'react';
+import { useLocation } from 'react-router-dom';
 import { get } from '../../api';
 
 import BoardHeader from '../BoardHeader';
@@ -11,12 +12,19 @@ function BoardPage() {
 
   const { '*': id } = useParams();
   const [articles, setArticles] = useState([]);
+  const [boardName, setBoardName] = useState('');
+
 
   useEffect(() => {
     get(`/api/v1/board/${id}/article`)
-      .then((data) => {
-        console.log('articles_origin :', data);
-        setArticles(data.content);
+      .then((res01) => {
+        setArticles(res01.content);
+      })
+      .then((res01) => {
+        get(`/api/v1/board/${id}`)
+        .then((res02) => {
+          setBoardName(res02.name);
+        })
       })
       .catch((err) => {
         console.log(err);
@@ -28,12 +36,12 @@ function BoardPage() {
   return (
     <div className="Board">
 
-      <BoardHeader id={id} />
+      <BoardHeader boardId={id} boardName={boardName} mode='on'/>
 
 
       <div class="col-md-12 themed-grid-col" style={{ padding: '20px' }}>
 
-        <div class="col-md-12 themed-grid-col" style={{ marginTop: '20px', marginBottom: '20px'}}>
+        <div class="col-md-12 themed-grid-col" style={{ marginTop: '20px', marginBottom: '20px' }}>
           <div class="pb-3">
             <table class="table table-hover">
               <tr>
@@ -61,7 +69,7 @@ function BoardPage() {
 
 
 
-    </div>
+    </div >
   );
 }
 
