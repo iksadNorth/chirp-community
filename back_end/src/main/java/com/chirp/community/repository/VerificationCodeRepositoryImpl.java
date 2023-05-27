@@ -20,7 +20,7 @@ public class VerificationCodeRepositoryImpl implements VerificationCodeRepositor
     private final VerificationCodeProperties verificationCodeProperties;
 
     private static final String PREFIX = "VERIFICATION_CODE";
-    private static final TimeUnit TIME_UNIT = TimeUnit.MICROSECONDS;
+    private static final TimeUnit TIME_UNIT = TimeUnit.MILLISECONDS;
 
     private String wrapKey(Long key) {
         return String.format("%s:%d", PREFIX, key);
