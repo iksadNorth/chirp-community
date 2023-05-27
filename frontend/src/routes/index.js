@@ -42,6 +42,10 @@ export default function RouteComponent() {
         <Route path="/article/*" element={
           <b.ArticlePage />
         } />
+
+        <Route path="create/article/*" element={  
+          <b.ArticleCreatePage />
+        } />
         
       </Routes>    
     </BrowserRouter>

@@ -17,7 +17,7 @@ export default function Header() {
     useEffect(() => {
         get(addParams('/api/v1/board', pageRequest(0, 10)))
             .then(res => {
-                console.log(res.content);
+                console.log('res.content:', res.content);
                 setBoards(res.content);
             })
             .catch(err => {
