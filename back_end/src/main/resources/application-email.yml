@@ -1,0 +1,11 @@
+spring.mail:
+  host: smtp.gmail.com
+  port: 587
+  properties.mail.smtp.starttls.enable: true
+
+security:
+  verification:
+    email:
+      # 1000ms * 60s * 3min
+      expiredTimeMs: 180000
+      numOfCodeDigits: 6
