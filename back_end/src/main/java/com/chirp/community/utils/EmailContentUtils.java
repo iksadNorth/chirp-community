@@ -34,8 +34,8 @@ public class EmailContentUtils {
 
     private static String generateQueryUriForEmailVerificationCode(Long userId, String code) {
         // AuthController.getCodeWithEmail 참고.
-        String origin = "http://localhost:8080";
-        String path = "/api/v1/auth/email_verification_code";
+        String origin = "http://localhost:3000";
+        String path = "/myPage";
 
         return UriComponentsBuilder.fromOriginHeader(origin)
                 .path(path)

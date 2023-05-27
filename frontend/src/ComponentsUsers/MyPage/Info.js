@@ -6,6 +6,8 @@ import { get, patch } from "../../api";
 import { adapterEvent, getToken, hasSomethingInString, isNotBlank } from "../../utils";
 
 import Profile from "../UserPageCom/Profile";
+import { useDispatch } from "react-redux";
+import { login } from "../../store/actions/AuthAction";
 
 export default function Info(props) {
     const defaultPassword = '[비공개]';
@@ -16,6 +18,8 @@ export default function Info(props) {
 
     const [readonly, setReadOnly] = useState(true);
     const [messageToast, popToast] = useState(null);
+
+    const dispatch = useDispatch();
 
     const updateInfo = () => {
         // 입력 가능한 요소로 변경.
@@ -57,6 +61,7 @@ export default function Info(props) {
         })
             .then((res) => {
                 setProfiles(res);
+                dispatch(login(res.token));
             })
             .catch((err) => {
                 console.log("sendUpdateQuery Error");
