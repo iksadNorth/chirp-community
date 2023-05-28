@@ -4,7 +4,7 @@ import com.chirp.community.model.ArticleDto;
 import com.chirp.community.model.BoardDto;
 import com.chirp.community.model.request.BoardCreateRequest;
 import com.chirp.community.model.request.BoardUpdateRequest;
-import com.chirp.community.model.response.ArticleReadRowResponse;
+import com.chirp.community.model.response.ArticleReadBoardPageRowResponse;
 import com.chirp.community.model.response.BoardReadResponse;
 import com.chirp.community.service.ArticleService;
 import com.chirp.community.service.BoardService;
@@ -40,9 +40,9 @@ public class BoardController {
     }
 
     @GetMapping("/{id}/article")
-    public Page<ArticleReadRowResponse> readArticlesById(@PathVariable Long id, @PageableDefault Pageable pageable) {
+    public Page<ArticleReadBoardPageRowResponse> readArticlesById(@PathVariable Long id, @PageableDefault Pageable pageable) {
         Page<ArticleDto> dto = articleService.readByBoardId(id, pageable);
-        return dto.map(ArticleReadRowResponse::of);
+        return dto.map(ArticleReadBoardPageRowResponse::of);
     }
 
     @PatchMapping("/{id}")

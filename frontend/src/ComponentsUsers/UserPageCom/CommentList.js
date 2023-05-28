@@ -34,7 +34,7 @@ export default function CommentList(props) {
     const rowEl = (row) => (
             <div className="container" key={row.id} >
                 <div className="row no-deco">
-                    <div className="col-3">{row.board ?? '[X]'}</div>
+                    <div className="col-3">{row.board.name ?? '[X]'}</div>
                     <Link className="col no-deco" to={row.articleId ? `/article/${row.articleId}` : '#'}>{row.content ?? '[X]'}</Link>
                     <div className="col-2">{toDate(row.createdAt )?? '[X]'}</div>
                     <div className="col-1">{row.numLikes ?? 0}</div>
@@ -55,7 +55,9 @@ export default function CommentList(props) {
                 id: 1,
                 articleId: 1,
                 content: "제목1",
-                board: "게시판1",
+                board: {
+                    name: "게시판1"
+                },
                 createdAt: "2023-01-01",
                 numLikes: "14",
             },
@@ -63,7 +65,9 @@ export default function CommentList(props) {
                 id: 2,
                 articleId: 2,
                 content: "제목2",
-                board: "게시판2",
+                board: {
+                    name: "게시판2"
+                },
                 createdAt: "2023-01-01",
                 numLikes: "15",
             },

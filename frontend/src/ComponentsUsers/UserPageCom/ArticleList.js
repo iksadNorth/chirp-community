@@ -35,7 +35,7 @@ export default function ArticleList(props) {
     const rowEl = (row) => (
             <div className="container" key={row.id} >
                 <div className='row'>
-                    <div className="col-2">{row.board ?? "[X]"}</div>
+                    <div className="col-2">{row.board.name ?? "[X]"}</div>
                     <Link className="col no-deco" to={row.id ? `/article/${row.id}` : '#'}>{row.title?? "[X]"}</Link>
                     <div className="col-2">{toDate(row.createdAt) ?? "[X]"}</div>
                     <div className="col-1">{row.numLikes ?? 0}</div>

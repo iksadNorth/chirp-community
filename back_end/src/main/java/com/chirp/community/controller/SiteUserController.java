@@ -4,7 +4,7 @@ import com.chirp.community.model.ArticleDto;
 import com.chirp.community.model.SiteUserDto;
 import com.chirp.community.model.request.SiteUserCreateRequest;
 import com.chirp.community.model.request.SiteUserUpdateRequest;
-import com.chirp.community.model.response.ArticleReadRowResponse;
+import com.chirp.community.model.response.ArticleReadMyPageRowResponse;
 import com.chirp.community.model.response.SiteUserReadResponse;
 import com.chirp.community.service.ArticleService;
 import com.chirp.community.service.AuthService;
@@ -43,23 +43,23 @@ public class SiteUserController {
     }
 
     @GetMapping("/{id}/article")
-    public Page<ArticleReadRowResponse> readArticleById(
+    public Page<ArticleReadMyPageRowResponse> readArticleById(
             @PathVariable Long id,
             @RequestParam(defaultValue = "") String keyword,
             @PageableDefault Pageable pageable
     ) {
         Page<ArticleDto> dtos = articleService.readBySiteUserId(id, keyword, pageable);
-        return dtos.map(ArticleReadRowResponse::of);
+        return dtos.map(ArticleReadMyPageRowResponse::of);
     }
 
     @GetMapping("/me/article")
-    public Page<ArticleReadRowResponse> readArticleByAuthToken(
+    public Page<ArticleReadMyPageRowResponse> readArticleByAuthToken(
             @AuthenticationPrincipal SiteUserDto principal,
             @RequestParam(defaultValue = "") String keyword,
             @PageableDefault Pageable pageable
     ) {
         Page<ArticleDto> dtos = articleService.readBySiteUserId(principal.id(), keyword, pageable);
-        return dtos.map(ArticleReadRowResponse::of);
+        return dtos.map(ArticleReadMyPageRowResponse::of);
     }
 
     @PatchMapping("/{id}")
