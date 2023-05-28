@@ -8,6 +8,8 @@ import org.hibernate.annotations.ColumnDefault;
 import org.springframework.data.annotation.CreatedBy;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
+import java.util.List;
+
 @Entity @Table(name = "article", indexes = {
         @Index(columnList = "board_id")
 })
@@ -31,6 +33,9 @@ public class Article extends BaseEntity {
 
     @Column(name = "views", nullable = false) @ColumnDefault("0")
     private Long views;
+
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "article", cascade = {CascadeType.REMOVE})
+    private List<ArticleLikes> likes;
 
     public static Article of(Long id, String title, String content) {
         Article entity = new Article();
