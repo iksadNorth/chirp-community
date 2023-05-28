@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React from "react";
 import './css.css';
 
 import * as c from '../../ComponentsUtils';
@@ -6,17 +6,23 @@ import * as c from '../../ComponentsUtils';
 import Info from "./Info";
 import ArticleList from "../UserPageCom/ArticleList";
 import CommentList from "../UserPageCom/CommentList";
-import { getToken } from "../../utils";
+import EmailVerification from "../EmailVerification";
+import { useSelector } from "react-redux";
+import { hasSomethingInString } from "../../utils";
 
 export default function Login() {
-  const [accessToken, setAccesstoken] = useState(null);
+  const token = useSelector(state => state.AuthReducer.token);
 
-  useEffect(() => {
-    setAccesstoken(getToken());
-  }, []);
-
-  return (accessToken ? 
+  return (hasSomethingInString(token) ? 
     <c.Sheet className="total-size container">
+      <div className="row">
+        <div className="col-auto">
+          <EmailVerification />
+        </div>
+        <div className="col">
+          
+        </div>
+      </div>
       <div className="row">
         <div className="col">
           <Info className="info-size"/>

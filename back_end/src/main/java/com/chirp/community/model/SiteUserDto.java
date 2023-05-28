@@ -16,16 +16,24 @@ public record SiteUserDto(
         String email,
         String password,
         String nickname,
-        RoleType role
+        RoleType role,
+
+        String token
 ) implements UserDetails {
-    public static SiteUserDto fromEntity(SiteUser entity) {
+    public static SiteUserDto fromEntity(SiteUser entity, String token) {
         return SiteUserDto.builder()
                 .id(entity.getId())
                 .email(entity.getEmail())
                 .password(entity.getPassword())
                 .nickname(entity.getNickname())
                 .role(entity.getRole())
+
+                .token(token)
                 .build();
+    }
+
+    public static SiteUserDto fromEntity(SiteUser entity) {
+        return fromEntity(entity, null);
     }
 
     public SiteUser toEntity() {

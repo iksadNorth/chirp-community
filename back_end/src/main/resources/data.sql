@@ -5,7 +5,8 @@ insert into site_user (email, password, nickname, role) values
 ('bdmin', '1234', 'bdmin', 'ROLE_BOARD_ADMIN'),
 ('user1', '1234', 'iksadnorth', 'ROLE_USER'),
 ('user2', '1234', 'iksadsouth', 'ROLE_USER'),
-('user3', '1234', 'junmo', 'ROLE_USER')
+('user3', '1234', 'junmo', 'ROLE_USER'),
+('iksadnorth@gmail.com', '1234', 'iksad', 'ROLE_USER')
 ;
 
 insert into board (name) values

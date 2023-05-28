@@ -7,6 +7,7 @@ import { Link } from "react-router-dom";
 
 import NoAuth from './NoAuth';
 import UserAuth from './UserAuth';
+import UserVerifiedAuth from './UserVerifiedAuth';
 import PrimeAdminAuth from './PrimeAdminAuth';
 import BoardAdminAuth from './BoardAdminAuth';
 
@@ -42,6 +43,7 @@ export default function Header() {
             <ul className="navbar-nav">
                 <NoAuth />
                 <UserAuth />
+                <UserVerifiedAuth />
                 <PrimeAdminAuth />
                 <BoardAdminAuth />
             </ul>
