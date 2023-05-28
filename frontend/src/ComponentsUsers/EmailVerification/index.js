@@ -12,11 +12,11 @@ export default function EmailVerification(props) {
     const [message, setMessage] = useState("");
 
     return (
-        <c.Sheet className="container p-3">
+        <c.Sheet>
             <SiteUser>
                 <MustBeVerifiedCom setMessage={setMessage}/>
             </SiteUser>
-            <SiteUserVerifedWithEmail>
+            <SiteUserVerifedWithEmail className="pt-3" >
                 <VerifiedCom />
             </SiteUserVerifedWithEmail>
             <c.Toast title="메시지" body={message} />
