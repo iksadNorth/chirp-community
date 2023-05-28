@@ -9,6 +9,7 @@ import ListCom from './List/ListCom';
 import PaginationBar from './List/PaginationBar';
 import SearchInput from './List/SearchInput';
 import TitleWithIcon from './TitleWithIcon';
+import LikesCom from './LikesCom';
 
 export {
   RNW,
@@ -23,4 +24,5 @@ export {
   SearchInput,
 
   TitleWithIcon,
+  LikesCom,
 };

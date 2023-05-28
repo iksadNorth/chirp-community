@@ -34,3 +34,26 @@ insert into article (title, content, board_id, writer_id, views) values
 ('article1', '<h3>문제 해결1</h3>', 1, 3, 0),
 ('article2', '<h3>문제 해결2</h3>', 2, 3, 0)
 ;
+
+insert into article_likes (arg, user_id, article_id) values
+(1, 1, 1),
+(1, 1, 1),
+(1, 2, 1),
+(0, 2, 1),
+(0, 3, 1),
+(-1, 3, 1),
+
+(1, 1, 2),
+(1, 1, 2),
+(1, 2, 2),
+(0, 2, 2),
+(0, 3, 2),
+(-1, 3, 2),
+
+(1, 1, 3),
+(1, 1, 3),
+(1, 2, 3),
+(0, 2, 3),
+(0, 3, 3),
+(-1, 3, 3)
+;

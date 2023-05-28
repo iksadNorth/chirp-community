@@ -33,3 +33,14 @@ CREATE TABLE `article` (
 
     INDEX idx_board_id (BOARD_ID)
 );
+
+CREATE TABLE `article_likes` (
+    ID BIGINT PRIMARY KEY AUTO_INCREMENT,
+    CREATED_AT TIMESTAMP(6),
+
+    ARG TINYINT,
+    ARTICLE_ID BIGINT NOT NULL,
+    USER_ID BIGINT NOT NULL,
+
+    INDEX idx_article_id_user_id (ARTICLE_ID, USER_ID)
+);
