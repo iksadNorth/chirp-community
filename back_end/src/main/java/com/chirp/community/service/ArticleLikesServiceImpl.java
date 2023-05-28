@@ -4,13 +4,11 @@ import com.chirp.community.configuration.JpaAuditingConfig;
 import com.chirp.community.entity.Article;
 import com.chirp.community.entity.ArticleLikes;
 import com.chirp.community.entity.SiteUser;
-import com.chirp.community.exception.CommunityException;
 import com.chirp.community.model.LikesDto;
 import com.chirp.community.model.SiteUserDto;
 import com.chirp.community.repository.ArticleLikesRepository;
 import com.chirp.community.type.LikeType;
 import lombok.RequiredArgsConstructor;
-import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -21,14 +19,6 @@ import java.util.function.Function;
 @RequiredArgsConstructor
 public class ArticleLikesServiceImpl implements ArticleLikesService {
     private final ArticleLikesRepository articleLikesRepository;
-
-    private SiteUser getLoginUser() {
-        return JpaAuditingConfig.principal()
-                .map(SiteUserDto::toEntity)
-                .orElseThrow(
-                () -> CommunityException.of(HttpStatus.UNAUTHORIZED, "로그인 후 이용해주세요.")
-        );
-    }
 
     private ArticleLikes getHollowShell(Long articleId, SiteUser user) {
         Article articleEntity = new Article();
@@ -47,12 +37,18 @@ public class ArticleLikesServiceImpl implements ArticleLikesService {
     }
 
     private LikesDto printLikes(Long articleId, Function<ArticleLikes, ArticleLikes> function) {
-        ArticleLikes entity = loadByArticle_IdAndUser_Id(articleId, getLoginUser());
-        entity = function.apply(entity);
+        LikeType likeType = JpaAuditingConfig.principal()
+                .map(SiteUserDto::toEntity)
+
+                .map(siteUser -> loadByArticle_IdAndUser_Id(articleId, siteUser))
+                .map(function::apply)
+
+                .map(ArticleLikes::getArg)
+                .orElse(LikeType.NULL);
 
         long totalLikes = articleLikesRepository.sumByArticle_Id(articleId);
         return LikesDto.builder()
-                .likeType(entity.getArg())
+                .likeType(likeType)
                 .numLikes(totalLikes)
                 .build();
     }

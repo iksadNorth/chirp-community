@@ -81,18 +81,22 @@ public class AuthenticationConfig {
     public HttpSecurity authorizeHttpRequests(HttpSecurity http) throws Exception {
         return http.authorizeHttpRequests(
                 reg -> reg
+                        .requestMatchers(HttpMethod.POST, "/api/v1/user").permitAll()
+
                         .requestMatchers(HttpMethod.GET, "/api/v1/user/me/**").authenticated()
 
                         .requestMatchers(HttpMethod.PATCH, "/api/v1/user/*/role/user").hasAnyAuthority(RoleType.PRIME_ADMIN.getDbName())
                         .requestMatchers(HttpMethod.PATCH, "/api/v1/user/*/role/board_admin").hasAnyAuthority(RoleType.PRIME_ADMIN.getDbName())
                         .requestMatchers(HttpMethod.PATCH, "/api/v1/user/*/role/user_verified_by_email").authenticated()
 
+                        .requestMatchers(HttpMethod.POST, "/api/v1/auth/access_token").permitAll()
                         .requestMatchers(HttpMethod.POST, "/api/v1/auth/email_verification_code").authenticated()
 
                         .requestMatchers(HttpMethod.POST, "/api/v1/board/**").hasAnyAuthority(RoleType.PRIME_ADMIN.getDbName())
                         .requestMatchers(HttpMethod.PATCH, "/api/v1/board/**").hasAnyAuthority(RoleType.PRIME_ADMIN.getDbName())
                         .requestMatchers(HttpMethod.DELETE, "/api/v1/board/**").hasAnyAuthority(RoleType.PRIME_ADMIN.getDbName())
 
+                        .requestMatchers(HttpMethod.POST, "/api/v1/**").authenticated()
                         .requestMatchers(HttpMethod.PATCH, "/api/v1/**").authenticated()
                         .requestMatchers(HttpMethod.DELETE, "/api/v1/**").authenticated()
                         .anyRequest().permitAll()
