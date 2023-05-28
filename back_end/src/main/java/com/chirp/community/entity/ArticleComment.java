@@ -5,11 +5,13 @@ import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
 import org.springframework.data.annotation.CreatedBy;
+import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
 @Getter
 @Setter
+@EntityListeners(AuditingEntityListener.class)
 @Table(name = "article_comment", indexes = {
-        @Index(columnList = "board_id")
+        @Index(columnList = "article_id")
 })
 @Entity
 public class ArticleComment extends BaseEntity{

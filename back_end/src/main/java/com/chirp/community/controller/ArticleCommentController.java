@@ -20,38 +20,39 @@ public class ArticleCommentController {
     private final ArticleCommentService articleCommentService;
 
     @GetMapping("/{id}")
-    public ArticleCommentReadResponse readByArticleCommentId(@RequestParam Long articleComment_id) {
-        ArticleCommentDto dto = articleCommentService.readById(articleComment_id);
+    public ArticleCommentReadResponse readByArticleCommentId(@PathVariable Long id) {
+        ArticleCommentDto dto = articleCommentService.readById(id);
         return ArticleCommentReadResponse.of(dto);
     }
 
-    @GetMapping("/{id}/article")
-    public Page<ArticleCommentReadResponse> readAllByBArticleId(@RequestParam Long article_id, @PageableDefault(size = 10) Pageable pageable) {
-        Page<ArticleCommentDto> dto = articleCommentService.readAllByArticleId(article_id, pageable);
+    @GetMapping("/article/{id}")
+    public Page<ArticleCommentReadResponse> readAllByBArticleId(@PathVariable Long id, @PageableDefault(size = 10) Pageable pageable) {
+        Page<ArticleCommentDto> dto = articleCommentService.readAllByArticleId(id, pageable);
         return dto.map(ArticleCommentReadResponse::of);
     }
 
-    @GetMapping("/{id}/user")
-    public Page<ArticleCommentReadResponse> readAllBySiteUserId(@RequestParam Long siteUser_id, @PageableDefault(size = 10) Pageable pageable) {
-        Page<ArticleCommentDto> dto = articleCommentService.readAllBySiteUserId(siteUser_id, pageable);
+    @GetMapping("/user/{id}")
+    public Page<ArticleCommentReadResponse> readAllBySiteUserId(@PathVariable Long id, @PageableDefault(size = 10) Pageable pageable) {
+        Page<ArticleCommentDto> dto = articleCommentService.readAllBySiteUserId(id, pageable);
         return dto.map(ArticleCommentReadResponse::of);
     }
 
     @PostMapping("/create")
-    public ArticleCommentReadResponse createArticleComment(@RequestParam ArticleCommentCreateRequest request) {
+    public ArticleCommentReadResponse createArticleComment(@RequestBody ArticleCommentCreateRequest request) {
         ArticleCommentDto dto = articleCommentService.createArticleComment(request.content(), request.article_id());
         return ArticleCommentReadResponse.of(dto);
     }
 
-    @PatchMapping("/update/{id}")
-    public ArticleCommentReadResponse updateArticleComment(@RequestParam Long articleComment_id, @RequestParam ArticleCommentCreateRequest request) {
-        ArticleCommentDto dto = articleCommentService.updateArticleComment(articleComment_id, request.content());
+
+    @PatchMapping("/{id}")
+    public ArticleCommentReadResponse updateArticleComment(@PathVariable Long id, @RequestBody ArticleCommentCreateRequest request) {
+        ArticleCommentDto dto = articleCommentService.updateArticleComment(id, request.content());
         return ArticleCommentReadResponse.of(dto);
     }
 
-    @DeleteMapping("/delete/{id}")
-    public void deleteArticleComment(@RequestParam Long articleComment_id) {
-        articleCommentService.deleteById(articleComment_id);
+    @DeleteMapping("/{id}")
+    public void deleteArticleComment(@PathVariable Long id) {
+        articleCommentService.deleteById(id);
     }
 
 
