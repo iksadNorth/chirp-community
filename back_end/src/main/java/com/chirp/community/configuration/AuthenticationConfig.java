@@ -83,7 +83,11 @@ public class AuthenticationConfig {
                 reg -> reg
                         .requestMatchers(HttpMethod.GET, "/api/v1/user/me/**").authenticated()
 
-                        .requestMatchers(HttpMethod.GET, "/api/v1/auth/email_verification_code").authenticated()
+                        .requestMatchers(HttpMethod.PATCH, "/api/v1/user/*/role/user").hasAnyAuthority(RoleType.PRIME_ADMIN.getDbName())
+                        .requestMatchers(HttpMethod.PATCH, "/api/v1/user/*/role/board_admin").hasAnyAuthority(RoleType.PRIME_ADMIN.getDbName())
+                        .requestMatchers(HttpMethod.PATCH, "/api/v1/user/*/role/user_verified_by_email").authenticated()
+
+                        .requestMatchers(HttpMethod.POST, "/api/v1/auth/email_verification_code").authenticated()
 
                         .requestMatchers(HttpMethod.POST, "/api/v1/board/**").hasAnyAuthority(RoleType.PRIME_ADMIN.getDbName())
                         .requestMatchers(HttpMethod.PATCH, "/api/v1/board/**").hasAnyAuthority(RoleType.PRIME_ADMIN.getDbName())

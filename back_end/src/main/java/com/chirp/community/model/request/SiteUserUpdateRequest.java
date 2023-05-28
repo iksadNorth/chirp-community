@@ -7,6 +7,5 @@ import lombok.Builder;
 public record SiteUserUpdateRequest(
         String email,
         String password,
-        String nickname,
-        RoleType role
+        String nickname
 ) {}

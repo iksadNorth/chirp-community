@@ -1,6 +1,7 @@
 package com.chirp.community.service;
 
 import com.chirp.community.entity.SiteUser;
+import com.chirp.community.model.SiteUserDto;
 import com.chirp.community.type.RoleType;
 
 public interface AuthService {
@@ -10,5 +11,5 @@ public interface AuthService {
 
     void sendCodeWithEmail(Long id, String email, RoleType roleType);
 
-    String verifyCodeWithEmail(Long userId, String code);
+    SiteUserDto verifyCodeWithEmail(Long userId, String code);
 }

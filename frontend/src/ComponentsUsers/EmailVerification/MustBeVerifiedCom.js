@@ -4,7 +4,7 @@ import './css.css';
 import { adapterEvent, addParams, hasSomethingInString } from "../../utils";
 
 import Profile from "../UserPageCom/Profile";
-import { post, get } from '../../api';
+import { post, patch } from '../../api';
 
 import { useSelector, useDispatch } from 'react-redux';
 import { login } from '../../store/actions/AuthAction';
@@ -42,12 +42,12 @@ export default function MustBeVerifiedCom(props) {
             })
             .finally(() => {
                 isLoading(false);
+                setCode('');
             });
     };
 
     const verifyCodeQuery = (arg_id, arg_code) => {
-        get(addParams(`/api/v1/auth/email_verification_code`, {
-            user_id: arg_id,
+        patch(addParams(`/api/v1/user/${arg_id}/role/user_verified_by_email`, {
             code: arg_code,
         }))
             .then((res) => {

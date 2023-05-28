@@ -40,6 +40,11 @@ public class ArticleServiceImpl implements ArticleService {
                 );
     }
 
+    private Article addViews(Article entity) {
+        entity.setViews(entity.getViews() + 1);
+        return articleRepository.save(entity);
+    }
+
 
     @Override
     public ArticleDto create(String title, String content, Long board_id) {
@@ -50,9 +55,10 @@ public class ArticleServiceImpl implements ArticleService {
     }
 
     @Override
-    @Transactional(readOnly = true)
     public ArticleDto readById(Long id) {
-        return ArticleDto.fromEntity(loadArticleById(id));
+        Article entity = loadArticleById(id);
+        Article saved = addViews(entity);
+        return ArticleDto.fromEntity(saved);
     }
 
     @Override
