@@ -238,3 +238,4 @@ gradlew.bat
 HELP.md
 
 # End of https://www.toptal.com/developers/gitignore/api/windows,linux,macos,java,react,gradle,intellij+all
+/src/main/resources/application-emailsecurity.yml
