@@ -25,10 +25,4 @@ public class AuthController {
     public void sendCodeWithEmail(@AuthenticationPrincipal SiteUserDto principal) {
         authService.sendCodeWithEmail(principal.id(), principal.email(), principal.role());
     }
-
-    @GetMapping("/email_verification_code")
-    public AuthReadResponse getCodeWithEmail(@RequestParam("user_id") Long user_id, @RequestParam("code") String code) {
-        String token = authService.verifyCodeWithEmail(user_id, code);
-        return AuthReadResponse.of(token);
-    }
 }
