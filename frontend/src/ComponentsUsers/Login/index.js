@@ -26,7 +26,7 @@ export default function Login() {
     };
 
     const handleLogin = () => {
-        post('/api/v1/auth/login', {
+        post('/api/v1/auth/access_token', {
             body: JSON.stringify({
                 email: email,
                 password: password,
