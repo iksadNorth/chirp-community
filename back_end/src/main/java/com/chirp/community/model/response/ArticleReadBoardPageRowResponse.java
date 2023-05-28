@@ -6,15 +6,15 @@ import lombok.Builder;
 import java.time.LocalDateTime;
 
 @Builder(toBuilder = true)
-public record ArticleReadRowResponse(
+public record ArticleReadBoardPageRowResponse(
         Long id,
         LocalDateTime createdAt,
         String title,
         SiteUserReadRowResponse writer,
         Long views
 ) {
-    public static ArticleReadRowResponse of(ArticleDto dto) {
-        return ArticleReadRowResponse.builder()
+    public static ArticleReadBoardPageRowResponse of(ArticleDto dto) {
+        return ArticleReadBoardPageRowResponse.builder()
                 .id(dto.id())
                 .createdAt(dto.createdAt())
                 .title(dto.title())

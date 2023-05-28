@@ -4,6 +4,8 @@ import com.chirp.community.entity.Article;
 import com.chirp.community.entity.Board;
 import com.chirp.community.exception.CommunityException;
 import com.chirp.community.model.ArticleDto;
+import com.chirp.community.model.BoardDto;
+import com.chirp.community.model.SiteUserDto;
 import com.chirp.community.repository.ArticleRepository;
 import com.chirp.community.repository.BoardRepository;
 import lombok.RequiredArgsConstructor;
@@ -40,6 +42,16 @@ public class ArticleServiceImpl implements ArticleService {
                 );
     }
 
+    private Article loadArticleWithBoardWithWriterById(Long id) {
+        return articleRepository.findWithBoardAndWriterById(id)
+                .orElseThrow(
+                        () -> CommunityException.of(
+                                HttpStatus.NOT_FOUND,
+                                String.format("%s번 게시물은 존재하지 않음.", id)
+                        )
+                );
+    }
+
     private Article addViews(Article entity) {
         entity.setViews(entity.getViews() + 1);
         return articleRepository.save(entity);
@@ -56,9 +68,14 @@ public class ArticleServiceImpl implements ArticleService {
 
     @Override
     public ArticleDto readById(Long id) {
-        Article entity = loadArticleById(id);
+        Article entity = loadArticleWithBoardWithWriterById(id);
         Article saved = addViews(entity);
-        return ArticleDto.fromEntity(saved);
+        return ArticleDto.fromEntity(entity)
+                .toBuilder()
+                .views(saved.getViews())
+                .board(BoardDto.fromEntity(entity.getBoard()))
+                .writer(SiteUserDto.fromEntity(entity.getWriter()))
+                .build();
     }
 
     @Override
@@ -82,17 +99,21 @@ public class ArticleServiceImpl implements ArticleService {
     @Override
     public Page<ArticleDto> readByBoardId(Long id, Pageable pageable) {
         return articleRepository.findByBoard_Id(id, pageable)
-                .map(ArticleDto::fromEntity);
+                .map(entity -> ArticleDto.fromEntity(entity)
+                        .toBuilder()
+                        .writer(SiteUserDto.fromEntity(entity.getWriter()))
+                        .build());
     }
 
     @Override
     public Page<ArticleDto> readBySiteUserId(Long id, String keyword, Pageable pageable) {
-        if(keyword != null && !keyword.isBlank()) {
-            return articleRepository.findByWriter_IdWithKeyword(id, keyword, pageable)
-                    .map(ArticleDto::fromEntity);
-        } else {
-            return articleRepository.findByWriter_Id(id, pageable)
-                    .map(ArticleDto::fromEntity);
-        }
+        Page<Article> pages = keyword != null && !keyword.isBlank() ?
+                articleRepository.findByWriter_IdWithKeyword(id, keyword, pageable) :
+                articleRepository.findByWriter_Id(id, pageable);
+
+        return pages.map(entity -> ArticleDto.fromEntity(entity)
+                .toBuilder()
+                .board(BoardDto.fromEntity(entity.getBoard()))
+                .build());
     }
 }
