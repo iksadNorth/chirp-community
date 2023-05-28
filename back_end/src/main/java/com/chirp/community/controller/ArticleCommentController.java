@@ -2,6 +2,7 @@ package com.chirp.community.controller;
 
 
 import com.chirp.community.model.ArticleCommentDto;
+import com.chirp.community.model.SiteUserDto;
 import com.chirp.community.model.request.ArticleCommentCreateRequest;
 import com.chirp.community.model.response.ArticleCommentReadResponse;
 import com.chirp.community.service.ArticleCommentService;
@@ -10,6 +11,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.web.PageableDefault;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.web.bind.annotation.*;
 
 @RequiredArgsConstructor
@@ -32,8 +34,20 @@ public class ArticleCommentController {
     }
 
     @GetMapping("/user/{id}")
-    public Page<ArticleCommentReadResponse> readAllBySiteUserId(@PathVariable Long id, @PageableDefault(size = 10) Pageable pageable) {
-        Page<ArticleCommentDto> dto = articleCommentService.readAllBySiteUserId(id, pageable);
+    public Page<ArticleCommentReadResponse> readAllBySiteUserId(
+            @PathVariable Long id,
+            @RequestParam(defaultValue = "") String keyword,
+            @PageableDefault(size = 10) Pageable pageable) {
+        Page<ArticleCommentDto> dto = articleCommentService.readAllBySiteUserId(id, keyword, pageable);
+        return dto.map(ArticleCommentReadResponse::of);
+    }
+
+    @GetMapping("/user/me")
+    public Page<ArticleCommentReadResponse> readAllByAuth(
+            @AuthenticationPrincipal SiteUserDto principal,
+            @RequestParam(defaultValue = "") String keyword,
+            @PageableDefault(size = 10) Pageable pageable) {
+        Page<ArticleCommentDto> dto = articleCommentService.readAllBySiteUserId(principal.id(), keyword, pageable);
         return dto.map(ArticleCommentReadResponse::of);
     }
 
