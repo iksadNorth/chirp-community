@@ -34,3 +34,10 @@ insert into article (title, content, board_id, writer_id, views) values
 ('article1', '<h3>문제 해결1</h3>', 1, 3, 0),
 ('article2', '<h3>문제 해결2</h3>', 2, 3, 0)
 ;
+
+
+insert into article_comment (content, article_id, writer_id) values
+('comment01', 1, 7),
+('comment02', 1, 7),
+('comment03', 1, 3)
+;
