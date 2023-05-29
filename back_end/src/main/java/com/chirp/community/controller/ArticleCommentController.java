@@ -3,6 +3,7 @@ package com.chirp.community.controller;
 
 import com.chirp.community.model.ArticleCommentDto;
 import com.chirp.community.model.request.ArticleCommentCreateRequest;
+import com.chirp.community.model.request.ArticleCommentUpdateRequest;
 import com.chirp.community.model.response.ArticleCommentReadResponse;
 import com.chirp.community.service.ArticleCommentService;
 import lombok.Getter;
@@ -37,7 +38,7 @@ public class ArticleCommentController {
         return dto.map(ArticleCommentReadResponse::of);
     }
 
-    @PostMapping("/create")
+    @PostMapping
     public ArticleCommentReadResponse createArticleComment(@RequestBody ArticleCommentCreateRequest request) {
         ArticleCommentDto dto = articleCommentService.createArticleComment(request.content(), request.article_id());
         return ArticleCommentReadResponse.of(dto);
@@ -45,7 +46,7 @@ public class ArticleCommentController {
 
 
     @PatchMapping("/{id}")
-    public ArticleCommentReadResponse updateArticleComment(@PathVariable Long id, @RequestBody ArticleCommentCreateRequest request) {
+    public ArticleCommentReadResponse updateArticleComment(@PathVariable Long id, @RequestBody ArticleCommentUpdateRequest request) {
         ArticleCommentDto dto = articleCommentService.updateArticleComment(id, request.content());
         return ArticleCommentReadResponse.of(dto);
     }

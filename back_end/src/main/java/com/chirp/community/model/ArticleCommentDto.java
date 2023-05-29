@@ -31,7 +31,6 @@ public record ArticleCommentDto(
                 .article(article)
                 .writer(writer)
                 .build();
-
     }
 
 }
