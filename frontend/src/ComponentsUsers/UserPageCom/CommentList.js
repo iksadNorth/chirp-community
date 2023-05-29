@@ -23,7 +23,6 @@ export default function CommentList(props) {
     const headEl = (row) => (
             <div className="container">
                 <div className="row">
-                    <div className="col-3"><strong>{row.board}</strong></div>
                     <div className="col"><strong>{row.content}</strong></div>
                     <div className="col-2"><strong>{row.createdAt}</strong></div>
                     <div className="col-1"><strong>{row.numLikes}</strong></div>
@@ -34,8 +33,7 @@ export default function CommentList(props) {
     const rowEl = (row) => (
             <div className="container" key={row.id} >
                 <div className="row no-deco">
-                    <div className="col-3">{row.board ?? '[X]'}</div>
-                    <Link className="col no-deco" to={row.articleId ? `/article/${row.articleId}` : '#'}>{row.content ?? '[X]'}</Link>
+                    <Link className="col no-deco" to={row.article.id ? `/article/${row.article.id}` : '#'}>{row.content ?? "[X]"}</Link>
                     <div className="col-2">{toDate(row.createdAt )?? '[X]'}</div>
                     <div className="col-1">{row.numLikes ?? 0}</div>
                     {props.readonly ? null : <button type="button" className="col-1 btn btn-danger"
@@ -49,40 +47,23 @@ export default function CommentList(props) {
             </div>
     );
 
-    const loadData = () => {
-        const sample = [
-            {
-                id: 1,
-                articleId: 1,
-                content: "제목1",
-                board: "게시판1",
-                createdAt: "2023-01-01",
-                numLikes: "14",
-            },
-            {
-                id: 2,
-                articleId: 2,
-                content: "제목2",
-                board: "게시판2",
-                createdAt: "2023-01-01",
-                numLikes: "15",
-            },
-        ];
-        setData(sample);
+    const loadData = (page, keyword) => {
+        const size = 5;
+        const sort_field = "createdAt";
+        const sort_asc = true;
 
-        // const size = 5;
-        // const sort_field = "createdAt";
-        // const sort_asc = true;
-
-        // get(addParams(`/api/v1/user/${userId}/comment`, pageRequest(page, size, sort_field, sort_asc)))
-        // .then((res) => {
-        //     setData(res.content);
-        //     setNumTotalPages(res.totalPages);
-        // })
-        // .catch(err => {
-        //     console.log("loadData error");
-        //     popToast(err);
-        // });
+        get(addParams(`/api/v1/article_comment/user/${userId}`, {
+            ...pageRequest(page, size, sort_field, sort_asc),
+            keyword: keyword,
+        }))
+        .then((res) => {
+            setData(res.content);
+            setNumTotalPages(res.totalPages);
+        })
+        .catch(err => {
+            console.log("loadData error");
+            popToast(err);
+        });
     };
 
     const deleteRow = (id) => {

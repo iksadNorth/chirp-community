@@ -11,6 +11,7 @@ import BoardHeader from '../BoardHeader';
 import ArticleHeader from '../ArticleHeader';
 import Comment from '../Comment';
 
+import * as u from '../../ComponentsUtils';
 
 function ArticlePage() {
 
@@ -68,6 +69,8 @@ function ArticlePage() {
                                 <p class="fs-5 mb-4">{article.content}</p>
                             </section>
                         </article>
+
+                        <u.LikesCom id={id} />
 
                         {/* 댓글 */}
                         <Comment article_id={id}/>

@@ -9,9 +9,11 @@ public interface SiteUserService extends UserDetailsService {
 
     SiteUserDto readById(Long id);
 
-    SiteUserDto updateById(Long id, String email, String password, String nickname, RoleType role);
+    SiteUserDto updateById(Long id, String email, String password, String nickname);
 
     void deleteById(Long id);
 
-    SiteUserDto updateByAuthToken(SiteUserDto principal, String email, String password, String nickname, RoleType role);
+    SiteUserDto updateByAuthToken(SiteUserDto principal, String email, String password, String nickname);
+
+    SiteUserDto updateRoleTo(Long id, RoleType roleType);
 }

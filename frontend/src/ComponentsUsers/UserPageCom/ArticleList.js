@@ -35,8 +35,8 @@ export default function ArticleList(props) {
     const rowEl = (row) => (
             <div className="container" key={row.id} >
                 <div className='row'>
-                    <div className="col-2">{row.board ?? "[X]"}</div>
-                    <Link className="col no-deco" to={row.id ? `/article/${row.id}` : '#'}>{row.title?? "[X]"}</Link>
+                    <Link className="col-2 no-deco" to={row.board.id ? `/board/${row.board.id}` : '#'}>{row.board.name ?? "[X]"}</Link>
+                    <Link className="col no-deco" to={row.id ? `/article/${row.id}` : '#'}>{row.title ?? "[X]"}</Link>
                     <div className="col-2">{toDate(row.createdAt) ?? "[X]"}</div>
                     <div className="col-1">{row.numLikes ?? 0}</div>
                     <div className="col-1">{row.numComments ?? 0}</div>
@@ -52,26 +52,6 @@ export default function ArticleList(props) {
     );
 
     const loadData = (page, keyword) => {
-        // const sample = [
-        //     {
-        //         id: 1,
-        //         title: "제목1",
-        //         board: "게시판1",
-        //         createdAt: "2023-01-01",
-        //         numLikes: "50",
-        //         numComments: "10",
-        //     },
-        //     {
-        //         id: 2,
-        //         title: "제목2",
-        //         board: "게시판2",
-        //         createdAt: "2023-01-01",
-        //         numLikes: "75",
-        //         numComments: "34",
-        //     },
-        // ];
-        // setData(sample);
-
         const size = 5;
         const sort_field = "createdAt";
         const sort_asc = true;

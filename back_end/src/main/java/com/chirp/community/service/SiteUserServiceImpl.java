@@ -36,15 +36,13 @@ public class SiteUserServiceImpl implements SiteUserService {
                 );
     }
 
-    private void overwriteWithBlankCheck(SiteUser entity, String email, String password, String nickname, RoleType role) {
+    private void overwriteWithBlankCheck(SiteUser entity, String email, String password, String nickname) {
         if(email!=null)
             entity.setEmail(email);
         if(password!=null)
             entity.setPassword(passwordEncoder.encode(password));
         if(nickname!=null)
             entity.setNickname(nickname);
-        if(role!=null)
-            entity.setRole(role);
     }
 
     @Override
@@ -63,10 +61,10 @@ public class SiteUserServiceImpl implements SiteUserService {
     }
 
     @Override
-    public SiteUserDto updateByAuthToken(SiteUserDto principal, String email, String password, String nickname, RoleType role) {
+    public SiteUserDto updateByAuthToken(SiteUserDto principal, String email, String password, String nickname) {
         SiteUser entity = principal.toEntity();
 
-        overwriteWithBlankCheck(entity, email, password, nickname, role);
+        overwriteWithBlankCheck(entity, email, password, nickname);
 
         SiteUser saved = siteUserRepository.save(entity);
         String token = authService.getJwtToken(saved);
@@ -74,7 +72,7 @@ public class SiteUserServiceImpl implements SiteUserService {
     }
 
     @Override
-    public SiteUserDto updateById(Long id, String email, String password, String nickname, RoleType role) {
+    public SiteUserDto updateById(Long id, String email, String password, String nickname) {
         if(!isAdmin() && !ownershipCheck(id)) {
             throw CommunityException.of(
                     HttpStatus.FORBIDDEN,
@@ -85,11 +83,28 @@ public class SiteUserServiceImpl implements SiteUserService {
 
         SiteUser entity = loadSiteUserById(id);
 
-        overwriteWithBlankCheck(entity, email, password, nickname, role);
+        overwriteWithBlankCheck(entity, email, password, nickname);
 
         SiteUser saved = siteUserRepository.save(entity);
         String token = authService.getJwtToken(saved);
         return SiteUserDto.fromEntity(saved, token);
+    }
+
+    @Override
+    public SiteUserDto updateRoleTo(Long id, RoleType roleType) {
+        SiteUser entity = loadSiteUserById(id);
+
+        if(roleType == null) {
+            throw CommunityException.of(
+                    HttpStatus.INTERNAL_SERVER_ERROR,
+                    "내부 서버 문제로 인해 오류가 발생했습니다.",
+                    "수정하려는 RoleType이 Null값으로 입력됨."
+            );
+        }
+
+        entity.setRole(roleType);
+        SiteUser saved = siteUserRepository.save(entity);
+        return SiteUserDto.fromEntity(saved);
     }
 
     @Override

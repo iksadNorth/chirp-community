@@ -3,6 +3,7 @@ package com.chirp.community.service;
 import com.chirp.community.entity.SiteUser;
 import com.chirp.community.exception.CommunityException;
 import com.chirp.community.model.EmailDto;
+import com.chirp.community.model.SiteUserDto;
 import com.chirp.community.properties.JwtProperties;
 import com.chirp.community.properties.VerificationCodeProperties;
 import com.chirp.community.repository.SiteUserRepository;
@@ -78,7 +79,7 @@ public class AuthServiceImpl implements AuthService {
     }
 
     @Override
-    public String verifyCodeWithEmail(Long userId, String codeMustBeConfirmed) {
+    public SiteUserDto verifyCodeWithEmail(Long userId, String codeMustBeConfirmed) {
         String codeLoadedByUserId = verificationCodeService.loadVerificationCode(userId);
 
         // 검증 결과, 보안코드가 같지 않다면 에러 발생.
@@ -102,6 +103,8 @@ public class AuthServiceImpl implements AuthService {
         SiteUser saved = siteUserRepository.save(entity);
 
         // 새로운 엔티티를 가지고 토큰 재발급
-        return getJwtToken(saved);
+        String token = getJwtToken(saved);
+
+        return SiteUserDto.fromEntity(saved, token);
     }
 }

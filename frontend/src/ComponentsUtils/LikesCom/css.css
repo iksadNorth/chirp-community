@@ -1,0 +1,7 @@
+.custom-container-size {
+    width: 300px;
+}
+
+.custom-elements-size * {
+    height: inherit;
+}

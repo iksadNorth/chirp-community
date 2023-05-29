@@ -37,7 +37,35 @@ insert into article (title, content, board_id, writer_id, views) values
 
 
 insert into article_comment (content, article_id, writer_id) values
-('comment01', 1, 7),
-('comment02', 1, 7),
-('comment03', 1, 3)
+('comment 01', 1, 1),
+('comment 02', 2, 1),
+('comment 03', 3, 1),
+('comment 04', 4, 1),
+('comment 05', 1, 2),
+('comment 06', 2, 2),
+('comment 07', 3, 2),
+('comment 08', 4, 2)
+;
+
+insert into article_likes (arg, user_id, article_id) values
+(1, 1, 1),
+(1, 1, 1),
+(1, 2, 1),
+(0, 2, 1),
+(0, 3, 1),
+(-1, 3, 1),
+
+(1, 1, 2),
+(1, 1, 2),
+(1, 2, 2),
+(0, 2, 2),
+(0, 3, 2),
+(-1, 3, 2),
+
+(1, 1, 3),
+(1, 1, 3),
+(1, 2, 3),
+(0, 2, 3),
+(0, 3, 3),
+(-1, 3, 3)
 ;

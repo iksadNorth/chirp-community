@@ -19,17 +19,16 @@ function BoardPage() {
 
 
   useEffect(() => {
+    get(`/api/v1/board/${id}`)
+      .then((res02) => {
+        setBoardName(res02.name);
+      })
+    
     get(`/api/v1/board/${id}/article`)
       .then((res01) => {
         setArticles(res01.content);
         setNumTotalPages(res01.totalPages)
         console.log('res01:',res01);
-      })
-      .then((res01) => {
-        get(`/api/v1/board/${id}`)
-          .then((res02) => {
-            setBoardName(res02.name);
-          })
       })
       .catch((err) => {
         console.log(err);

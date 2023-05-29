@@ -58,9 +58,11 @@ public class ArticleCommentServiceImpl implements ArticleCommentService {
 
     @Override
     @Transactional(readOnly = true)
-    public Page<ArticleCommentDto> readAllBySiteUserId(Long id, Pageable pageable) {
-        return articleCommentRepository.findByWriter_Id(id, pageable)
-                .map(ArticleCommentDto::fromEntity);
+    public Page<ArticleCommentDto> readAllBySiteUserId(Long id, String keyword, Pageable pageable) {
+        Page<ArticleComment> page = keyword != null && !keyword.isBlank() ?
+                articleCommentRepository.findByWriter_IdWithKeyword(id, keyword, pageable) :
+                articleCommentRepository.findByWriter_Id(id, pageable);
+        return page.map(ArticleCommentDto::fromEntity);
     }
 
     @Override

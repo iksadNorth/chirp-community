@@ -7,8 +7,6 @@ import { adapterEvent, adapterCheckBoxEvent, getToken, isNotBlank } from "../../
 
 import Profile from "../UserPageCom/Profile";
 import PrimeAdmin from '../../ComponentsUtils/AuthorizedCom/PrimeAdmin';
-import { useDispatch } from "react-redux";
-import { login } from "../../store/actions/AuthAction";
 
 const isThisBoardAdmin = (role) => {
     return role == 'BOARD_ADMIN';
@@ -22,8 +20,6 @@ export default function Info(props) {
     const [isBoardAdmin, setBoardAdmin] = useState(false);
 
     const userId = props.userId ?? "me";
-
-    const dispatch = useDispatch();
 
     const setProfiles = (res) => {
         // 응답이 오면 정보를 셋팅하는 방법.
@@ -52,14 +48,12 @@ export default function Info(props) {
         const isBoardAdminBySwitch = isSwitchOn ? "BOARD_ADMIN" : "USER";
         if(isBoardAdminBySwitch == isBoardAdmin) { return ; }
         
-        patch(`/api/v1/user/${userId}`, {
-            body: JSON.stringify({
-                role: isBoardAdminBySwitch,
-            }),
-        })
+        const end_point = isSwitchOn ?
+            `/api/v1/user/${userId}/role/board_admin` :
+            `/api/v1/user/${userId}/role/user`;
+        patch(end_point)
         .then((res) => {
             setProfiles(res);
-            dispatch(login(res.token));
         })
         .catch((err) => {
             console.log("updateRole Error");

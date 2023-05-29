@@ -15,7 +15,7 @@ import org.springframework.web.bind.annotation.*;
 public class AuthController {
     private final AuthService authService;
 
-    @PostMapping("/login")
+    @PostMapping("/access_token")
     public AuthReadResponse getJwtToken(@RequestBody AuthRequest request) {
         String token = authService.getJwtToken(request.email(), request.password());
         return AuthReadResponse.of(token);
@@ -24,11 +24,5 @@ public class AuthController {
     @PostMapping("/email_verification_code")
     public void sendCodeWithEmail(@AuthenticationPrincipal SiteUserDto principal) {
         authService.sendCodeWithEmail(principal.id(), principal.email(), principal.role());
-    }
-
-    @GetMapping("/email_verification_code")
-    public AuthReadResponse getCodeWithEmail(@RequestParam("user_id") Long user_id, @RequestParam("code") String code) {
-        String token = authService.verifyCodeWithEmail(user_id, code);
-        return AuthReadResponse.of(token);
     }
 }
