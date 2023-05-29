@@ -35,6 +35,7 @@ insert into article (title, content, board_id, writer_id, views) values
 ('article2', '<h3>문제 해결2</h3>', 2, 3, 0)
 ;
 
+
 insert into article_comment (content, article_id, writer_id) values
 ('comment 01', 1, 1),
 ('comment 02', 2, 1),

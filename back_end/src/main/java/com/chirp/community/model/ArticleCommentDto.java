@@ -24,7 +24,6 @@ public record ArticleCommentDto(
                 .article(ArticleDto.fromEntity(entity.getArticle()))
                 .writer(SiteUserDto.fromEntity(entity.getWriter()))
                 .build();
-
     }
 
 }

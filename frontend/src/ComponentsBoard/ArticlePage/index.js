@@ -4,6 +4,9 @@ import { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
 import { get } from '../../api';
 
+import { useSelector } from "react-redux";
+
+
 import BoardHeader from '../BoardHeader';
 import ArticleHeader from '../ArticleHeader';
 import Comment from '../Comment';
@@ -17,6 +20,12 @@ function ArticlePage() {
     const [writer, setwriter] = useState({});
     const [boardId, setBoardId] = useState(0);
     const [boardName, setBoardName] = useState('');
+
+    const nickname = useSelector(state => state.AuthReducer.nickname);
+    const userId = useSelector(state => state.AuthReducer.id);
+
+    console.log('userId:', userId);
+    
 
 
     useEffect(() => {
@@ -38,12 +47,13 @@ function ArticlePage() {
     console.log('article :', article);
     console.log('BoardName:', boardName)
 
+    console.log('userId ??   article.id:', userId,  writer.id);
 
 
     return (
         <div className="Article">
 
-            <BoardHeader boardId={boardId} boardName={boardName} mode='on' />
+            <BoardHeader boardId={boardId} boardName={boardName} onArticle='on' articleId={id} mode={userId === writer.id ? 'on' : 'off'} />
 
             {/* 게시글 페이지 */}
             <div class="container mt-5">
@@ -63,7 +73,7 @@ function ArticlePage() {
                         <u.LikesCom id={id} />
 
                         {/* 댓글 */}
-                        <Comment />
+                        <Comment article_id={id}/>
 
                     </div>
                 </div>

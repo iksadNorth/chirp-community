@@ -49,11 +49,10 @@ function ArticleCreatePage() {
                 console.log('err:', err);
             })
             
-    })
+    }, [])
 
     
 
-       
 
     return (
         <div className="ArticleCreatePage">
