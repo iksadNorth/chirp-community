@@ -37,8 +37,12 @@ public class SiteUserServiceImpl implements SiteUserService {
     }
 
     private void overwriteWithBlankCheck(SiteUser entity, String email, String password, String nickname) {
-        if(email!=null)
+        if(email!=null && !entity.getEmail().equals(email)) {
+            // 버그 악용 유저를 막기 위해 이메일이 바뀌면 다시 이메일 인증해야 함.
+            if(entity.getRole().equals(RoleType.USER_VERIFIED_WITH_EMAIL))
+                entity.setRole(RoleType.USER);
             entity.setEmail(email);
+        }
         if(password!=null)
             entity.setPassword(passwordEncoder.encode(password));
         if(nickname!=null)
