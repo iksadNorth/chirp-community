@@ -44,3 +44,14 @@ CREATE TABLE `article_likes` (
 
     INDEX idx_article_id_user_id (ARTICLE_ID, USER_ID)
 );
+
+CREATE TABLE `article_comment_likes` (
+    ID BIGINT PRIMARY KEY AUTO_INCREMENT,
+    CREATED_AT TIMESTAMP(6),
+
+    ARG TINYINT,
+    ARTICLE_COMMENT_ID BIGINT NOT NULL,
+    USER_ID BIGINT NOT NULL,
+
+    INDEX idx_article_id_user_id (ARTICLE_COMMENT_ID, USER_ID)
+);

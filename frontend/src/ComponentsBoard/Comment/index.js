@@ -5,6 +5,7 @@ import { get, post, del, patch } from '../../api';
 
 import { useSelector } from "react-redux";
 
+import * as u from '../../ComponentsUtils';
 
 function CommentBody(props) {
 
@@ -82,6 +83,8 @@ function CommentBody(props) {
                 // 일반 모드
                 <div>{comment.content}</div>
               )}
+
+              <u.LikesComSm id={comment.id} />
             </div>
           ))}
       </div>
