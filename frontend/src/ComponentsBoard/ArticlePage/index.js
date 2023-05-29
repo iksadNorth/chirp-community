@@ -53,7 +53,7 @@ function ArticlePage() {
     return (
         <div className="Article">
 
-            <BoardHeader boardId={boardId} boardName={boardName} onArticle='on' articleId={id} mode={userId === writer.id ? 'on' : 'off'} />
+            <BoardHeader boardId={boardId} boardName={boardName} onArticle='on' articleId={id} udMode={userId === writer.id ? 'on' : 'off'} />
 
             {/* 게시글 페이지 */}
             <div class="container mt-5">

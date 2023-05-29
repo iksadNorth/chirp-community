@@ -8,13 +8,13 @@ import Header from '../Header';
 export default function RouteComponent() {
   return (
     <BrowserRouter>
-      <Header/>
+      <Header />
       <Routes>
 
         <Route path="/login" element={
           <c.Login />
         } />
-        
+
         <Route path="/signup" element={
           <c.SignUp />
         } />
@@ -43,11 +43,16 @@ export default function RouteComponent() {
           <b.ArticlePage />
         } />
 
-        <Route path="create/article/*" element={  
+        <Route path="/board/:boardId/createArticle" element={
           <b.ArticleCreatePage />
         } />
-        
-      </Routes>    
+
+        <Route path="board/:boardId/article/:articleId/updateArticle" element={
+          <b.ArticleCreatePage />
+        } />
+
+
+      </Routes>
     </BrowserRouter>
   );
 }
