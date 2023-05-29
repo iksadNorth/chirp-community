@@ -2,8 +2,8 @@ import './index.css';
 
 import { Link, useParams } from 'react-router-dom';
 import { useEffect, useState } from 'react';
-import { useLocation } from 'react-router-dom';
 import { get } from '../../api';
+import Page from '../../ComponentsUtils/List/PaginationBar'
 
 import BoardHeader from '../BoardHeader';
 
@@ -14,17 +14,22 @@ function BoardPage() {
   const [articles, setArticles] = useState([]);
   const [boardName, setBoardName] = useState('');
 
+  const [page, setPage] = useState(0);
+  const [numTotalPages, setNumTotalPages] = useState(1);
+
 
   useEffect(() => {
     get(`/api/v1/board/${id}/article`)
       .then((res01) => {
         setArticles(res01.content);
+        setNumTotalPages(res01.totalPages)
+        console.log('res01:',res01);
       })
       .then((res01) => {
         get(`/api/v1/board/${id}`)
-        .then((res02) => {
-          setBoardName(res02.name);
-        })
+          .then((res02) => {
+            setBoardName(res02.name);
+          })
       })
       .catch((err) => {
         console.log(err);
@@ -36,7 +41,7 @@ function BoardPage() {
   return (
     <div className="Board">
 
-      <BoardHeader boardId={id} boardName={boardName} mode='on'/>
+      <BoardHeader boardId={id} boardName={boardName} mode='on' />
 
 
       <div class="col-md-12 themed-grid-col" style={{ padding: '20px' }}>
@@ -60,7 +65,14 @@ function BoardPage() {
           </div>
         </div>
 
-        <div class="col-md-6 themed-grid-col">페이지 네이션 부분</div>
+        <div class="justify-content-center">
+          <Page className="mb-3"
+            // numTotalPages={props.numTotalPages}
+            numTotalPages={numTotalPages}
+            handlePage={setPage}
+            radius={3}
+          />
+        </div>
 
 
 
