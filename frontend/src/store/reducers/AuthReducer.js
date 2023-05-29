@@ -1,5 +1,5 @@
 import * as auth from '../actions/AuthAction';
-import { decodeJwtWithArg, delToken, isNotBlank } from '../../utils';
+import { decodeJwtWithArg, delToken, isNotBlank, setToken } from '../../utils';
 
 const initalState = {
     isLogined: false,
@@ -16,6 +16,7 @@ const AuthReducer = (state = initalState, action) => {
 
     switch (action.type) {
         case auth.LOGIN:
+            setToken(token);
             return {
                 ...state,
 
