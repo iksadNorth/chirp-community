@@ -10,7 +10,7 @@ public interface ArticleCommentService {
 
     Page<ArticleCommentDto> readAllByArticleId(Long id, Pageable pageable);
 
-    Page<ArticleCommentDto> readAllBySiteUserId(Long id, Pageable pageable);
+    Page<ArticleCommentDto> readAllBySiteUserId(Long id, String keyword, Pageable pageable);
 
     ArticleCommentDto createArticleComment(String content, Long article_id);
 

@@ -35,6 +35,17 @@ insert into article (title, content, board_id, writer_id, views) values
 ('article2', '<h3>문제 해결2</h3>', 2, 3, 0)
 ;
 
+insert into article_comment (content, article_id, writer_id) values
+('comment 01', 1, 1),
+('comment 02', 2, 1),
+('comment 03', 3, 1),
+('comment 04', 4, 1),
+('comment 05', 1, 2),
+('comment 06', 2, 2),
+('comment 07', 3, 2),
+('comment 08', 4, 2)
+;
+
 insert into article_likes (arg, user_id, article_id) values
 (1, 1, 1),
 (1, 1, 1),
