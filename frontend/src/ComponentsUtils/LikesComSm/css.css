@@ -1,0 +1,19 @@
+.LikesComSm-container {
+    display: inline-block;
+
+    /* height: 50px; */
+}
+
+.LikesComSm-container > * {
+    display: inline-block;
+    vertical-align: middle;
+
+    margin: auto 3px;
+
+    font-size: x-large;
+}
+
+.LikesComSm-btn:hover {
+    opacity: 0.3;
+    transition: opacity 0.3s ease;
+}

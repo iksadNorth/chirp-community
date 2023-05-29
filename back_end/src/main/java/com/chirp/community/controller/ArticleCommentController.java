@@ -2,10 +2,13 @@ package com.chirp.community.controller;
 
 
 import com.chirp.community.model.ArticleCommentDto;
+import com.chirp.community.model.LikesDto;
 import com.chirp.community.model.SiteUserDto;
 import com.chirp.community.model.request.ArticleCommentCreateRequest;
 import com.chirp.community.model.request.ArticleCommentUpdateRequest;
 import com.chirp.community.model.response.ArticleCommentReadResponse;
+import com.chirp.community.model.response.LikesReadResponse;
+import com.chirp.community.service.ArticleCommentLikesService;
 import com.chirp.community.service.ArticleCommentService;
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
@@ -21,6 +24,7 @@ import org.springframework.web.bind.annotation.*;
 public class ArticleCommentController {
 
     private final ArticleCommentService articleCommentService;
+    private final ArticleCommentLikesService articleCommentLikesService;
 
     @GetMapping("/{id}")
     public ArticleCommentReadResponse readByArticleCommentId(@PathVariable Long id) {
@@ -70,5 +74,22 @@ public class ArticleCommentController {
         articleCommentService.deleteById(id);
     }
 
+    @GetMapping("/{id}/sum-likes")
+    public LikesReadResponse readLikes(@PathVariable Long id) {
+        LikesDto dto = articleCommentLikesService.readLikes(id);
+        return LikesReadResponse.of(dto);
+    }
+
+    @PostMapping("/{id}/like")
+    public LikesReadResponse toggleLikes(@PathVariable Long id) {
+        LikesDto dto = articleCommentLikesService.toggleLikes(id);
+        return LikesReadResponse.of(dto);
+    }
+
+    @PostMapping("/{id}/dislike")
+    public LikesReadResponse toggleDisLikes(@PathVariable Long id) {
+        LikesDto dto = articleCommentLikesService.toggleDisLikes(id);
+        return LikesReadResponse.of(dto);
+    }
 
 }
