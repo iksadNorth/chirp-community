@@ -48,15 +48,15 @@ function BoardPage() {
         <div class="col-md-12 themed-grid-col" style={{ marginTop: '20px', marginBottom: '20px' }}>
           <div class="pb-3">
             <table class="table table-hover">
-              <tr>
-                <th scope="col">제목</th>
-                <th scope="col">작성자</th>
-                <th scope="col">조회수</th>
+              <tr style={{borderBottom: '1px solid black'}}>
+                <th scope="col" style={{ width: '70%' }}>제목</th>
+                <th scope="col" style={{ width: '20%' }}>작성자</th>
+                <th scope="col" style={{ width: '10%' }}>조회수</th>
               </tr>
               {articles.map((articles) => (
                 <tr key={articles.id}>
-                  <td scope='col'><Link to={`/article/${articles.id}`}>{articles.title}</Link></td>
-                  <td scope='col'><Link>{articles.writer.nickname}</Link></td>
+                  <td scope='col' style={{ textAlign: 'left' }}><Link to={`/article/${articles.id}`} className="nav-link active">{articles.title}</Link></td>
+                  <td scope='col'><Link to={`/user/${articles.writer.id}`} className="nav-link active">{articles.writer.nickname}</Link></td>
                   <td scope='col'>{articles.views}</td>
                 </tr>
               ))}

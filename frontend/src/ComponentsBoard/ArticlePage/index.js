@@ -63,14 +63,18 @@ function ArticlePage() {
                         {/* 게시글 */}
                         <article>
                             {/* 게시글 헤더 : 제목, 작성일, 작성자 */}
-                            <ArticleHeader title={article.title} writer={writer.nickname} />
+                            <ArticleHeader title={article.title} createdAt={article.createdAt} writer={writer} />
                             {/* 게시글 내용 */}
                             <section class="mb-5">
                                 <p class="fs-5 mb-4">{article.content}</p>
                             </section>
                         </article>
+                        
+                        <div className="d-flex justify-content-center">
+                            <u.LikesCom id={id} />    
+                        </div>
 
-                        <u.LikesCom id={id} />
+                        
 
                         {/* 댓글 */}
                         <Comment article_id={id}/>
