@@ -17,5 +17,7 @@ public interface ArticleService {
 
     Page<ArticleDto> readBySiteUserId(Long id, String keyword, Pageable pageable);
 
+    Page<ArticleDto> readBestByViews(Pageable pageable);
+  
     Page<ArticleDto> readBestByLikes(Pageable pageable);
 }

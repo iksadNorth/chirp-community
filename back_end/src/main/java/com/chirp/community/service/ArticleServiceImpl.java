@@ -121,6 +121,18 @@ public class ArticleServiceImpl implements ArticleService {
     }
 
     @Override
+    public Page<ArticleDto> readBestByViews(Pageable pageable) {
+        LocalDateTime now = LocalDateTime.now();
+        LocalDateTime weekAgo = now.minus(1, ChronoUnit.WEEKS);
+
+        return articleRepository.readBestByViews(weekAgo, pageable)
+                .map(entity -> ArticleDto.fromEntity(entity)
+                .toBuilder()
+                .board(BoardDto.fromEntity(entity.getBoard()))
+                .build());
+    }
+    
+    @Override
     public Page<ArticleDto> readBestByLikes(Pageable pageable) {
         LocalDateTime now = LocalDateTime.now();
         LocalDateTime weekAgo = now.minus(1, ChronoUnit.WEEKS);

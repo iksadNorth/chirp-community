@@ -30,6 +30,12 @@ public interface ArticleRepository extends JpaRepository<Article, Long> {
     Optional<Article> findWithBoardAndWriterById(Long id);
 
     @EntityGraph(attributePaths = {"board"})
+    @Query("SELECT a FROM Article a " +
+            "WHERE :weekAgo <= a.createdAt " +
+            "ORDER BY a.views DESC")
+    Page<Article> readBestByViews(LocalDateTime weekAgo, Pageable pageable);
+  
+    @EntityGraph(attributePaths = {"board"})
     @Query(
             "SELECT al.article AS article, CAST(SUM(al.arg) AS LONG) AS numLikes " +
             "FROM ArticleLikes al " +
