@@ -50,7 +50,7 @@ export default function BoardListComBestLikes(props) {
             title: row.title ?? '[X]',
             boardLink: row.board?.id ? `/board/${row.board?.id}` : '#',
             boardName: row.board?.name ?? '[X]',
-            numLikes: row.views ?? 0,
+            numLikes: row.numLikes ?? 0,
         };
     };
     
