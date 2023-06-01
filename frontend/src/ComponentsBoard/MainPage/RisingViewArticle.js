@@ -12,7 +12,7 @@ export default function RisingViewArticle(props) {
         const sort_asc = false;
 
         return get(addParams(
-            `/api/v1/board/${1}/article`, 
+            `/api/v1/article/best/views`, 
             pageRequest(page, size, sort_field, sort_asc)
         ));
     };

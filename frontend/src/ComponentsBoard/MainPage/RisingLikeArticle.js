@@ -12,7 +12,7 @@ export default function RisingLikeArticle(props) {
         const sort_asc = false;
 
         return get(addParams(
-            `/api/v1/board/${props.id}/article`, 
+            `/api/v1/article/best/likes`, 
             pageRequest(page, size, sort_field, sort_asc)
         ));
     };

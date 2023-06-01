@@ -7,7 +7,35 @@ import RecentLikeComment from './RecentLikeComment';
 import RisingLikeArticle from './RisingLikeArticle';
 import RisingViewArticle from './RisingViewArticle';
 
+import { useEffect, useState } from 'react';
+
+import { get } from '../../api';
+import { addParams, pageRequest } from '../../utils';
+
 function MainPage() {
+    const [boards, setBoards] = useState([]);
+
+    const loadRandomBoards = () => {
+        const size = 3;
+        
+        get(addParams(
+            `/api/v1/board`, 
+            {
+                ...pageRequest(0, size),
+                random_mode: true,
+            }
+        ))
+        .then(res => {
+            setBoards(res.content)
+        })
+        .catch(err => {
+            console.log("loadRandomBoards error");
+        });
+    };
+
+    useEffect(() => {
+        loadRandomBoards();
+    }, [])
     return (
         <div className="Main">
 
@@ -42,20 +70,14 @@ function MainPage() {
                             <RisingViewArticle />
                         </article>
 
-                        <article className="blog-post">
-                            <h2 className="blog-post-title mb-1 border-bottom">임의의 게시판</h2>
-                            <RandomLikeArticle id={1} />
+                        {boards.map(item => {return(
+
+                        <article className="blog-post" key={item.id} >
+                            <h2 className="blog-post-title mb-1 border-bottom">{item.name} 게시판</h2>
+                            <RandomLikeArticle id={item.id} />
                         </article>
 
-                        <article className="blog-post">
-                            <h2 className="blog-post-title mb-1 border-bottom">임의의 게시판</h2>
-                            <RandomLikeArticle id={2} />
-                        </article>
-
-                        <article className="blog-post">
-                            <h2 className="blog-post-title mb-1 border-bottom">임의의 게시판</h2>
-                            <RandomLikeArticle id={3} />
-                        </article>
+                        );})}
 
                     </div>
 
