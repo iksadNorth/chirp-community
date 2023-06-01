@@ -40,7 +40,7 @@ export default function RecentListCom(props) {
     const [data, setData] = useState([]);
 
     useEffect(() => {
-        loadData();
+        loadData(0);
     }, []);
 
     return (
