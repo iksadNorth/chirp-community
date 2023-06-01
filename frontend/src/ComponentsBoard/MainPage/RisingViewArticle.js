@@ -1,7 +1,7 @@
 import React from 'react';
 import './index.css';
 
-import BoardListCom from './BoardListCom';
+import BoardListComBestViews from './BoardListComBestViews';
 import { get } from '../../api';
 import { addParams, pageRequest } from '../../utils';
 
@@ -19,8 +19,8 @@ export default function RisingViewArticle(props) {
 
     return (
         <div>
-            <BoardListCom funcLoadData={funcLoadData}>
-            </BoardListCom>
+            <BoardListComBestViews funcLoadData={funcLoadData}>
+            </BoardListComBestViews>
         </div>
     );
 }

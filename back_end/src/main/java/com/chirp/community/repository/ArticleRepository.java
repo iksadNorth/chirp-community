@@ -7,6 +7,7 @@ import org.springframework.data.jpa.repository.EntityGraph;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 
+import java.time.LocalDateTime;
 import java.util.Optional;
 
 public interface ArticleRepository extends JpaRepository<Article, Long> {
@@ -26,4 +27,10 @@ public interface ArticleRepository extends JpaRepository<Article, Long> {
     @EntityGraph(attributePaths = {"writer", "board"})
     @Query("SELECT a FROM Article a WHERE a.id = :id")
     Optional<Article> findWithBoardAndWriterById(Long id);
+
+    @EntityGraph(attributePaths = {"board"})
+    @Query("SELECT a FROM Article a " +
+            "WHERE :weekAgo <= a.createdAt " +
+            "ORDER BY a.views DESC")
+    Page<Article> readBestByViews(LocalDateTime weekAgo, Pageable pageable);
 }
