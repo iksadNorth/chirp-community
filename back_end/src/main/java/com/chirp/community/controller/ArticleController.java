@@ -1,14 +1,15 @@
 package com.chirp.community.controller;
 
 import com.chirp.community.model.ArticleDto;
-import com.chirp.community.model.request.ArticleUpdateRequest;
+import com.chirp.community.model.LikesDto;
 import com.chirp.community.model.request.ArticleCreateRequest;
 import com.chirp.community.model.response.ArticleReadMyPageRowResponse;
+import com.chirp.community.model.request.ArticleUpdateRequest;
+import com.chirp.community.model.response.ArticleReadBestLikesResponse;
 import com.chirp.community.model.response.ArticleReadResponse;
 import com.chirp.community.model.response.LikesReadResponse;
-import com.chirp.community.model.LikesDto;
-import com.chirp.community.service.ArticleService;
 import com.chirp.community.service.ArticleLikesService;
+import com.chirp.community.service.ArticleService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -62,10 +63,16 @@ public class ArticleController {
         LikesDto dto = articleLikesService.toggleDisLikes(id);
         return LikesReadResponse.of(dto);
     }
-
+    
     @GetMapping("/best/views")
     public Page<ArticleReadMyPageRowResponse> readBestByViews(@PageableDefault Pageable pageable) {
         Page<ArticleDto> page = siteUserService.readBestByViews(pageable);
         return page.map(ArticleReadMyPageRowResponse::of);
+    }
+    
+    @GetMapping("/best/likes")
+    public Page<ArticleReadBestLikesResponse> readBestByLikes(@PageableDefault Pageable pageable) {
+        Page<ArticleDto> page = siteUserService.readBestByLikes(pageable);
+        return page.map(ArticleReadBestLikesResponse::of);
     }
 }

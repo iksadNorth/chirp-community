@@ -131,4 +131,17 @@ public class ArticleServiceImpl implements ArticleService {
                 .board(BoardDto.fromEntity(entity.getBoard()))
                 .build());
     }
+    
+    @Override
+    public Page<ArticleDto> readBestByLikes(Pageable pageable) {
+        LocalDateTime now = LocalDateTime.now();
+        LocalDateTime weekAgo = now.minus(1, ChronoUnit.WEEKS);
+
+        return articleRepository.readBestByLikes(weekAgo, pageable)
+                .map(mapper -> ArticleDto.fromEntity(mapper.getArticle())
+                .toBuilder()
+                .board(BoardDto.fromEntity(mapper.getArticle().getBoard()))
+                .numLikes(mapper.getNumLikes())
+                .build());
+    }
 }
