@@ -11,6 +11,7 @@ import SearchInput from './List/SearchInput';
 import TitleWithIcon from './TitleWithIcon';
 import LikesCom from './LikesCom';
 import LikesComSm from './LikesComSm';
+import ListWithPageBar from './List/ListWithPageBar';
 
 export {
   RNW,
@@ -20,6 +21,7 @@ export {
   Card,
 
   List,
+  ListWithPageBar,
   ListCom,
   PaginationBar,
   SearchInput,
