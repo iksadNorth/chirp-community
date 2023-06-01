@@ -15,6 +15,9 @@ import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.time.LocalDateTime;
+import java.time.temporal.ChronoUnit;
+
 @Service
 @Transactional
 @RequiredArgsConstructor
@@ -122,6 +125,31 @@ public class ArticleServiceImpl implements ArticleService {
         return pages.map(entity -> ArticleDto.fromEntity(entity)
                 .toBuilder()
                 .board(BoardDto.fromEntity(entity.getBoard()))
+                .build());
+    }
+
+    @Override
+    public Page<ArticleDto> readBestByViews(Pageable pageable) {
+        LocalDateTime now = LocalDateTime.now();
+        LocalDateTime weekAgo = now.minus(1, ChronoUnit.WEEKS);
+
+        return articleRepository.readBestByViews(weekAgo, pageable)
+                .map(entity -> ArticleDto.fromEntity(entity)
+                .toBuilder()
+                .board(BoardDto.fromEntity(entity.getBoard()))
+                .build());
+    }
+    
+    @Override
+    public Page<ArticleDto> readBestByLikes(Pageable pageable) {
+        LocalDateTime now = LocalDateTime.now();
+        LocalDateTime weekAgo = now.minus(1, ChronoUnit.WEEKS);
+
+        return articleRepository.readBestByLikes(weekAgo, pageable)
+                .map(mapper -> ArticleDto.fromEntity(mapper.getArticle())
+                .toBuilder()
+                .board(BoardDto.fromEntity(mapper.getArticle().getBoard()))
+                .numLikes(mapper.getNumLikes())
                 .build());
     }
 }

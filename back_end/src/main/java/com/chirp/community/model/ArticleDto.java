@@ -14,7 +14,8 @@ public record ArticleDto(
         String content,
         BoardDto board,
         SiteUserDto writer,
-        Long views
+        Long views,
+        Long numLikes
 ) {
     public static ArticleDto fromEntity(Article entity) {
         return ArticleDto.builder()
