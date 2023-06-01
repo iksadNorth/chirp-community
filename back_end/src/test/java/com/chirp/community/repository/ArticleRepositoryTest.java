@@ -1,13 +1,10 @@
 package com.chirp.community.repository;
 
-import com.chirp.community.entity.Article;
-import com.chirp.community.model.ArticleDto;
-import com.chirp.community.model.ArticleDtoWithNumLikes;
-import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
+import com.chirp.community.entity.projection.ArticleMapperWithNumLikes;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
@@ -29,11 +26,12 @@ class ArticleRepositoryTest {
         Pageable pageable = PageRequest.of(0, 5);
 
         // When
-        Page<ArticleDtoWithNumLikes> page = articleRepository.readBestByLikes(weekAgo, pageable);
+        Page<ArticleMapperWithNumLikes> page = articleRepository.readBestByLikes(weekAgo, pageable);
 
         // then
-//        page.map(ArticleMapperWithBestLikes::getNumLikes)
-//                .map(String::valueOf)
-//                .forEach(log::info);
+        page.forEach(mapper -> {
+            log.info(mapper.getArticle().toString());
+            log.info(String.valueOf(mapper.getNumLikes()));
+        });
     }
 }

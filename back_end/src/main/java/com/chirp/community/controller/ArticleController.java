@@ -3,6 +3,7 @@ package com.chirp.community.controller;
 import com.chirp.community.model.ArticleDto;
 import com.chirp.community.model.request.ArticleUpdateRequest;
 import com.chirp.community.model.request.ArticleCreateRequest;
+import com.chirp.community.model.response.ArticleReadBestLikesResponse;
 import com.chirp.community.model.response.ArticleReadMyPageRowResponse;
 import com.chirp.community.model.response.ArticleReadResponse;
 import com.chirp.community.model.response.LikesReadResponse;
@@ -64,8 +65,8 @@ public class ArticleController {
     }
 
     @GetMapping("/{id}")
-    public Page<ArticleReadMyPageRowResponse> readBestByLikes(@PageableDefault Pageable pageable) {
+    public Page<ArticleReadBestLikesResponse> readBestByLikes(@PageableDefault Pageable pageable) {
         Page<ArticleDto> page = siteUserService.readBestByLikes(pageable);
-        return page.map(ArticleReadMyPageRowResponse::of);
+        return page.map(ArticleReadBestLikesResponse::of);
     }
 }

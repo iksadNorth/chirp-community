@@ -6,7 +6,6 @@ import com.chirp.community.exception.CommunityException;
 import com.chirp.community.model.ArticleDto;
 import com.chirp.community.model.BoardDto;
 import com.chirp.community.model.SiteUserDto;
-import com.chirp.community.model.projection.ArticleMapperWithBestLikes;
 import com.chirp.community.repository.ArticleRepository;
 import com.chirp.community.repository.BoardRepository;
 import lombok.RequiredArgsConstructor;
@@ -126,11 +125,11 @@ public class ArticleServiceImpl implements ArticleService {
         LocalDateTime now = LocalDateTime.now();
         LocalDateTime weekAgo = now.minus(1, ChronoUnit.WEEKS);
 
-//        return articleRepository.readBestByLikes(weekAgo, pageable)
-//                .map(entity -> ArticleDto.fromEntity(entity)
-//                .toBuilder()
-//                .board(BoardDto.fromEntity(entity.getBoard()))
-//                .build());
-        return null;
+        return articleRepository.readBestByLikes(weekAgo, pageable)
+                .map(mapper -> ArticleDto.fromEntity(mapper.getArticle())
+                .toBuilder()
+                .board(BoardDto.fromEntity(mapper.getArticle().getBoard()))
+                .numLikes(mapper.getNumLikes())
+                .build());
     }
 }
