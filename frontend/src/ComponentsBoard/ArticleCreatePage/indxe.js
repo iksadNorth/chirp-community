@@ -25,6 +25,7 @@ function ArticleCreatePage(props) {
 
     console.log('boardId:', boardId);
     console.log('articleId:', articleId);
+    console.log('props.mode:', props.mode   );
 
     const loadUserInfo = () => {
         if (!isNotBlank(getToken())) { return; }
@@ -106,7 +107,7 @@ function ArticleCreatePage(props) {
                         </article>
 
 
-                        <button className="d-flex flex-row-reverse" onClick={(event) => {
+                        <button className="btn btn-secondary d-flex flex-row-reverse" onClick={(event) => {
                             event.preventDefault();
                             if (mode === 'update') {
                                 patch(`/api/v1/article/${articleId}`, {

@@ -17,23 +17,32 @@ insert into board (name) values
 ('board05')
 ;
 
-insert into article (title, content, board_id, writer_id, views) values
-('title01', 'aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa - content01', 1, 1, 22),
-('title02', 'aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa - content02', 1, 2, 11),
-('title03', 'aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa - content03', 2, 1, 12),
-('title04', 'aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa - content04', 2, 1, 22),
-('title05', 'aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa - content05', 3, 2, 9),
-('title06', 'aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa - content06', 4, 1, 2),
-('title07', 'aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa - content07', 5, 1, 7),
-('title08', 'aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa - content08', 5, 1, 8),
-('title09', 'aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa - content09', 5, 1, 10),
-('article1', '<h1>문제 해결1</h1>', 1, 1, 0),
-('article2', '<h1>문제 해결2</h1>', 2, 1, 0),
-('article1', '<h2>문제 해결1</h2>', 1, 2, 0),
-('article2', '<h2>문제 해결2</h2>', 2, 2, 0),
-('article1', '<h3>문제 해결1</h3>', 1, 3, 0),
-('article2', '<h3>문제 해결2</h3>', 2, 3, 0)
+--insert into article (title, content, board_id, writer_id, views) values
+--('title01', 'aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa - content01', 1, 1, 22),
+--('title02', 'aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa - content02', 1, 2, 11),
+--('title03', 'aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa - content03', 2, 1, 12),
+--('title04', 'aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa - content04', 2, 1, 22),
+--('title05', 'aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa - content05', 3, 2, 9),
+--('title06', 'aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa - content06', 4, 1, 2),
+--('title07', 'aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa - content07', 5, 1, 7),
+--('title08', 'aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa - content08', 5, 1, 8),
+--('title09', 'aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa - content09', 5, 1, 10),
+--('article1', '<h1>문제 해결1</h1>', 1, 1, 0),
+--('article2', '<h1>문제 해결2</h1>', 2, 1, 0),
+--('article1', '<h2>문제 해결1</h2>', 1, 2, 0),
+--('article2', '<h2>문제 해결2</h2>', 2, 2, 0),
+--('article1', '<h3>문제 해결1</h3>', 1, 3, 0),
+--('article2', '<h3>문제 해결2</h3>', 2, 3, 0),
+--;
+
+insert into article (title, content, board_id, writer_id, views, created_at) values
+('article1', 'Content of article 1', 1, 1, 10, '2023-06-01 12:00:00'),
+('article2', 'Content of article 2', 1, 2, 5, '2023-06-02 09:30:00'),
+('article3', 'Content of article 3', 2, 3, 2, '2023-06-03 15:45:00'),
+('article4', 'Content of article 4', 2, 2, 8, '2023-06-04 18:20:00'),
+('article5', 'Content of article 5', 3, 1, 15, '2023-06-05 11:10:00');
 ;
+
 
 
 insert into article_comment (content, article_id, writer_id) values
