@@ -6,6 +6,7 @@ import com.chirp.community.exception.CommunityException;
 import com.chirp.community.model.ArticleDto;
 import com.chirp.community.model.BoardDto;
 import com.chirp.community.model.SiteUserDto;
+import com.chirp.community.model.projection.ArticleMapperWithBestLikes;
 import com.chirp.community.repository.ArticleRepository;
 import com.chirp.community.repository.BoardRepository;
 import lombok.RequiredArgsConstructor;
@@ -14,6 +15,9 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+
+import java.time.LocalDateTime;
+import java.time.temporal.ChronoUnit;
 
 @Service
 @Transactional
@@ -115,5 +119,18 @@ public class ArticleServiceImpl implements ArticleService {
                 .toBuilder()
                 .board(BoardDto.fromEntity(entity.getBoard()))
                 .build());
+    }
+
+    @Override
+    public Page<ArticleDto> readBestByLikes(Pageable pageable) {
+        LocalDateTime now = LocalDateTime.now();
+        LocalDateTime weekAgo = now.minus(1, ChronoUnit.WEEKS);
+
+//        return articleRepository.readBestByLikes(weekAgo, pageable)
+//                .map(entity -> ArticleDto.fromEntity(entity)
+//                .toBuilder()
+//                .board(BoardDto.fromEntity(entity.getBoard()))
+//                .build());
+        return null;
     }
 }
