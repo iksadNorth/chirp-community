@@ -47,6 +47,12 @@ public class BoardServiceImpl implements BoardService {
     }
 
     @Override
+    public Page<BoardDto> readAllRandomly(Pageable pageable) {
+        return boardRepository.findAllRandomly(pageable.getPageSize(), Pageable.unpaged())
+                .map(BoardDto::fromEntity);
+    }
+
+    @Override
     @Transactional(readOnly = true)
     public BoardDto readById(Long id) {
         return BoardDto.fromEntity(loadBoardById(id));

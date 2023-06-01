@@ -3,6 +3,7 @@ package com.chirp.community.controller;
 import com.chirp.community.model.ArticleDto;
 import com.chirp.community.model.LikesDto;
 import com.chirp.community.model.request.ArticleCreateRequest;
+import com.chirp.community.model.response.ArticleReadRecentlyResponse;
 import com.chirp.community.model.response.ArticleReadMyPageRowResponse;
 import com.chirp.community.model.request.ArticleUpdateRequest;
 import com.chirp.community.model.response.ArticleReadBestLikesResponse;
@@ -33,6 +34,12 @@ public class ArticleController {
     public ArticleReadResponse readById(@PathVariable Long id) {
         ArticleDto dto = siteUserService.readById(id);
         return ArticleReadResponse.of(dto);
+    }
+
+    @GetMapping
+    public Page<ArticleReadRecentlyResponse> readAll(@PageableDefault Pageable pageable) {
+        Page<ArticleDto> page = siteUserService.readAll(pageable);
+        return page.map(ArticleReadRecentlyResponse::of);
     }
 
     @PatchMapping("/{id}")

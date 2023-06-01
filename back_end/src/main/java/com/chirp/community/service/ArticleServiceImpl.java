@@ -82,6 +82,13 @@ public class ArticleServiceImpl implements ArticleService {
     }
 
     @Override
+    @Transactional(readOnly = true)
+    public Page<ArticleDto> readAll(Pageable pageable) {
+        return articleRepository.findAll(pageable)
+                .map(ArticleDto::fromEntity);
+    }
+
+    @Override
     public ArticleDto updateById(Long id, String title, String content) {
         Article entity = loadArticleById(id);
 
@@ -109,6 +116,7 @@ public class ArticleServiceImpl implements ArticleService {
     }
 
     @Override
+    @Transactional(readOnly = true)
     public Page<ArticleDto> readBySiteUserId(Long id, String keyword, Pageable pageable) {
         Page<Article> pages = keyword != null && !keyword.isBlank() ?
                 articleRepository.findByWriter_IdWithKeyword(id, keyword, pageable) :

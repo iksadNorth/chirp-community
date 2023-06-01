@@ -28,8 +28,17 @@ public class BoardController {
     }
 
     @GetMapping
-    public Page<BoardReadResponse> readAllByKeyword(@RequestParam(defaultValue = "") String keyword, @PageableDefault(size = 10) Pageable pageable) {
-        Page<BoardDto> pages = boardService.readAllByKeyword(keyword, pageable);
+    public Page<BoardReadResponse> readAllByKeyword(
+            @RequestParam(defaultValue = "false") boolean random_mode,
+            @RequestParam(defaultValue = "") String keyword,
+            @PageableDefault(size = 10) Pageable pageable
+    ) {
+        Page<BoardDto> pages;
+        if(random_mode) {
+            pages = boardService.readAllRandomly(pageable);
+        } else {
+            pages = boardService.readAllByKeyword(keyword, pageable);
+        }
         return pages.map(BoardReadResponse::of);
     }
 

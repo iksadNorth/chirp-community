@@ -15,4 +15,5 @@ public interface BoardService {
 
     void deleteById(Long id);
 
+    Page<BoardDto> readAllRandomly(Pageable pageable);
 }

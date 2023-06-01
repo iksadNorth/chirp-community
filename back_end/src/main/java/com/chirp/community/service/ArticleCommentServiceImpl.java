@@ -51,6 +51,13 @@ public class ArticleCommentServiceImpl implements ArticleCommentService {
 
     @Override
     @Transactional(readOnly = true)
+    public Page<ArticleCommentDto> readAll(Pageable pageable) {
+        return articleCommentRepository.findAll(pageable)
+                .map(ArticleCommentDto::fromEntity);
+    }
+
+    @Override
+    @Transactional(readOnly = true)
     public Page<ArticleCommentDto> readAllByArticleId(Long id, Pageable pageable) {
         return articleCommentRepository.findByArticle_Id(id, pageable)
                 .map(ArticleCommentDto::fromEntity);
@@ -87,9 +94,6 @@ public class ArticleCommentServiceImpl implements ArticleCommentService {
     public void deleteById(Long id) {
         articleCommentRepository.deleteById(id);
     }
-
-
-
 
 
 }

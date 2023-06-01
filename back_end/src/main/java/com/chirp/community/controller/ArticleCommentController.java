@@ -6,6 +6,7 @@ import com.chirp.community.model.LikesDto;
 import com.chirp.community.model.SiteUserDto;
 import com.chirp.community.model.request.ArticleCommentCreateRequest;
 import com.chirp.community.model.request.ArticleCommentUpdateRequest;
+import com.chirp.community.model.response.ArticleCommentReadRecentlyResponse;
 import com.chirp.community.model.response.ArticleCommentReadResponse;
 import com.chirp.community.model.response.LikesReadResponse;
 import com.chirp.community.service.ArticleCommentLikesService;
@@ -30,6 +31,12 @@ public class ArticleCommentController {
     public ArticleCommentReadResponse readByArticleCommentId(@PathVariable Long id) {
         ArticleCommentDto dto = articleCommentService.readById(id);
         return ArticleCommentReadResponse.of(dto);
+    }
+
+    @GetMapping
+    public Page<ArticleCommentReadRecentlyResponse> readAll(@PageableDefault(size = 10) Pageable pageable) {
+        Page<ArticleCommentDto> page = articleCommentService.readAll(pageable);
+        return page.map(ArticleCommentReadRecentlyResponse::of);
     }
 
     @GetMapping("/article/{id}")

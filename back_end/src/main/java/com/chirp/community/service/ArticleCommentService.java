@@ -18,5 +18,5 @@ public interface ArticleCommentService {
 
     void deleteById(Long id);
 
-
+    Page<ArticleCommentDto> readAll(Pageable pageable);
 }
