@@ -22,7 +22,7 @@ import org.springframework.web.bind.annotation.*;
 @RequiredArgsConstructor
 @RequestMapping("/api/v1/article_comment")
 @RestController
-public class ArticleCommentController {
+public class ArticleCommentController implements ArticleCommentDocs {
 
     private final ArticleCommentService articleCommentService;
     private final ArticleCommentLikesService articleCommentLikesService;

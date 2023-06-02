@@ -20,7 +20,7 @@ import org.springframework.web.bind.annotation.*;
 @RestController
 @RequestMapping("/api/v1/user")
 @RequiredArgsConstructor
-public class SiteUserController {
+public class SiteUserController implements SiteUserDocs {
     private final SiteUserService siteUserService;
     private final ArticleService articleService;
     private final AuthService authService;
