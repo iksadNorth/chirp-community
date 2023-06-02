@@ -22,13 +22,19 @@ public record ArticleCommentReadRecentlyResponse(
                 description = "댓글 내용",
                 example = "유용한 정보글 ㅊㅊ."
         )
-        String content
+        String content,
+        @Schema(
+                description = "댓글이 달린 게시물 ID",
+                example = "526"
+        )
+        Long articleId
 ) {
     public static ArticleCommentReadRecentlyResponse of(ArticleCommentDto dto) {
         return ArticleCommentReadRecentlyResponse.builder()
                 .id(dto.id())
                 .createdAt(dto.createdAt())
                 .content(dto.content())
+                .articleId(dto.article().id())
                 .build();
     }
 }

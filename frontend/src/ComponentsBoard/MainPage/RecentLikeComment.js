@@ -10,7 +10,7 @@ export default function RecentLikeComment(props) {
         return {
             id: row.id,
             createdAt: row.createdAt ?? '1970-01-01',
-            articleLink: row.id ? `/article/${row.id}` : '#',
+            articleLink: row.articleId ? `/article/${row.articleId}` : '#',
             title: row.content ?? '[X]',
         };
     };
