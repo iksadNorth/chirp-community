@@ -18,14 +18,14 @@ function ArticleCreatePage(props) {
     const [content, setContent] = useState('');
     const [writer, setwriter] = useState('');
     const { boardId: boardId, articleId: articleId } = useParams();
-    let mode = '';
+    let mode = 'create';
     if (articleId != null) {
         mode = 'update';
     }
 
     console.log('boardId:', boardId);
     console.log('articleId:', articleId);
-    console.log('props.mode:', props.mode   );
+    console.log('mode:', mode);
 
     const loadUserInfo = () => {
         if (!isNotBlank(getToken())) { return; }
@@ -140,7 +140,7 @@ function ArticleCreatePage(props) {
                                     })
                             }
                         }}>
-                            <Link to={`/board/${boardId}`} className="nav-link active" aria-current="page">{mode === 'upgrade' ? '생성' : '수정'}</Link>
+                            <Link to={`/board/${boardId}`} className="nav-link active" aria-current="page">{mode === 'create' ? '생성' : '수정'}</Link>
                         </button>
 
                     </div>
