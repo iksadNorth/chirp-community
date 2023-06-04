@@ -26,6 +26,8 @@ jobs:
           distribution: corretto
 
       - name: Build React Project
+        env:
+          CI: false
         run: |
           cd ./frontend
           npm install
