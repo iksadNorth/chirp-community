@@ -233,8 +233,6 @@ gradle-app.setting
 
 # 사용자 정의 제거 목록
 gradle/**
-gradlew
-gradlew.bat
 HELP.md
 
 # End of https://www.toptal.com/developers/gitignore/api/windows,linux,macos,java,react,gradle,intellij+all

@@ -35,7 +35,9 @@ jobs:
           cd ../
 
       - name: Build Spring Project
-        run: ./back_end/gradlew build
+        run: | 
+          chmod +x ./back_end/gradlew
+          ./back_end/gradlew build
 
       # Build & Push Docker Image
       - name: Login to DockerHub
