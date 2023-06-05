@@ -4,7 +4,7 @@ spring:
     driver-class-name: org.h2.Driver
 
   jpa:
-    defer-datasource-initialization: ture
+    defer-datasource-initialization: true
     hibernate.ddl-auto: create
 
   h2.console:
@@ -12,3 +12,6 @@ spring:
     path: /h2
 
   sql.init.mode: always
+
+  flyway:
+    enabled: false
