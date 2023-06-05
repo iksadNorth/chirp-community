@@ -1,10 +1,14 @@
 <included>
-    <logger name="com.chirp.community.aspect.LoggingAspect" level="trace">
-        <appender-ref ref="CONSOLE"/>
-        <appender-ref ref="FILE"/>
-    </logger>
-    <logger name="com.chirp.community.configuration.filter.LoggingFilter" level="trace">
-        <appender-ref ref="CONSOLE"/>
-        <appender-ref ref="FILE"/>
-    </logger>
+    <springProfile name="local">
+
+        <logger name="com.chirp.community.aspect.LoggingAspect" level="trace">
+            <appender-ref ref="CONSOLE"/>
+            <appender-ref ref="FILE"/>
+        </logger>
+        <logger name="com.chirp.community.configuration.filter.LoggingFilter" level="trace">
+            <appender-ref ref="CONSOLE"/>
+            <appender-ref ref="FILE"/>
+        </logger>
+
+    </springProfile>
 </included>
