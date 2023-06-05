@@ -28,6 +28,11 @@ export function request(url, options) {
     options.headers['Authorization'] = `Bearer ${token}`;
   }
 
+  // 현재 URL 주소 추가.
+  const currentPageURL = window.location.href;
+  options.headers['current-page-url'] = currentPageURL;
+  options.headers['page-session-id'] = localStorage.getItem("page-session-id");
+
   // 요청 설정 로깅.
   console.log(`[${options.method ?? "GET"}] [ID: ${ID}] \n${url}`);
   console.log(`--> 요청 Header: [ID: ${ID}] \n`, options);

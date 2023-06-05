@@ -54,7 +54,7 @@ export function addParams(url, params) {
 }
   
 export function addBaseUrl(url) {
-    return `http://localhost:80${url}`;
+    return `http://localhost:8080${url}`;
 }
 
 export function decodeBase64Url(str) {

@@ -47,6 +47,8 @@ dependencies {
 
 	implementation 'org.flywaydb:flyway-core'
 	implementation 'org.flywaydb:flyway-mysql'
+
+	implementation 'org.springframework:spring-aop:6.0.3'
 }
 
 tasks.named('test') {
