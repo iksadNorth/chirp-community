@@ -34,6 +34,17 @@ CREATE TABLE `article` (
     INDEX idx_board_id (BOARD_ID)
 );
 
+CREATE TABLE `article_comment` (
+    ID BIGINT PRIMARY KEY AUTO_INCREMENT,
+    CREATED_AT TIMESTAMP(6),
+
+    CONTENT VARCHAR(255),
+    ARTICLE_ID BIGINT NOT NULL,
+    WRITER_ID BIGINT NOT NULL,
+
+    INDEX idx_article_id (ARTICLE_ID)
+);
+
 CREATE TABLE `article_likes` (
     ID BIGINT PRIMARY KEY AUTO_INCREMENT,
     CREATED_AT TIMESTAMP(6),
@@ -55,3 +66,35 @@ CREATE TABLE `article_comment_likes` (
 
     INDEX idx_article_id_user_id (ARTICLE_COMMENT_ID, USER_ID)
 );
+
+ALTER TABLE `article`
+ADD CONSTRAINT fk_article_board
+FOREIGN KEY (BOARD_ID) REFERENCES `board`(ID);
+
+ALTER TABLE `article`
+ADD CONSTRAINT fk_article_writer
+FOREIGN KEY (WRITER_ID) REFERENCES `site_user`(ID);
+
+ALTER TABLE `article_comment`
+ADD CONSTRAINT fk_comment_article
+FOREIGN KEY (ARTICLE_ID) REFERENCES `article`(ID);
+
+ALTER TABLE `article_comment`
+ADD CONSTRAINT fk_comment_writer
+FOREIGN KEY (WRITER_ID) REFERENCES `site_user`(ID);
+
+ALTER TABLE `article_likes`
+ADD CONSTRAINT fk_article_likes_article
+FOREIGN KEY (ARTICLE_ID) REFERENCES `article`(ID);
+
+ALTER TABLE `article_likes`
+ADD CONSTRAINT fk_article_likes_user
+FOREIGN KEY (USER_ID) REFERENCES `site_user`(ID);
+
+ALTER TABLE `article_comment_likes`
+ADD CONSTRAINT fk_comment_likes_comment
+FOREIGN KEY (ARTICLE_COMMENT_ID) REFERENCES `article_comment`(ID);
+
+ALTER TABLE `article_comment_likes`
+ADD CONSTRAINT fk_comment_likes_user
+FOREIGN KEY (USER_ID) REFERENCES `site_user`(ID);

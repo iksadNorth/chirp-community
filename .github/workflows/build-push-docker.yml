@@ -38,7 +38,7 @@ jobs:
         run: | 
           cd ./back_end
           chmod +x ./gradlew
-          ./gradlew build
+          ./gradlew clean build
           cd ../
 
       # Build & Push Docker Image
