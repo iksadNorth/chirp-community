@@ -36,6 +36,7 @@ public class LogUtils {
     public static String makeLoggingMessage(Map<String, String> table) {
         StringBuilder builder = new StringBuilder();
 
+        builder.append("\n<properties>");
         for(Map.Entry<String, String> entry : table.entrySet()) {
             String piece = String.format(
                     "\n%s|%s",
@@ -43,6 +44,7 @@ public class LogUtils {
             );
             builder.append(piece);
         }
+        builder.append("\n</properties>");
 
         return builder.toString();
     }

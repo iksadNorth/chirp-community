@@ -86,9 +86,9 @@ public class AuthenticationConfig {
                 // LoggingFilter 배치.
                 .addFilterBefore(loggingFilter, ExceptionTranslationFilter.class)
                 // PageSessionIdRepositoryFilter 배치.
-                .addFilterBefore(pageSessionIdRepositoryFilter, LoggingFilter.class)
+                .addFilterBefore(pageSessionIdRepositoryFilter, JwtFilter.class)
                 // HttpRequestSessionIdRepositoryFilter 배치.
-                .addFilterBefore(httpRequestSessionIdRepositoryFilter, LoggingFilter.class)
+                .addFilterBefore(httpRequestSessionIdRepositoryFilter, JwtFilter.class)
 
                 .build();
     }

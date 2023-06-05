@@ -49,6 +49,7 @@ dependencies {
 	implementation 'org.flywaydb:flyway-mysql'
 
 	implementation 'org.springframework:spring-aop:6.0.3'
+	implementation 'ch.qos.logback:logback-classic'
 }
 
 tasks.named('test') {

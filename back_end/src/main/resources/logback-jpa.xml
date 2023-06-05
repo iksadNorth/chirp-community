@@ -1,0 +1,8 @@
+<included>
+    <logger name="org.hibernate.SQL" level="debug">
+        <appender-ref ref="CONSOLE"/>
+    </logger>
+    <logger name="org.hibernate.type" level="trace">
+        <appender-ref ref="CONSOLE"/>
+    </logger>
+</included>

@@ -1,5 +1,0 @@
-logging:
-  level:
-    com.chirp.community:
-        aspect.LoggingAspect: trace
-        configuration.filter.LoggingFilter: trace
