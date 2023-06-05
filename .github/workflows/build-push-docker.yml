@@ -35,7 +35,7 @@ jobs:
           cd ../
 
       - name: Build Spring Project
-        run: | 
+        run: |
           cd ./back_end
           chmod +x ./gradlew
           ./gradlew wrapper clean bootjar
