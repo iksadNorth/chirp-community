@@ -1,6 +1,9 @@
 package com.chirp.community.configuration;
 
+import com.chirp.community.configuration.filter.HttpRequestSessionIdRepositoryFilter;
 import com.chirp.community.configuration.filter.JwtFilter;
+import com.chirp.community.configuration.filter.LoggingFilter;
+import com.chirp.community.configuration.filter.PageSessionIdRepositoryFilter;
 import com.chirp.community.exception.CommunityAccessDeniedHandler;
 import com.chirp.community.exception.CommunityAuthenticationEntryPoint;
 import com.chirp.community.type.RoleType;
@@ -12,6 +15,7 @@ import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.web.SecurityFilterChain;
+import org.springframework.security.web.access.ExceptionTranslationFilter;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 import org.springframework.security.web.csrf.CsrfTokenRepository;
 import org.springframework.security.web.csrf.CsrfTokenRequestHandler;
@@ -35,6 +39,11 @@ public class AuthenticationConfig {
     private final CsrfTokenRepository csrfTokenRepository;
     private final CsrfTokenRequestHandler csrfTokenRequestHandler;
     private final RequestMatcher[] requestMatchers;
+
+    private final PageSessionIdRepositoryFilter pageSessionIdRepositoryFilter;
+    private final HttpRequestSessionIdRepositoryFilter httpRequestSessionIdRepositoryFilter;
+
+    private final LoggingFilter loggingFilter;
 
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
@@ -74,6 +83,12 @@ public class AuthenticationConfig {
                 .cors().configurationSource(configurationSource).and()
                 // JwtFilter 배치.
                 .addFilterBefore(new JwtFilter(userDetailsService, publicKey), UsernamePasswordAuthenticationFilter.class)
+                // LoggingFilter 배치.
+                .addFilterBefore(loggingFilter, ExceptionTranslationFilter.class)
+                // PageSessionIdRepositoryFilter 배치.
+                .addFilterBefore(pageSessionIdRepositoryFilter, JwtFilter.class)
+                // HttpRequestSessionIdRepositoryFilter 배치.
+                .addFilterBefore(httpRequestSessionIdRepositoryFilter, JwtFilter.class)
 
                 .build();
     }
