@@ -69,15 +69,18 @@ CREATE TABLE `article_comment_likes` (
 
 ALTER TABLE `article`
 ADD CONSTRAINT fk_article_board
-FOREIGN KEY (BOARD_ID) REFERENCES `board`(ID);
+FOREIGN KEY (BOARD_ID) REFERENCES `board`(ID)
+ON DELETE CASCADE;
 
 ALTER TABLE `article`
 ADD CONSTRAINT fk_article_writer
-FOREIGN KEY (WRITER_ID) REFERENCES `site_user`(ID);
+FOREIGN KEY (WRITER_ID) REFERENCES `site_user`(ID)
+ON DELETE CASCADE;
 
 ALTER TABLE `article_comment`
 ADD CONSTRAINT fk_comment_article
-FOREIGN KEY (ARTICLE_ID) REFERENCES `article`(ID);
+FOREIGN KEY (ARTICLE_ID) REFERENCES `article`(ID)
+ON DELETE CASCADE;
 
 ALTER TABLE `article_comment`
 ADD CONSTRAINT fk_comment_writer
@@ -85,7 +88,8 @@ FOREIGN KEY (WRITER_ID) REFERENCES `site_user`(ID);
 
 ALTER TABLE `article_likes`
 ADD CONSTRAINT fk_article_likes_article
-FOREIGN KEY (ARTICLE_ID) REFERENCES `article`(ID);
+FOREIGN KEY (ARTICLE_ID) REFERENCES `article`(ID)
+ON DELETE CASCADE;
 
 ALTER TABLE `article_likes`
 ADD CONSTRAINT fk_article_likes_user
@@ -93,7 +97,8 @@ FOREIGN KEY (USER_ID) REFERENCES `site_user`(ID);
 
 ALTER TABLE `article_comment_likes`
 ADD CONSTRAINT fk_comment_likes_comment
-FOREIGN KEY (ARTICLE_COMMENT_ID) REFERENCES `article_comment`(ID);
+FOREIGN KEY (ARTICLE_COMMENT_ID) REFERENCES `article_comment`(ID)
+ON DELETE CASCADE;
 
 ALTER TABLE `article_comment_likes`
 ADD CONSTRAINT fk_comment_likes_user

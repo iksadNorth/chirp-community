@@ -35,6 +35,9 @@ public class Article extends BaseEntity {
     private Long views;
 
     @OneToMany(fetch = FetchType.LAZY, mappedBy = "article", cascade = {CascadeType.REMOVE})
+    private List<ArticleComment> comments;
+
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "article", cascade = {CascadeType.REMOVE})
     private List<ArticleLikes> likes;
 
     public static Article of(Long id, String title, String content) {
