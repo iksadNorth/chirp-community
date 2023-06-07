@@ -15,6 +15,7 @@ public class JwtConfig {
     public ConvertToJwtClaims<SiteUser> converterToJwtClaims() {
         return entity -> {
             Claims claims = Jwts.claims();
+            claims.setSubject(entity.getEmail());
             claims.put(ClaimsKey.ID.getKeyNameInJwt(), entity.getId());
             claims.put(ClaimsKey.NICKNAME.getKeyNameInJwt(), entity.getNickname());
             claims.put(ClaimsKey.ROLE.getKeyNameInJwt(), entity.getRole().getJwtName());

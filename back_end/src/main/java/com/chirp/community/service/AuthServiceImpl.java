@@ -20,6 +20,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.security.PrivateKey;
+import java.util.Date;
 
 @Service
 @Transactional
@@ -39,7 +40,7 @@ public class AuthServiceImpl implements AuthService {
     @Override
     public String getJwtToken(SiteUser entity) {
         Claims claims = converterToJwtClaims.convertToClaims(entity);
-        return JwtTokenWithRS256Utils.generateJwtToken(entity.getEmail(), claims, jwtProperties.getExpiredTimeMs(), privateKey);
+        return JwtTokenWithRS256Utils.generateJwtToken(claims, jwtProperties.getExpiredTimeMs(), privateKey);
     }
 
     @Transactional(readOnly = true)
