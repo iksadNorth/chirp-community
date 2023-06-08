@@ -4,6 +4,7 @@ import com.chirp.community.model.SiteUserDto;
 import com.chirp.community.model.request.AuthRequest;
 import com.chirp.community.model.response.AuthReadResponse;
 import com.chirp.community.model.response.ErrorResponse;
+import com.chirp.community.model.response.KeyReadResponse;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.Parameter;
 import io.swagger.v3.oas.annotations.media.Content;
@@ -78,4 +79,20 @@ public interface AuthDocs {
     void sendCodeWithEmail(
             @AuthenticationPrincipal SiteUserDto principal
     );
+
+    @Operation(
+            summary = "공개키 발급 API",
+            description = """
+                    JWT 해독용 키인 공개키를 전달하기 위한 API.
+                    """
+    )
+    @ApiResponse(
+            responseCode = "200",
+            description = "정상 작동",
+            content = @Content(
+                    mediaType = MediaType.APPLICATION_JSON_VALUE,
+                    schema = @Schema(implementation = KeyReadResponse.class)
+            )
+    )
+    KeyReadResponse getPublicKey();
 }
