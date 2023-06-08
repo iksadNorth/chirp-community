@@ -7,6 +7,8 @@ import lombok.Setter;
 import org.springframework.data.annotation.CreatedBy;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
+import java.util.List;
+
 @Getter
 @Setter
 @EntityListeners(AuditingEntityListener.class)
@@ -28,7 +30,8 @@ public class ArticleComment extends BaseEntity{
     @JoinColumn(name = "writer_id", nullable = false)
     private SiteUser writer;
 
-
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "articleComment", cascade = {CascadeType.REMOVE})
+    private List<ArticleCommentLikes> likes;
 
     public static ArticleComment of(String content) {
         ArticleComment entity = new ArticleComment();
