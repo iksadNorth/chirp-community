@@ -234,6 +234,7 @@ gradle-app.setting
 # 사용자 정의 제거 목록
 log/**
 HELP.md
+src/main/resources/application-jwt.yml
 
 # End of https://www.toptal.com/developers/gitignore/api/windows,linux,macos,java,react,gradle,intellij+all
 /src/main/resources/application-emailsecurity.yml

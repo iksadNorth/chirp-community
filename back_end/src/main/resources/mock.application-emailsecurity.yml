@@ -1,0 +1,3 @@
+spring.mail:
+  username: noreply4chirp
+  password: 비밀_번호_예시

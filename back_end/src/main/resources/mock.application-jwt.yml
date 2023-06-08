@@ -1,0 +1,10 @@
+security:
+  jwt:
+    publicKey: >
+      공개키_예시
+
+    privateKey: >
+      비밀키_예시
+
+    # 1000ms * 60s * 60min * 24h
+    expiredTimeMs: 86400000
