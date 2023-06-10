@@ -1,4 +1,4 @@
-import { getToken, isNotBlank, getCookie, addBaseUrl, generateUUID, withRandomColor } from '../utils';
+import { getToken, isNotBlank, addBaseUrl, generateUUID, withRandomColor } from '../utils';
 
 export function request(url, options) {
   // 요청의 고유 ID 설정.
@@ -17,10 +17,6 @@ export function request(url, options) {
   
   // 데이터 형식 추가.
   options.headers['Content-Type'] = 'application/json';
-
-  // csrf 토큰 추가.
-  options.headers['X-XSRF-TOKEN'] = getCookie('XSRF-TOKEN');
-  options.credentials = 'include';
 
   // JWT 토큰 추가.
   const token = getToken();
