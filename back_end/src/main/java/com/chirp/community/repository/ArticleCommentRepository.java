@@ -10,11 +10,9 @@ import org.springframework.data.jpa.repository.Query;
 public interface ArticleCommentRepository extends JpaRepository<ArticleComment, Long> {
 
     @EntityGraph(attributePaths = {"article"})
-    @Query(countQuery = "SELECT COUNT(c) FROM ArticleComment c WHERE c.article.id = :id")
     Page<ArticleComment> findByArticle_Id(Long id, Pageable pageable);
 
     @EntityGraph(attributePaths = {"writer"})
-    @Query(countQuery = "SELECT COUNT(c) FROM ArticleComment c WHERE c.writer.id = :id")
     Page<ArticleComment> findByWriter_Id(Long id, Pageable pageable);
 
     @EntityGraph(attributePaths = {"writer"})

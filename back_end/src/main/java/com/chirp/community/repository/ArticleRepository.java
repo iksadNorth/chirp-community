@@ -13,11 +13,9 @@ import java.util.Optional;
 
 public interface ArticleRepository extends JpaRepository<Article, Long> {
     @EntityGraph(attributePaths = {"writer"})
-    @Query(countQuery = "SELECT COUNT(a) FROM Article a WHERE a.board.id = :id")
     Page<Article> findByBoard_Id(Long id, Pageable pageable);
 
     @EntityGraph(attributePaths = {"board"})
-    @Query(countQuery = "SELECT COUNT(a) FROM Article a WHERE a.writer.id = :id")
     Page<Article> findByWriter_Id(Long id, Pageable pageable);
 
     @EntityGraph(attributePaths = {"board"})
