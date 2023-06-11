@@ -12,4 +12,7 @@ import org.springframework.context.annotation.Configuration;
 public class VerificationCodeProperties {
         private Long expiredTimeMs;
         private int numOfCodeDigits;
+
+        private String redirectOrigin;
+        private String redirectPath;
 }

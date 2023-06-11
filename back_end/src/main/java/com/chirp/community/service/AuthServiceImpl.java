@@ -20,7 +20,6 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.security.PrivateKey;
-import java.util.Date;
 
 @Service
 @Transactional
@@ -75,7 +74,9 @@ public class AuthServiceImpl implements AuthService {
 
 
         // 인증을 요청한 주체의 이메일에 미리 작성된 안내문을 내보낸다.
-        EmailDto dto = EmailContentUtils.generateForEmailVerificationCode(id, code);
+        String origin = verificationCodeProperties.getRedirectOrigin();
+        String path = verificationCodeProperties.getRedirectPath();
+        EmailDto dto = EmailContentUtils.generateForEmailVerificationCode(origin, path, id, code);
         emailService.sendEmail(email, dto.title(), dto.content());
     }
 
