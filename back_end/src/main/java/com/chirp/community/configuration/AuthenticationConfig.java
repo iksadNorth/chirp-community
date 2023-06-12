@@ -17,10 +17,7 @@ import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.access.ExceptionTranslationFilter;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
-import org.springframework.security.web.csrf.CsrfTokenRepository;
-import org.springframework.security.web.csrf.CsrfTokenRequestHandler;
 import org.springframework.security.web.header.writers.frameoptions.XFrameOptionsHeaderWriter;
-import org.springframework.security.web.util.matcher.RequestMatcher;
 import org.springframework.web.cors.CorsConfigurationSource;
 
 import java.security.PublicKey;
@@ -35,10 +32,6 @@ public class AuthenticationConfig {
 
     private final CommunityAccessDeniedHandler communityAccessDeniedHandler;
     private final CommunityAuthenticationEntryPoint communityAuthenticationEntryPoint;
-
-    private final CsrfTokenRepository csrfTokenRepository;
-    private final CsrfTokenRequestHandler csrfTokenRequestHandler;
-    private final RequestMatcher[] requestMatchers;
 
     private final PageSessionIdRepositoryFilter pageSessionIdRepositoryFilter;
     private final HttpRequestSessionIdRepositoryFilter httpRequestSessionIdRepositoryFilter;
@@ -59,11 +52,7 @@ public class AuthenticationConfig {
                 // API 서버를 설계하는 것이므로 HttpSessionCsrfTokenRepository를 이용해 CSRF 토큰을
                 // 저장할 수 없다. 때문에 CookieCsrfTokenRepository를 사용해서 토큰을 저장한다.
                 // H2DB Console을 사용하고 위해 '/h2/**' 는 제외시킴.
-                .csrf()
-//                    .ignoringRequestMatchers(requestMatchers)
-//                    .csrfTokenRequestHandler(csrfTokenRequestHandler)
-//                    .csrfTokenRepository(csrfTokenRepository).and()
-                .disable()
+                .csrf().disable()
                 // API 서버를 만드는 것이므로 formLogin과 logout은 필요없다.
                 .formLogin().disable()
                 .logout().disable()
