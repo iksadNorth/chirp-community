@@ -2,5 +2,5 @@ spring:
   profiles:
     default: local
     group:
-      local: server,datasource,jpa,cors,jwt,h2db,email,emailsecurity,redis-local
-      prod: server,datasource,jpa,cors,jwt,mysql,email,emailsecurity,redis-prod
+      local: server,datasource,jpa,cors,jwt,h2db,email-local,emailsecurity,redis-local
+      prod: server,datasource,jpa,cors,jwt,mysql,email-prod,emailsecurity,redis-prod

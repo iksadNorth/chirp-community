@@ -9,3 +9,6 @@ security:
       # 1000ms * 60s * 3min
       expiredTimeMs: 180000
       numOfCodeDigits: 6
+
+      redirectOrigin: http://localhost:3000
+      redirectPath: /myPage
