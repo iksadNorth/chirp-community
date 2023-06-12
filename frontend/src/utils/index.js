@@ -54,7 +54,8 @@ export function addParams(url, params) {
 }
   
 export function addBaseUrl(url) {
-    return `http://localhost:8080${url}`;
+    const origin = process.env.REACT_APP_BACKEND_SERVER_ORIGIN;
+    return `${origin}${url}`;
 }
 
 export function decodeBase64Url(str) {
