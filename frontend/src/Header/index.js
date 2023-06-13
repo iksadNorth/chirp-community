@@ -33,7 +33,7 @@ export default function Header() {
 
             <Link className="navbar-brand" to="/">
                 <img 
-                    src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTjNBOHJqRMYnlA7ExBs3gqteoucTcwXZtuhA&usqp=CAU"
+                    src={`${process.env.PUBLIC_URL}/favicon.ico`}
                     alt="Icon Of Chirp Community"
                     height="50"
                     className="img-thumnails"

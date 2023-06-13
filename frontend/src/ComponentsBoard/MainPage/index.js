@@ -40,23 +40,6 @@ function MainPage() {
         <div className="Main">
 
             <main className="container">
-                <div className="p-4 p-md-5 mb-4 rounded text-bg-dark">
-                    <div className="col-md-6 px-0">
-                        <h1 className="display-4 fst-italic">광고이미지 or 메인기사</h1>
-                        <p className="lead my-3">충격! A씨가 B씨에게 커피뿌려 논란</p>
-                        <p className="lead mb-0"><a href="#" className="text-white fw-bold">해당 광고 or 기사 링크</a></p>
-                    </div>
-                </div>
-
-                <div className="row mb-2">
-                    <div className="col-md-6">
-                        <CardWithThumbnail />
-                    </div>
-                    <div className="col-md-6">
-                        <CardWithThumbnail />
-                    </div>
-                </div>
-
                 <div className="row g-5">
                     <div className="col-md-8">
 
