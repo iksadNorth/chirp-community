@@ -1,5 +1,5 @@
 <included>
-    <logger name="com.chirp.community.security.web.FilterChainProxy" level="trace">
+    <logger name="com.chirp.community.security.web.FilterChainProxy" level="trace" additivity="false">
         <appender-ref ref="CONSOLE"/>
     </logger>
 </included>

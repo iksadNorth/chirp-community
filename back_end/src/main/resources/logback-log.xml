@@ -1,11 +1,11 @@
 <included>
     <springProfile name="local">
 
-        <logger name="com.chirp.community.aspect.LoggingAspect" level="trace">
+        <logger name="com.chirp.community.aspect.LoggingAspect" level="trace" additivity="false">
             <appender-ref ref="CONSOLE"/>
             <appender-ref ref="FILE"/>
         </logger>
-        <logger name="com.chirp.community.configuration.filter.LoggingFilter" level="trace">
+        <logger name="com.chirp.community.configuration.filter.LoggingFilter" level="trace" additivity="false">
             <appender-ref ref="CONSOLE"/>
             <appender-ref ref="FILE"/>
         </logger>

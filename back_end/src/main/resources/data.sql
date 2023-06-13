@@ -56,30 +56,30 @@ insert into article_comment (content, article_id, writer_id) values
 ('comment 08', 4, 2)
 ;
 
-insert into article_likes (arg, user_id, article_id) values
-(1, 1, 1),
-(0, 2, 1),
-(-1, 3, 1),
+insert into article_likes (created_at, arg, user_id, article_id) values
+(NOW(), 1, 1, 1),
+(NOW(), 0, 2, 1),
+(NOW(), -1, 3, 1),
 
-(1, 1, 2),
-(0, 2, 2),
-(1, 3, 2),
+(NOW(), 1, 1, 2),
+(NOW(), 0, 2, 2),
+(NOW(), 1, 3, 2),
 
-(1, 1, 3),
-(0, 2, 3),
-(0, 3, 3)
+(NOW(), 1, 1, 3),
+(NOW(), 0, 2, 3),
+(NOW(), 0, 3, 3)
 ;
 
-insert into article_comment_likes (arg, user_id, article_comment_id) values
-(1, 1, 1),
-(0, 2, 1),
-(-1, 3, 1),
+insert into article_comment_likes (created_at, arg, user_id, article_comment_id) values
+(NOW(), 1, 1, 1),
+(NOW(), 0, 2, 1),
+(NOW(), -1, 3, 1),
 
-(1, 1, 2),
-(0, 2, 2),
-(-1, 3, 2),
+(NOW(), 1, 1, 2),
+(NOW(), 0, 2, 2),
+(NOW(), -1, 3, 2),
 
-(1, 1, 3),
-(0, 2, 3),
-(-1, 3, 3)
+(NOW(), 1, 1, 3),
+(NOW(), 0, 2, 3),
+(NOW(), -1, 3, 3)
 ;
